@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\InhouseCore.Persistence.Sqlite\InhouseCore.Persistence.Sqlite.csproj" />
     <ProjectReference Include="..\Client\InhouseCore.Web.Client.csproj" />
     <ProjectReference Include="..\Shared\InhouseCore.Web.Shared.csproj" />
   </ItemGroup>
