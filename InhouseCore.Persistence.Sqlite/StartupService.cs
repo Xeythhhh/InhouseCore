@@ -26,8 +26,8 @@ public static class StartupService
 
         services.AddSingleton<ValueConverter<Ulid, string>, UlidToStringConverter>();
         services.AddDbContext<InhouseCoreDbContext>(options =>
-        options.UseSqlite(Config.SqliteDatabase.ConnectionString, sqliteOptions =>
-            sqliteOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+            options.UseSqlite(Config.SqliteDatabase.ConnectionString, sqliteOptions =>
+                sqliteOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
         if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") is "Development")
             services.AddDatabaseDeveloperPageExceptionFilter();

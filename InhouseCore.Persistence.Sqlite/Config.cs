@@ -20,6 +20,6 @@ internal static class Config
     /// </summary>
     internal static class SqliteDatabase
     {
-        internal static string ConnectionString => _configuration.GetConnectionString("SqliteConnectionString");
+        internal static string ConnectionString => _configuration.GetConnectionString("SqliteConnectionString") ?? throw new InvalidOperationException("Connection string 'SqliteConnectionString' not found.");
     }
 }
