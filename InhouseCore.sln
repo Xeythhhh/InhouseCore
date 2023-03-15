@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Web.Shared", "InhouseCore.Web\Shared\InhouseCore.Web.Shared.csproj", "{1CF3FA1A-783E-4DD2-B334-5BAAD4B62BAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Solution Items", "00 Solution Items", "{508A05C2-2854-493D-8C3E-AC7AB43E8661}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		DevelopmentNotes.txt = DevelopmentNotes.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Build", "01 Build", "{7AB67155-2AF0-46A2-B82B-CC503811970B}"
 EndProject

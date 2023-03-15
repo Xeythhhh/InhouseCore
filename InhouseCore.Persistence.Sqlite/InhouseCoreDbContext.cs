@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
+using InhouseCore.Domain;
 
 namespace InhouseCore.Persistence.Sqlite;
 
@@ -54,6 +55,26 @@ public sealed class InhouseCoreDbContext :
     {
         base.OnModelCreating(builder);
         builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
+
+        ////Temporary
+
+        //var entityTypes = DomainAssembly.Value.GetTypes()
+        //    .Where(t => typeof(Entity).IsAssignableFrom(t) && 
+        //        t.IsClass && 
+        //        !t.IsAbstract);
+
+        //foreach (var entityType in entityTypes)
+        //    builder.Entity(entityType)
+        //        .Property("Id")
+        //        .HasConversion(_ulidToStringConverter);
+
+        builder.Entity<User>()
+            .Property(u => u.Id)
+            .HasConversion(_ulidToStringConverter);
+
+        builder.Entity<IdentityRole<Ulid>>()
+            .Property(u => u.Id)
+            .HasConversion(_ulidToStringConverter);
     }
 
     /// <inheritdoc />

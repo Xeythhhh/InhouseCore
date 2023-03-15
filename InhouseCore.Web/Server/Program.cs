@@ -1,19 +1,9 @@
 using InhouseCore.Persistence.Sqlite;
 
-using Microsoft.AspNetCore.Authentication;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceSqlite(builder.Configuration);
-
-//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-//builder.Services.AddIdentityServer()
-//    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
+builder.Services.AddIdentity();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -43,9 +33,10 @@ app.UseRouting();
 app.UseIdentityServer();
 app.UseAuthorization();
 
-
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+app.MigrateSqliteDatabase();
 
 app.Run();

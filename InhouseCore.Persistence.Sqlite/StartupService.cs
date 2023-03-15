@@ -1,5 +1,7 @@
-﻿using InhouseCore.Persistence.Sqlite.Converters;
+﻿using InhouseCore.Domain.Entities.Identity;
+using InhouseCore.Persistence.Sqlite.Converters;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -34,6 +36,21 @@ public static class StartupService
     }
 
     /// <summary>
+    /// Registeres and configures Authentication and Authorization services.
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddIdentity(this IServiceCollection services)
+    {
+        services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<InhouseCoreDbContext>();
+
+        services.AddIdentityServer()
+            .AddApiAuthorization<User, InhouseCoreDbContext>();
+
+        services.AddAuthentication().AddIdentityServerJwt();
+    }
+
+    /// <summary>
     /// Executes all pending migrations on <see cref="InhouseCoreDbContext"/>.
     /// </summary>
     /// <param name="app">The <see cref="IApplicationBuilder"/> .</param>
@@ -41,6 +58,7 @@ public static class StartupService
     {
         using var scope = app.ApplicationServices.CreateScope();
         using var dbContext = scope.ServiceProvider.GetRequiredService<InhouseCoreDbContext>();
+        
         if (dbContext.Database.GetPendingMigrations().Any())
             dbContext.Database.Migrate();
     }
