@@ -3,16 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Web.Server", "InhouseCore.Web\Server\InhouseCore.Web.Server.csproj", "{F0363045-2E42-4B57-86A6-BB6658E533CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Web.Server", "InhouseCore.Web\Server\InhouseCore.Web.Server.csproj", "{F0363045-2E42-4B57-86A6-BB6658E533CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Web.Client", "InhouseCore.Web\Client\InhouseCore.Web.Client.csproj", "{9B209A38-9541-496D-BE36-C12DC5403B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Web.Client", "InhouseCore.Web\Client\InhouseCore.Web.Client.csproj", "{9B209A38-9541-496D-BE36-C12DC5403B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Web.Shared", "InhouseCore.Web\Shared\InhouseCore.Web.Shared.csproj", "{1CF3FA1A-783E-4DD2-B334-5BAAD4B62BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Web.Shared", "InhouseCore.Web\Shared\InhouseCore.Web.Shared.csproj", "{1CF3FA1A-783E-4DD2-B334-5BAAD4B62BAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Solution Items", "00 Solution Items", "{508A05C2-2854-493D-8C3E-AC7AB43E8661}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		DevelopmentNotes.txt = DevelopmentNotes.txt
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Build", "01 Build", "{7AB67155-2AF0-46A2-B82B-CC503811970B}"
@@ -31,17 +32,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{8999FF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DiscordApp", "DiscordApp", "{4DE57A40-1FE1-4DE5-9C54-95D844283C3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Discord", "InhouseCore.Discord\InhouseCore.Discord.csproj", "{E897E9CC-AA87-4A1B-9E5B-AF390B2E97A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Discord", "InhouseCore.Discord\InhouseCore.Discord.csproj", "{E897E9CC-AA87-4A1B-9E5B-AF390B2E97A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Application", "InhouseCore.Application\InhouseCore.Application.csproj", "{C0970EA8-ACAA-4B59-AD04-B1530CC86B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Application", "InhouseCore.Application\InhouseCore.Application.csproj", "{C0970EA8-ACAA-4B59-AD04-B1530CC86B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Domain", "InhouseCore.Domain\InhouseCore.Domain.csproj", "{88ADD4EA-88A7-4D27-9965-1AD9A1204B62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Domain", "InhouseCore.Domain\InhouseCore.Domain.csproj", "{88ADD4EA-88A7-4D27-9965-1AD9A1204B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Persistence.Sqlite", "InhouseCore.Persistence.Sqlite\InhouseCore.Persistence.Sqlite.csproj", "{47F16EF2-497D-470B-8560-E332FF4EB721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Persistence.Sqlite", "InhouseCore.Persistence.Sqlite\InhouseCore.Persistence.Sqlite.csproj", "{47F16EF2-497D-470B-8560-E332FF4EB721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.Common", "InhouseCore.Common\InhouseCore.Common.csproj", "{6D6F8008-EB4F-4FDC-ABB9-F3FB15928786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.Common", "InhouseCore.Common\InhouseCore.Common.csproj", "{6D6F8008-EB4F-4FDC-ABB9-F3FB15928786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InhouseCore.UnitTests", "InhouseCore.UnitTests\InhouseCore.UnitTests.csproj", "{0F9CA497-14A8-44D7-A638-3A9094ACDEBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.UnitTests", "InhouseCore.UnitTests\InhouseCore.UnitTests.csproj", "{0F9CA497-14A8-44D7-A638-3A9094ACDEBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
