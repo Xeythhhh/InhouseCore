@@ -89,7 +89,7 @@ Contributions are welcome! Please read the [contribution guidelines](contributin
 ## Credits
 
 ### Contributors
-- @Xeythhhh - Author
+- [Xeyth](https://github.com/Xeythhhh) - Author
 - [Battlerite Community League](https://discord.gg/bcl) - Feedback
 
 ### Libraries
