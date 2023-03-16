@@ -82,7 +82,7 @@ InhouseCore is designed for gaming communities that require a comprehensive and 
 
 ## Contributing
 
-Contributions are welcome! Please read the [contribution guidelines](contributing.md) before submitting a pull request.
+Contributions are welcome! Please read the [contribution](contributing.md) and [design](guidelines.md) guidelines before submitting a pull request.
 
 ---
 
