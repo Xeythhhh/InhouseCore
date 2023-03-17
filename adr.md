@@ -8,12 +8,14 @@
 
 CA
 
-- **Shared** - can be reused accross projects
+- **Shared Kernel** - can be reused accross projects
 	- Abstractions
 	- Utilities
+	- Configuration
 - **Core**
 	- Domain - Value Objects, Entities, Aggregates
 	- Aplication - Process Logic, Transactions, CQRS Commands / Queries
+	- Discord Engine - Process Discord requests
 - **Infrstructure** 
 	- EF Core Sqlite
 - **Host**

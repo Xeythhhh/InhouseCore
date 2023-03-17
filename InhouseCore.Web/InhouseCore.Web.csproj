@@ -20,13 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazorise" Version="1.2.*" />
-		<PackageReference Include="Blazorise.Material" Version="1.2.*" />
-		<PackageReference Include="Blazorise.Icons.Material" Version="1.2.*" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\InhouseCore.Common\InhouseCore.Common.csproj" />
+	  <ProjectReference Include="..\InhouseCore.SharedKernel\InhouseCore.SharedKernel.csproj" />
 	</ItemGroup>
 
 </Project>

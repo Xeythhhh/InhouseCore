@@ -1,10 +1,6 @@
 ﻿using InhouseCore.Domain.Entities.Abstract;
 using InhouseCore.Domain.Entities.Identity;
 
-using Duende.IdentityServer.EntityFramework.Entities;
-using Duende.IdentityServer.EntityFramework.Extensions;
-using Duende.IdentityServer.EntityFramework.Interfaces;
-using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,15 +14,15 @@ namespace InhouseCore.Persistence.Sqlite;
 /// Database Implementation for a combined <see cref="DbContext"/> using ASP.NET Identity and Identity Server with <see cref="Ulid"/> Primary Keys.
 /// </summary>
 public sealed class InhouseCoreDbContext : 
-    IdentityDbContext<User, IdentityRole<Ulid>, Ulid>, 
-    IPersistedGrantDbContext
+    IdentityDbContext<User, IdentityRole<Ulid>, Ulid> 
+    //,IPersistedGrantDbContext
 {
     private readonly ValueConverter<Ulid, string> _ulidToStringConverter;
-    private readonly IOptions<OperationalStoreOptions> _operationalStoreOptions;
+    //private readonly IOptions<OperationalStoreOptions> _operationalStoreOptions;
 
-    public DbSet<PersistedGrant> PersistedGrants { get; set; }
-    public DbSet<DeviceFlowCodes> DeviceFlowCodes { get; set; }
-    public DbSet<Key> Keys { get; set; }
+    //public DbSet<PersistedGrant> PersistedGrants { get; set; }
+    //public DbSet<DeviceFlowCodes> DeviceFlowCodes { get; set; }
+    //public DbSet<Key> Keys { get; set; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="InhouseCoreDbContext"/>.
@@ -36,11 +32,11 @@ public sealed class InhouseCoreDbContext :
     /// <param name="ulidToStringConverter">Converter between <see cref="Ulid"/> and <see cref="string"/>.</param>
     public InhouseCoreDbContext(
         DbContextOptions<InhouseCoreDbContext> options,
-        IOptions<OperationalStoreOptions> operationalStoreOptions,
+        //IOptions<OperationalStoreOptions> operationalStoreOptions,
         ValueConverter<Ulid, string> ulidToStringConverter)
         : base(options)
     {
-        _operationalStoreOptions = operationalStoreOptions;
+        //_operationalStoreOptions = operationalStoreOptions;
         _ulidToStringConverter = ulidToStringConverter;
     }
 
@@ -54,7 +50,7 @@ public sealed class InhouseCoreDbContext :
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
+        //builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value);
 
         ////Temporary
 
@@ -86,7 +82,7 @@ public sealed class InhouseCoreDbContext :
     }
     
     /// <inheritdoc />
-    Task<int> IPersistedGrantDbContext.SaveChangesAsync() => SaveChangesAsync();
+    //Task<int> IPersistedGrantDbContext.SaveChangesAsync() => SaveChangesAsync();
    
     /// <inheritdoc />
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

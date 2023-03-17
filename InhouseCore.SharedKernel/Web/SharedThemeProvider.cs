@@ -1,6 +1,6 @@
 ﻿using Blazorise;
 
-namespace InhouseCore.Common.Web;
+namespace InhouseCore.SharedKernel.Web;
 public static class SharedThemeProvider
 {
     public static Theme Theme => new()

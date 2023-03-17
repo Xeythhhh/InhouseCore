@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InhouseCore.Common\InhouseCore.Common.csproj" />
+    <ProjectReference Include="..\InhouseCore.SharedKernel\InhouseCore.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
