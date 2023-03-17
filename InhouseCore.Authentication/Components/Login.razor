@@ -1,0 +1,50 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<Card>
+    <CardBody>
+        <Validations Mode="ValidationMode.Auto" Model="@user" ValidateOnLoad="false">
+            <Validation Validator="@ValidationRule.IsEmail">
+                <Field>
+                    <FieldLabel>Email address</FieldLabel>
+                    <TextEdit Placeholder="your@email.please" />
+                </Field>
+            </Validation>
+            <Field>
+                <FieldLabel>Password</FieldLabel>
+                <TextEdit Role="TextRole.Password" Placeholder="Password" />
+            </Field>
+
+            <Field>
+                <Check TValue="bool" @bind-Checked="@user.RememberMe">Remember me?</Check>
+            </Field>
+            <Button Color="Color.Primary" Clicked="SubmitLogin">Submit</Button>
+        </Validations>
+    </CardBody>
+</Card>
+
+@code {
+
+    private sealed class User
+    {
+#pragma warning disable CS8618
+        [Required]
+        [EmailAddress(ErrorMessage = "Invalid email.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+#pragma warning restore CS8618
+    }
+
+    private User user = new User();
+
+    //make async when implementing
+    private Task SubmitLogin()
+    {
+        Console.WriteLine("Login submit.");
+        return Task.CompletedTask;
+    }
+}

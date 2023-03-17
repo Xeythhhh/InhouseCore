@@ -1,14 +1,39 @@
 ﻿@page "/"
 @using System.Security.Claims
+@using InhouseCore.Authentication.Components
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Authentication</PageTitle>
 
-<p1>Login Page here</p1>
+<h1>Authentication</h1>
+
+<Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+    <Items>
+        <Tab Name="login">Login</Tab>
+        <Tab Name="register">Register</Tab>
+    </Items>
+    <Content>
+        <TabPanel Name="login">
+            <Login />
+        </TabPanel>
+        <TabPanel Name="register">
+            <Register />
+        </TabPanel>
+    </Content>
+</Tabs>
 
 <AuthorizeView>
-    <p>Hello, @authenticationState?.User.Identity?.Name!</p>
+    <Authorized>
+        <p>Hello, @authenticationState?.User.Identity?.Name!</p>
+    </Authorized>
+    <Authorizing>
+        Authenticating...
+    </Authorizing>
+    <NotAuthorized>
+        Not Authenticated!
+    </NotAuthorized>
 </AuthorizeView>
+
 
 <br />
 <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button>
@@ -27,6 +52,13 @@
 @code {
     private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
     private AuthenticationState? authenticationState;
+    private string selectedTab = "login";
+
+    private Task OnSelectedTabChanged(string name)
+    {
+        selectedTab = name;
+        return Task.CompletedTask;
+    }
 
     private async Task GetClaimsPrincipalData()
     {

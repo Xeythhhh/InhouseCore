@@ -95,6 +95,7 @@ Contributions are welcome! Please read the [contribution](contributing.md) and [
 ### Libraries
 - [AspNetCore](https://github.com/dotnet/aspnetcore)
 - [Blazor](https://blazor.net/) - Framework for client-side web UI with .NET
+- [Blazorise](https://blazorise.com) - Blazor Component Library
 - [EFCore](https://github.com/dotnet/efcore) - Object-database mapper for .NET
 - [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) - .NET wrapper for the Discord API
 - [Ulid](https://github.com/Cysharp/Ulid) - Fast C# Implementation of ULID

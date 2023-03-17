@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Blazorise" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Icons.Material" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Material" Version="1.2.1" />
+  </ItemGroup>
+
 </Project>

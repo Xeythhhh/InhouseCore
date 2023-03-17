@@ -1,11 +1,22 @@
+using Blazorise;
+using Blazorise.Icons.Material;
+using Blazorise.Material;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOptions();
+builder.Services.AddAuthentication();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+builder.Services
+    .AddBlazorise()
+    .AddMaterialProviders()
+    .AddMaterialIcons();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
