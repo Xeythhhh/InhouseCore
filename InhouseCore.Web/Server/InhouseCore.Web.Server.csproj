@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>InhouseCore.Web.Server-0bc0de4b-effa-4690-87a0-210c1656af17</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,18 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\InhouseCore.Persistence.Sqlite\InhouseCore.Persistence.Sqlite.csproj" />
     <ProjectReference Include="..\Client\InhouseCore.Web.Client.csproj" />
     <ProjectReference Include="..\Shared\InhouseCore.Web.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4" />
-  </ItemGroup>
 
 </Project>

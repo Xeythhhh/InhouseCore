@@ -1,0 +1,39 @@
+﻿@page "/"
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Index</PageTitle>
+
+<p1>Login Page here</p1>
+
+<AuthorizeView>
+    <p>Hello, @authenticationState?.User.Identity?.Name!</p>
+</AuthorizeView>
+
+<br />
+<button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button>
+<br />
+<span>Claims</span>
+@if (claims.Count() > 0)
+{
+    <ul>
+        @foreach (var claim in claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+    private AuthenticationState? authenticationState;
+
+    private async Task GetClaimsPrincipalData()
+    {
+        authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+            claims = user.Claims;
+    }
+}

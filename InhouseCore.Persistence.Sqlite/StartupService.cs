@@ -86,8 +86,8 @@ public static class StartupService
                 options.TokenEndpoint = Configuration.Identity.Discord.TokenEndpoint;
                 options.UserInformationEndpoint = Configuration.Identity.Discord.UserInformationEndpoint;
 
-                options.CallbackPath = new PathString("/oauth/callback");
-                options.AccessDeniedPath = new PathString("/oauth/failed");
+                options.CallbackPath = new PathString(Configuration.Identity.Discord.OAuthCallback);
+                options.AccessDeniedPath = new PathString("/access-denied");
 
                 options.Scope.Add("identify");
                 options.Scope.Add("email");
@@ -116,7 +116,7 @@ public static class StartupService
                 options.Events = new OAuthEvents
                 {
                     OnCreatingTicket = async context =>
-                    {
+                        {
                         var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
                         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
@@ -124,8 +124,8 @@ public static class StartupService
                         var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted); ;
                         response.EnsureSuccessStatusCode();
 
-                        var user = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
-
+                        var content = await response.Content.ReadAsStringAsync();
+                        var user = JsonDocument.Parse(content).RootElement;
                         context.RunClaimActions(user);
                     }
                 };

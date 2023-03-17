@@ -23,11 +23,16 @@ internal static class Configuration
         internal static string SqliteConnectionString => _configuration.GetConnectionString(nameof(SqliteConnectionString)) ?? throw new InvalidOperationException($"Connection string '{nameof(SqliteConnectionString)}' not found.");
     }
 
+    /// <summary>
+    /// Configuration object for Authentication and Authorization
+    /// </summary>
     internal static class Identity
     {
+        /// <summary>
+        /// Configuration object for Jwt
+        /// </summary>
         internal static class Jwt
         {
-
             internal static string Issuer => _configuration.GetValue<string>("Jwt:Issuer")
                 ?? throw new InvalidOperationException($"Jwt '{nameof(Issuer)}' not found.");
             internal static string Audience => _configuration.GetValue<string>("Jwt:Audience") 
@@ -36,6 +41,9 @@ internal static class Configuration
                 ?? throw new InvalidOperationException($"Jwt '{nameof(EncryptionKey)}' not found.");
         }
 
+        /// <summary>
+        /// Configuration object for Discord OAuth <see href="https://www.nuget.org/packages/AspNet.Security.OAuth.Discord">Library</see> <see href="https://discord.com/developers/docs/topics/oauth2">Docs</see>
+        /// </summary>
         internal static class Discord
         {
             internal static string AuthorizationEndpoint => _configuration.GetValue<string>("Discord:AuthorizationEndpoint")
@@ -44,6 +52,8 @@ internal static class Configuration
                 ?? throw new InvalidOperationException($"Discord '{nameof(TokenEndpoint)}' not found.");
             internal static string UserInformationEndpoint => _configuration.GetValue<string>("Discord:UserInformationEndpoint")
                 ?? throw new InvalidOperationException($"Discord '{nameof(UserInformationEndpoint)}' not found.");
+            internal static string OAuthCallback => _configuration.GetValue<string>("Discord:OAuthCallback")
+                ?? throw new InvalidOperationException($"Discord '{nameof(OAuthCallback)}' not found.");
             internal static string ClientId => _configuration.GetValue<string>("Discord:ApplicationId")
                 ?? throw new InvalidOperationException($"Discord '{nameof(ClientId)}' not found.");
             internal static string ClientSecret => _configuration.GetValue<string>("Discord:ClientSecret")
