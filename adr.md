@@ -1,13 +1,9 @@
 # Architectural Decision Records
-
 - CA - Clean Architecture
 - DDD - Domain Driven Design
 - CQRS - Command and Query Responsability Segregation
-
 ---
-
-CA
-
+## CA
 - **Shared Kernel** - can be reused accross projects
 	- Abstractions
 	- Utilities
@@ -22,10 +18,10 @@ CA
 	- Blazor WebAssembly Client App
 	- Blazor Server Authentication App
 	- ASP.NET Core API
-
 ---
-
 ## Strategic dependencies in the **Shared Kernel**
-https://blazorise.com/docs
-https://github.com/vkhorikov/CSharpFunctionalExtensions
-https://docs.fluentvalidation.net/en/latest/
+- ASPNET.Core Identity, Authentication and Authorization packages
+- https://blazorise.com/docs
+- https://github.com/vkhorikov/CSharpFunctionalExtensions
+- https://docs.fluentvalidation.net/en/latest/
+- https://github.com/Cysharp/Ulid
