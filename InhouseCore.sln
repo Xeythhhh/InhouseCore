@@ -45,8 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InhouseCore.UnitTests", "In
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevProcess", "DevProcess", "{21B23748-3656-43C0-B352-8B98A04316B1}"
 	ProjectSection(SolutionItems) = preProject
-		externaltools.md = externaltools.md
 		DevProcess\nginx.md = DevProcess\nginx.md
+		externalTools.md = externalTools.md
 		DevProcess\redis.md = DevProcess\redis.md
 	EndProjectSection
 EndProject
