@@ -12,20 +12,22 @@ I used chocolatey but you can use brew or manually install.
 > choco install nginx
 ---
 ## Shell
+```ps1
+//start nginx
 start nginx
-> start nginx
 
-force shutdown
-> nginx -s stop 
+//force shutdown
+nginx -s stop 
 
-graceful shutdown
-> nginx -s quit
+//graceful shutdown
+nginx -s quit
 
-see nginx processes
-> tasklist /fi "imagename eq nginx.exe"
+//see nginx processes
+tasklist /fi "imagename eq nginx.exe"
 
-validate configuration
-> nginx -t 
+//validate configuration
+nginx -t 
+```
 ---
 ## Configuration
 Edit hosts file
