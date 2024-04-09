@@ -3,21 +3,26 @@ InhouseCore is a comprehensive and customizable **ranking system** for gaming co
 
 ---
 ## Contents
-- [Features](#Features)
-- [Architecture](#Architecture)
-	- [Build](#Build)
-	- [Presentation](#Presentation)
-	- [Core](#Core)
-	- [Infrastructure](#Infrastructure)
-	- [Tests](#Tests)
-- [Target Audience](#Target-Audience)
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Contributing](#Contributing)
-- [Credits](#Credits)
-	- [Contributors](#Contributors)
-	- [Libraries](#Libraries)
-- [License](#License)
+[Features](#Features)
+[Architecture](#Architecture)
+> [Build](#Build)
+> [Host](#Host)
+> [Presentation](#Presentation)
+> [Domain](#Domain)
+> [Application](#Application)
+> [Infrastructure](#Infrastructure)
+> [Shared Kernel](#Shared-Kernel)
+> [Tests](#Tests)
+
+[Target Audience](#Target-Audience)
+[Installation](#Installation)
+[Usage](#Usage)
+[Contributing](#Contributing)
+[Credits](#Credits)
+[Contributors](#Contributors)
+[Libraries](#Libraries)
+[License](#License)
+
 ---
 ## Features
 InhouseCore includes but is not limited to the following features:
@@ -32,24 +37,34 @@ InhouseCore includes but is not limited to the following features:
 > A full list of features is included in the documentation
 ---
 ## Architecture
-[Architectural Design Records](adr.md)
+[Architectural Design Records](Documentation/adr.md)
 
-InhouseCore consists of the following components:
+InhouseCore tries to follow [Clean Code](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29) and [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) principles.
+
 ### Build
-- DotNetNuke Build System 
+- [Nuke](https://nuke.build) Build System 
 ### Host
-- **ASP.NET Core** API
-- **Blazor** Server Authentication App
-- **Blazor** WebAssembly Client Application
-### Core
-- **DSharpPlus** Discord Application
-- Business Logic
-- Domain
+- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Host
+- [Duende](https://duendesoftware.com) Identity Provider
+- [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) Client with [Blazorise](https://blazorise.com/docs) and [Tailwind](https://tailwindcss.com)
+### Presentation
+- [DSharpPlus](https://dsharpplus.github.io/DSharpPlus/) [Discord](https://discord.com) Application
+- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Controllers
+### Application
+- Process Logic, Transactions, Commands, Queries, Behaviors
+### Domain
+- Rich Domain Model
+- Entities, Value Objects, Aggregates
 ### Infrastructure
-- **EFCore** Sqlite Persistence
-- Shared Kernel
+- Database Read Model with [Dapper](https://github.com/DapperLib/Dapper)
+- Database Write Model with [Entity Framework](https://learn.microsoft.com/en-us/ef/)
+### Shared Kernel
+- Abstractions
+- Utilities
+- Configuration
 ### Tests
-- **xUnit** UnitTests
+- [xUnit](https://xunit.net) Tests
+- [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) Tests
 ---
 ## Target Audience
 InhouseCore is designed for gaming communities that require a comprehensive and customizable **ranking system**. It's ideal for communities in niche games like Battlerite that lack official support from developers, but any gaming community that needs a ranking system can benefit from InhouseCore. The system is tailored to the needs of high-level players looking to compete at the highest level, providing accurate and reliable matchmaking and MMR tracking.
@@ -64,7 +79,7 @@ InhouseCore is designed for gaming communities that require a comprehensive and 
 
 ---
 ## Contributing
-Contributions are welcome! Please read the [contribution](contributing.md) and [design](guidelines.md) guidelines before submitting a pull request.
+Contributions are welcome! Please read the [contribution](Documentation/contributing.md) and [design](Documentation/guidelines.md) guidelines before submitting a pull request.
 
 ---
 ## Credits
@@ -78,6 +93,11 @@ Contributions are welcome! Please read the [contribution](contributing.md) and [
 - [EFCore](https://github.com/dotnet/efcore) - Object-database mapper for .NET
 - [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) - .NET wrapper for the Discord API
 - [Ulid](https://github.com/Cysharp/Ulid) - Fast C# Implementation of ULID
+- [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) - Architecture Tests
+- [Dapper](https://github.com/DapperLib/Dapper)
+- [FluentAssertions](https://fluentassertions.com) - Prettier Assertions
+
+
 ---
 ## License
 InhouseCore is licensed under the [MIT License](LICENSE).

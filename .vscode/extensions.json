@@ -1,0 +1,33 @@
+{
+    "recommendations": [
+        "wk-j.vscode-rainbow-string",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csharp",
+        "corylulu.csharp-interpolated-string-converter",
+        "adrianwilczynski.csharp-to-typescript",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "graphql.vscode-graphql-syntax",
+        "ms-vscode.vscode-typescript-next",
+        "learn-game-development.js-syntax-extension",
+        "gregorbiswanger.json2ts",
+        "ms-dotnettools.blazorwasm-companion",
+        "stringham.move-ts",
+        "azemoh.one-monokai",
+        "christian-kohler.path-intellisense",
+        "rvest.vs-code-prettier-eslint",
+        "yoavbls.pretty-ts-errors",
+        "mechatroner.rainbow-csv",
+        "evgeniypeshkov.syntax-highlighter",
+        "meganrogge.template-string-converter",
+        "wayou.vscode-todo-highlight",
+        "mattpocock.ts-error-translator",
+        "semagarcia.vscode-ts-decorators",
+        "pmneo.tsimporter",
+        "infeng.vscode-react-typescript",
+        "dskwrk.vscode-generate-getter-setter",
+        "vscode-icons-team.vscode-icons",
+        "ms-vscode-remote.remote-wsl",
+        "nicoespeon.abracadabra"
+    ]
+}

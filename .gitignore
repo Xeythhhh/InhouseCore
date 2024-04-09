@@ -398,8 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # InhouseCore
-	# Contains debug temporary generated files
-_debug/
-	# Don't leak your Development tokens
-appsettings.Development.json
-caddy
+.dev/
+*.Development.json
