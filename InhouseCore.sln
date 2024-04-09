@@ -21,10 +21,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevProcess", "DevProcess", "{D24AEC28-E316-4806-8D67-25DBEBDFAB5F}"
 	ProjectSection(SolutionItems) = preProject
-		documenting.md = documenting.md
+		Documentation\DevProcess\documenting.md = Documentation\DevProcess\documenting.md
 		Documentation\DevProcess\externaltools.md = Documentation\DevProcess\externaltools.md
-		Documentation\DevProcess\nginx.md = Documentation\DevProcess\nginx.md
-		Documentation\DevProcess\redis.md = Documentation\DevProcess\redis.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{1FE75E15-96E3-4D71-B261-0BEE661AB24F}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\DevProcess\External\nginx.md = Documentation\DevProcess\External\nginx.md
+		Documentation\DevProcess\External\redis.md = Documentation\DevProcess\External\redis.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_build", "_build", "{A03391D5-B158-4699-AB1E-6174B1FDCA23}"
@@ -57,6 +61,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0C5A4F8-339E-46E5-9DC7-947EF290AF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F0C5A4F8-339E-46E5-9DC7-947EF290AF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0C5A4F8-339E-46E5-9DC7-947EF290AF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -89,8 +95,6 @@ Global
 		{63306C1F-3D2D-419F-8B28-96B9B7C38693}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63306C1F-3D2D-419F-8B28-96B9B7C38693}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63306C1F-3D2D-419F-8B28-96B9B7C38693}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,11 +102,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3FAF4C0E-EE11-462F-B392-AD316B128925} = {6EE7E364-95CA-49D3-A690-9ADF32E1A2F3}
 		{D24AEC28-E316-4806-8D67-25DBEBDFAB5F} = {3FAF4C0E-EE11-462F-B392-AD316B128925}
+		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E} = {A03391D5-B158-4699-AB1E-6174B1FDCA23}
 		{F0C5A4F8-339E-46E5-9DC7-947EF290AF97} = {60171FE7-B64C-4A1F-AA88-A357A9B8E032}
 		{F667A12D-6F24-4DCC-8A83-D58F7878E638} = {60171FE7-B64C-4A1F-AA88-A357A9B8E032}
 		{AAAE1A73-CA5B-4931-A607-7760FE85C85B} = {89673E5C-BB19-458A-AEAA-FF05BA5CA0FA}
 		{28333302-BAE3-4A12-AD14-BF5EEB9F3FDB} = {89673E5C-BB19-458A-AEAA-FF05BA5CA0FA}
-		{72B6BA55-D2A4-47C0-ACFB-F1CB7EBE409E} = {A03391D5-B158-4699-AB1E-6174B1FDCA23}
+		{1FE75E15-96E3-4D71-B261-0BEE661AB24F} = {D24AEC28-E316-4806-8D67-25DBEBDFAB5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FCEFF59-6A16-4659-A3F5-35E3F02BF9AE}

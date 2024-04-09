@@ -1,3 +1,3 @@
 # External Tools
-- ~~[Redis](redis.md)~~
-- [nginx](nginx.md) (only for local dev)
+- ~~[Redis](External/redis.md)~~
+- ~~[nginx](External/nginx.md) (only for local dev)~~

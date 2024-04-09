@@ -44,20 +44,25 @@ InhouseCore tries to follow [Clean Code](https://gist.github.com/wojteklu/73c691
 ### Build
 - [Nuke](https://nuke.build) Build System 
 ### Host
-- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Host
-- [Duende](https://duendesoftware.com) Identity Provider
-- [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) Client with [Blazorise](https://blazorise.com/docs) and [Tailwind](https://tailwindcss.com)
+- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Host with [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
 ### Presentation
 - [DSharpPlus](https://dsharpplus.github.io/DSharpPlus/) [Discord](https://discord.com) Application
 - [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Controllers
+- [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) Components
 ### Application
-- Process Logic, Transactions, Commands, Queries, Behaviors
+- Process Logic
+- Transactions
+- Commands
+- Queries
+- Behaviors
 ### Domain
 - Rich Domain Model
-- Entities, Value Objects, Aggregates
+- Entities
+- Value Objects
+- Aggregates
 ### Infrastructure
-- Database Read Model with [Dapper](https://github.com/DapperLib/Dapper)
-- Database Write Model with [Entity Framework](https://learn.microsoft.com/en-us/ef/)
+- Read Model with [Dapper](https://github.com/DapperLib/Dapper)
+- Write Model with [Entity Framework](https://learn.microsoft.com/en-us/ef/)
 ### Shared Kernel
 - Abstractions
 - Utilities
@@ -89,14 +94,13 @@ Contributions are welcome! Please read the [contribution](Documentation/contribu
 ### Libraries
 - [AspNetCore](https://github.com/dotnet/aspnetcore)
 - [Blazor](https://blazor.net/) - Framework for client-side web UI with .NET
-- [Blazorise](https://blazorise.com) - Blazor Component Library
+- ~~[Blazorise](https://blazorise.com) - Blazor Component Library~~
 - [EFCore](https://github.com/dotnet/efcore) - Object-database mapper for .NET
 - [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) - .NET wrapper for the Discord API
-- [Ulid](https://github.com/Cysharp/Ulid) - Fast C# Implementation of ULID
+- ~~[Ulid](https://github.com/Cysharp/Ulid) - Fast C# Implementation of ULID~~
 - [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) - Architecture Tests
 - [Dapper](https://github.com/DapperLib/Dapper)
 - [FluentAssertions](https://fluentassertions.com) - Prettier Assertions
-
 
 ---
 ## License

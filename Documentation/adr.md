@@ -37,4 +37,4 @@
 ---
 ## Strategic dependencies in the **Shared Kernel**
 - https://github.com/vkhorikov/CSharpFunctionalExtensions
-- https://github.com/Cysharp/Ulid
+- ~~https://github.com/Cysharp/Ulid~~

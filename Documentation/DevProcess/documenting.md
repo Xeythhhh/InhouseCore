@@ -20,7 +20,7 @@
 `<typeparam>`
 > Describes a type parameter for a generic type or method.
 
-`<seealso>`
+`<see>`
 > Provides a reference to related types, members, or other entities.
 
 You can also use other HTML tags like `<para>`, `<b>`, `<i>`, `<ul>`, `<ol>`, `<li>`
