@@ -5,9 +5,6 @@ using Nuke.Common;
 namespace Build;
 public class Build : NukeBuild
 {
-    /// <returns> A Reference to the Build <see cref="System.Reflection.Assembly"/> </returns>
-    public static Assembly Assembly => typeof(Build).Assembly;
-
     /// Support plugins are available for:
     ///   - JetBrains ReSharper        https://nuke.build/resharper
     ///   - JetBrains Rider            https://nuke.build/rider

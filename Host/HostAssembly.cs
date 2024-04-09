@@ -2,8 +2,8 @@
 
 namespace Host;
 /// <summary> Class to reference the Host <see cref="System.Reflection.Assembly"/> </summary>
-public static class Host
+public static class HostAssembly
 {
     /// <returns> A Reference to the Host <see cref="System.Reflection.Assembly"/> </returns>
-    public static Assembly Assembly => typeof(Host).Assembly;
+    public static Assembly Reference => typeof(HostAssembly).Assembly;
 }

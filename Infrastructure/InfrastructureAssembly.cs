@@ -2,8 +2,8 @@
 
 namespace Presentation;
 /// <summary> Class to reference the Infrastructure <see cref="System.Reflection.Assembly"/> </summary>
-public static class Infrastructure
+public static class InfrastructureAssembly
 {
     /// <returns> A Reference to the Infrastructure <see cref="System.Reflection.Assembly"/> </returns>
-    public static Assembly Assembly => typeof(Infrastructure).Assembly;
+    public static Assembly Reference => typeof(InfrastructureAssembly).Assembly;
 }
