@@ -1,9 +1,10 @@
 using System.Security.Claims;
 using System.Text.Json;
 
+using Domain.Entities;
+
 using Host.Components.Account.Pages;
 using Host.Components.Account.Pages.Manage;
-using Host.Data;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;

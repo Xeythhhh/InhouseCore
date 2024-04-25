@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Security.Claims;
+
+using Domain.Entities;
+
 using Host.Client.Authentication;
-using Host.Data;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

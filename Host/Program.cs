@@ -1,6 +1,9 @@
+using Domain.Entities;
+
 using Host.Components;
 using Host.Components.Account;
-using Host.Data;
+
+using Infrastructure;
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
