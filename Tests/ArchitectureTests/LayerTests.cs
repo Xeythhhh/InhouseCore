@@ -4,39 +4,64 @@ using System.Reflection;
 using Microsoft.CodeAnalysis;
 using FluentAssertions;
 using NetArchTest.Rules;
+using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public class LayerTests : ArchitectureBaseTest
+public class LayerTests(ITestOutputHelper output) : ArchitectureBaseTest
 {
     [Theory]
-    [ClassData(typeof(DataSource))]
-    public void Layer_ShouldNotDependOn_OtherLayers(DataSource.Rule rule) =>
-        Types.InAssembly(rule.Assembly)
-            .ShouldNot().HaveDependencyOnAny(rule.NonDependencies)
-            .GetResult().IsSuccessful.Should().BeTrue();
+    [ClassData(typeof(Architecture))]
+    public void Layer_ShouldNotDependOn_OtherLayers(Architecture.Rule rule)
+    {
+        // Arrange
+        PredicateList types = Types.InAssembly(rule.AssemblyUnderTest)
+            .That().ResideInNamespace(rule.AssemblyUnderTest.GetName().Name);
 
-    public class DataSource : IEnumerable<object[]>
+        // Act
+        TestResult testResult = types
+            .ShouldNot().HaveDependencyOnAny(rule.NonDependencies)
+            .GetResult();
+
+        // Assert
+        testResult.IsSuccessful.Should().BeTrue();
+        OutputTestResults(output, testResult);
+    }
+
+
+    public class Architecture : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new Rule(Domain, [Build, Application, Infrastructure, Presentation, Host, Client, Tests]) };
-            yield return new object[] { new Rule(Application, [Build, Infrastructure, Presentation, Host, Client, Tests]) };
-            yield return new object[] { new Rule(Infrastructure, [Build, Presentation, Host, Client, Tests]) };
-            yield return new object[] { new Rule(Presentation, [Build, Infrastructure, Host, Client, Tests]) };
-            yield return new object[] { new Rule(Host, [Build, Tests]) };
-            yield return new object[] { new Rule(Client, [Build, Tests]) };
-            yield return new object[] { new Rule(SharedKernel, [Build, Domain, Application, Infrastructure, Presentation, Host, Client, Tests]) };
+            yield return new object[] { new Rule(Domain,
+                [Build, Application, .. External, .. Hosts, .. Tests]) };
+
+            yield return new object[] { new Rule(Application,
+                [Build, .. External, .. Hosts, .. Tests]) };
+
+            yield return new object[] { new Rule(Infrastructure,
+                [Build, Presentation, .. Hosts, .. Tests]) };
+
+            yield return new object[] { new Rule(Presentation,
+                [Build, Infrastructure, .. Hosts, .. Tests]) };
+
+            yield return new object[] { new Rule(Host,
+                [Build, .. Tests]) };
+
+            yield return new object[] { new Rule(Client,
+                [Build, .. Tests]) };
+
+            yield return new object[] { new Rule(SharedKernel,
+                [Build, .. Core, .. External, .. Tests]) };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public class Rule(Assembly assembly, Assembly[] nonDependencies)
         {
-            public Assembly Assembly { get; } = assembly;
+            public Assembly AssemblyUnderTest { get; } = assembly;
             public string?[] NonDependencies { get; } = nonDependencies.Select(a => a.GetName().Name).ToArray();
 
-            public override string ToString() =>
-                $"\n{Assembly.GetName().Name} should not have dependency on {string.Join(", ", NonDependencies)}";
+            public override string ToString() => $"\n{AssemblyUnderTest.GetName().Name} should not have dependency on {string.Join(", ", NonDependencies)}";
         }
     }
 }
