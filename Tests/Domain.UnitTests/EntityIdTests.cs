@@ -1,7 +1,8 @@
+using Domain.UnitTests.TestImplementations;
+
 using FluentAssertions;
 
 namespace Domain.UnitTests;
-
 public class EntityIdTests
 {
     [Fact]

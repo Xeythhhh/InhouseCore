@@ -2,7 +2,7 @@
 
 using Domain.Entities;
 
-namespace Domain.UnitTests;
+namespace Domain.UnitTests.TestImplementations;
 public class TestEntity : EntityBase<TestEntityId>
 {
     public string Something { get; set; }
