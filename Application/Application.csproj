@@ -10,6 +10,9 @@
     <Folder Include="Abstractions\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Test\Queries\" />
+    <Folder Include="Users\Commands\" />
+    <Folder Include="Users\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

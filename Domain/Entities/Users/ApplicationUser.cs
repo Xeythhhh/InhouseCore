@@ -1,14 +1,6 @@
-using Domain.Abstractions;
-
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities;
-
-/// <summary>
-/// Strongly-typed Id for <see cref="ApplicationUser"/>
-/// </summary>
-public record ApplicationUserId(Ulid Value) : IEntityId;
-
+namespace Domain.Entities.Users;
 /// <summary>
 /// The User
 /// </summary>

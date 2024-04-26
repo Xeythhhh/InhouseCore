@@ -7,8 +7,10 @@ using Host.Client;
 using Application;
 using Application.UnitTests;
 using Domain;
+using Domain.UnitTests;
 using Infrastructure;
 using Presentation;
+
 using Xunit.Abstractions;
 using NetArchTest.Rules;
 
@@ -27,7 +29,10 @@ public abstract class ArchitectureBaseTest
     protected static Assembly[] Core => [Application, Domain];
     protected static Assembly[] External => [Infrastructure, Presentation];
     protected static Assembly[] Hosts => [Host, Client];
-    protected static Assembly[] Tests => [TestsAssembly.Reference, ApplicationUnitTestsAssembly.Reference];
+    protected static Assembly[] Tests => [
+        TestsAssembly.Reference,
+        ApplicationUnitTestsAssembly.Reference,
+        DomainUnitTestsAssembly.Reference];
 
     /// <summary>Helper output method to extract information about the <see cref="TestResult"/></summary>
     protected static void OutputTestResults(ITestOutputHelper output, TestResult testResult)

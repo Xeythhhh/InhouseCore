@@ -1,4 +1,4 @@
-﻿namespace Domain.Abstractions;
+﻿namespace Domain.Entities;
 
 /// <summary>
 /// Interface for strongly typed Ids

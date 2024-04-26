@@ -1,21 +1,21 @@
-﻿namespace Domain.Abstractions;
+﻿namespace Domain.Entities;
 
 /// <summary>
 /// Base model for entities.
 /// </summary>
-public abstract class Entity<TEntityId> : IEntity<TEntityId>
+public abstract class EntityBase<TEntityId> : IEntity<TEntityId>
     where TEntityId : IEntityId
 {
     private readonly List<DomainEvent> _domainEvents = new();
 
-    public TEntityId Id { get; private set; }
+    public TEntityId Id { get; protected set; }
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     public DateTime LastUpdatedAt { get; set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    protected Entity() { }         // Used by EFCore 
+    protected EntityBase() { }         // Used by EFCore 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    protected Entity(TEntityId id)
+    protected EntityBase(TEntityId id)
     {
         Id = id;
     }

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Security.Claims;
 
-using Domain.Entities;
+using Domain.Entities.Users;
 
 using Host.Client.Authentication;
 
