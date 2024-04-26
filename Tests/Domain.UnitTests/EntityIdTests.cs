@@ -1,5 +1,3 @@
-using Domain.UnitTests.Entities;
-
 using FluentAssertions;
 
 namespace Domain.UnitTests;
@@ -10,13 +8,12 @@ public class EntityIdTests
     public void EntityId_ShouldImplicitlyConvertTo_Ulid()
     {
         // Arrange
-        DateTime utcNow = DateTime.UtcNow;
-        var testId = new TestEntityId(Ulid.NewUlid(utcNow));
+        var testId = new TestEntityId(Ulid.NewUlid());
 
         // Act
-        Ulid actual = testId;
+        Ulid converted = testId;
 
         // Assert
-        actual.Should().Be(Ulid.NewUlid(utcNow));
+        converted.Should().Be(testId.Value);
     }
 }
