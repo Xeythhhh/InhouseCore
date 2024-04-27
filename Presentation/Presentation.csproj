@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Discord\" />
     <Folder Include="Blazor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02214" />
   </ItemGroup>
 
 </Project>
