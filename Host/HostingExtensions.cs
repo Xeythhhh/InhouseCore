@@ -1,14 +1,19 @@
 ﻿using Domain.Entities.Users;
 
+using FluentAssertions.Common;
+
 using Host.Client;
 using Host.Components;
 using Host.Components.Account;
 
 using Infrastructure;
+using Infrastructure.Converters;
+using Infrastructure.Converters.Ids;
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 using Presentation.Discord;
 using Presentation.Discord.Configuration;
@@ -21,6 +26,8 @@ internal static class HostingExtensions
 {
     internal static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddSingleton<ValueConverter<ApplicationUserId, string>, ApplicationUserIdConverter>();
+
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
@@ -35,10 +42,10 @@ internal static class HostingExtensions
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
-            .AddIdentityCookies();
+        .AddIdentityCookies();
 
-        string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
+            ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -57,6 +64,11 @@ internal static class HostingExtensions
 
     internal static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate();
+        dbContext.SaveChanges();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseWebAssemblyDebugging();
@@ -87,8 +99,7 @@ internal static class HostingExtensions
         return app;
     }
 
-
-    // Codes generated using https://svelte.dev/repl/
+    // TODO: Implement new AnsiProcessor in SharedKernel
     internal static AnsiConsoleTheme GetConsoleTheme() => new(new Dictionary<ConsoleThemeStyle, string>
     {
         [ConsoleThemeStyle.Text] = "\x1b[0m",

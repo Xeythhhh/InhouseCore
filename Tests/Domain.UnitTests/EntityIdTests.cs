@@ -9,12 +9,25 @@ public class EntityIdTests
     public void EntityId_ShouldImplicitlyConvertTo_Ulid()
     {
         // Arrange
-        var testId = new TestEntityId(Ulid.NewUlid());
+        TestEntityId testId = new(Ulid.NewUlid());
 
         // Act
         Ulid converted = testId;
 
         // Assert
         converted.Should().Be(testId.Value);
+    }
+
+    [Fact]
+    public void Ulid_ShouldExplicitlyConvertTo_EntityId()
+    {
+        // Arrange
+        Ulid testId = Ulid.NewUlid();
+
+        // Act
+        TestEntityId converted = (TestEntityId)testId;
+
+        // Assert
+        converted.Should().Be(new TestEntityId(testId));
     }
 }

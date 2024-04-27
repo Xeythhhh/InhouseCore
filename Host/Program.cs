@@ -3,7 +3,6 @@ using System.Globalization;
 using Host;
 
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 //Logger used during bootstrap, this is replaced further down the pipeline
 const string logFormat = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";

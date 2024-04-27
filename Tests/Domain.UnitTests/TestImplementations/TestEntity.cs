@@ -20,5 +20,3 @@ public class TestEntity : EntityBase<TestEntityId>
         return Result.Success(new TestEntity(something));
     }
 }
-
-public record TestEntityId(Ulid Value) : EntityId<TestEntityId>(Value);
