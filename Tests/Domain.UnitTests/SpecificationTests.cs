@@ -15,13 +15,13 @@ public class SpecificationTests
             TestEntity.Create("2").Value,
             TestEntity.Create("3").Value
         };
-        var queryable = entities.AsQueryable();
-        var specification = new TestSpecification("1");
+        IQueryable<TestEntity> queryable = entities.AsQueryable();
+        TestSpecification specification = new("1");
 
         // Act
-        var filteredEntities = queryable.Where(specification.ToExpression());
-        var isSatisfied_true = specification.IsSatisfiedBy(entities[0]);
-        var isSatisfied_false = specification.IsSatisfiedBy(entities[1]);
+        IQueryable<TestEntity> filteredEntities = queryable.Where(specification.ToExpression());
+        bool isSatisfied_true = specification.IsSatisfiedBy(entities[0]);
+        bool isSatisfied_false = specification.IsSatisfiedBy(entities[1]);
 
         // Assert
         filteredEntities.Should().ContainSingle();
@@ -40,13 +40,13 @@ public class SpecificationTests
                 TestEntity.Create("3").Value,
                 TestEntity.Create("4").Value
         };
-        var queryable = entities.AsQueryable();
-        var notSpecification = new TestSpecification("1").Not();
+        IQueryable<TestEntity> queryable = entities.AsQueryable();
+        Abstractions.Specification.Specification<TestEntity> notSpecification = new TestSpecification("1").Not();
 
         // Act
-        var filteredEntities = queryable.Where(notSpecification.ToExpression());
-        var isSatisfied_true = notSpecification.IsSatisfiedBy(entities[1]);
-        var isSatisfied_false = notSpecification.IsSatisfiedBy(entities[0]);
+        IQueryable<TestEntity> filteredEntities = queryable.Where(notSpecification.ToExpression());
+        bool isSatisfied_true = notSpecification.IsSatisfiedBy(entities[1]);
+        bool isSatisfied_false = notSpecification.IsSatisfiedBy(entities[0]);
 
         // Assert
         filteredEntities.Should().HaveCount(3);
@@ -64,15 +64,15 @@ public class SpecificationTests
                 TestEntity.Create("2").Value,
                 TestEntity.Create("3").Value
         };
-        var queryable = entities.AsQueryable();
-        var spec1 = new TestSpecification("1");
-        var spec2 = new TestSpecification("2");
-        var orSpecification = spec1.Or(spec2);
+        IQueryable<TestEntity> queryable = entities.AsQueryable();
+        TestSpecification spec1 = new("1");
+        TestSpecification spec2 = new("2");
+        Abstractions.Specification.Specification<TestEntity> orSpecification = spec1.Or(spec2);
 
         // Act
-        var filteredEntities = queryable.Where(orSpecification.ToExpression());
-        var isSatisfied_true = orSpecification.IsSatisfiedBy(entities[0]);
-        var isSatisfied_false = orSpecification.IsSatisfiedBy(entities[2]);
+        IQueryable<TestEntity> filteredEntities = queryable.Where(orSpecification.ToExpression());
+        bool isSatisfied_true = orSpecification.IsSatisfiedBy(entities[0]);
+        bool isSatisfied_false = orSpecification.IsSatisfiedBy(entities[2]);
 
         // Assert
         filteredEntities.Should().HaveCount(2);
@@ -91,15 +91,15 @@ public class SpecificationTests
             TestEntity.Create("2 3").Value,
             TestEntity.Create("1 2 3").Value
         };
-        var queryable = entities.AsQueryable();
-        var spec1 = new TestSpecification("1");
-        var spec2 = new TestSpecification("2");
-        var andSpecification = spec1.And(spec2);
+        IQueryable<TestEntity> queryable = entities.AsQueryable();
+        TestSpecification spec1 = new("1");
+        TestSpecification spec2 = new("2");
+        Abstractions.Specification.Specification<TestEntity> andSpecification = spec1.And(spec2);
 
         // Act
-        var filteredEntities = queryable.Where(andSpecification.ToExpression());
-        var isSatisfied_true = andSpecification.IsSatisfiedBy(entities[0]);
-        var isSatisfied_false = andSpecification.IsSatisfiedBy(entities[1]);
+        IQueryable<TestEntity> filteredEntities = queryable.Where(andSpecification.ToExpression());
+        bool isSatisfied_true = andSpecification.IsSatisfiedBy(entities[0]);
+        bool isSatisfied_false = andSpecification.IsSatisfiedBy(entities[1]);
 
         // Assert
         filteredEntities.Should().HaveCount(2);

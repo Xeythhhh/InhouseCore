@@ -1,3 +1,4 @@
+using Domain.Entities.Users;
 using Domain.UnitTests.TestImplementations;
 
 using FluentAssertions;
@@ -9,7 +10,7 @@ public class EntityIdTests
     public void EntityId_ShouldImplicitlyConvertTo_Ulid()
     {
         // Arrange
-        TestEntityId testId = new(Ulid.NewUlid());
+        ApplicationUserId testId = new(Ulid.NewUlid());
 
         // Act
         Ulid converted = testId;
@@ -25,9 +26,9 @@ public class EntityIdTests
         Ulid testId = Ulid.NewUlid();
 
         // Act
-        TestEntityId converted = (TestEntityId)testId;
+        ApplicationUserId converted = (ApplicationUserId)testId;
 
         // Assert
-        converted.Should().Be(new TestEntityId(testId));
+        converted.Should().Be(new ApplicationUserId(testId));
     }
 }

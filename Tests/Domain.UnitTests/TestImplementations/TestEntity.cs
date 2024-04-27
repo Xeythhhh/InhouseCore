@@ -1,9 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
 
 using Domain.Entities;
+using Domain.Entities.Users;
 
 namespace Domain.UnitTests.TestImplementations;
-public class TestEntity : EntityBase<TestEntityId>
+public class TestEntity : EntityBase<ApplicationUserId>
 {
     public string Something { get; set; }
 
@@ -12,11 +13,7 @@ public class TestEntity : EntityBase<TestEntityId>
         Something = something;
     }
 
-    public static Result<TestEntity> Create(string something)
-    {
-        if (string.IsNullOrEmpty(something))
-            return Result.Failure<TestEntity>("This thing needs something");
-
-        return Result.Success(new TestEntity(something));
-    }
+    public static Result<TestEntity> Create(string something) => string.IsNullOrEmpty(something)
+        ? Result.Failure<TestEntity>("This thing needs something")
+        : Result.Success(new TestEntity(something));
 }
