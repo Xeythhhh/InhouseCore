@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+using Presentation;
 using Presentation.Discord;
 using Presentation.Discord.Configuration;
 
@@ -24,50 +25,9 @@ using Serilog.Sinks.SystemConsole.Themes;
 namespace Host;
 internal static class HostingExtensions
 {
-    internal static WebApplication ConfigureServices(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddSingleton<ValueConverter<ApplicationUserId, string>, ApplicationUserIdConverter>();
-
-        builder.Services.AddRazorComponents()
-            .AddInteractiveServerComponents()
-            .AddInteractiveWebAssemblyComponents();
-
-        builder.Services.AddCascadingAuthenticationState();
-        builder.Services.AddScoped<IdentityUserAccessor>();
-        builder.Services.AddScoped<IdentityRedirectManager>();
-        builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
-
-        builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            })
-        .AddIdentityCookies();
-
-        string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
-            ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
-        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddSignInManager()
-            .AddDefaultTokenProviders();
-
-        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
-        builder.Services.Configure<DiscordApplicationConfiguration>(builder.Configuration.GetSection("Discord"));
-        builder.Services.AddSingleton<DiscordBotApplication>();
-
-        return builder.Build();
-    }
-
     internal static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        using var scope = app.Services.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        dbContext.Database.Migrate();
-        dbContext.SaveChanges();
+        app.UseDatabase();
 
         if (app.Environment.IsDevelopment())
         {
@@ -93,10 +53,25 @@ internal static class HostingExtensions
 
         app.MapAdditionalIdentityEndpoints();
 
-        app.Services.GetRequiredService<DiscordBotApplication>().Connect();
-        app.Services.GetRequiredService<DiscordBotApplication>().Disconnect("Test");
+        app.UseDiscord();
 
         return app;
+    }
+
+    internal static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddRazorComponents()
+            .AddInteractiveServerComponents()
+            .AddInteractiveWebAssemblyComponents();
+
+        builder.AddIdentityServices();
+        builder.AddDatabaseServices();
+
+        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+        builder.AddDiscordBotApplication();
+
+        return builder.Build();
     }
 
     // TODO: Implement new AnsiProcessor in SharedKernel
@@ -119,4 +94,38 @@ internal static class HostingExtensions
         [ConsoleThemeStyle.LevelError] = "\x1b[31m",
         [ConsoleThemeStyle.LevelFatal] = "\x1b[37;41m"
     });
+
+    private static WebApplicationBuilder AddDatabaseServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddValueConverters();
+
+        string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
+            ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders();
+
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddIdentityServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCascadingAuthenticationState();
+        builder.Services.AddScoped<IdentityUserAccessor>();
+        builder.Services.AddScoped<IdentityRedirectManager>();
+        builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = IdentityConstants.ApplicationScheme;
+            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        })
+        .AddIdentityCookies();
+
+        return builder;
+    }
 }

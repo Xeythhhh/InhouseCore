@@ -14,4 +14,8 @@
     <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02214" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
 </Project>
