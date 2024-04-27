@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities.Users;
-public class ApplicationUser : IdentityUser<ApplicationUserId>, IEntity<ApplicationUserId>
+
+public sealed class ApplicationRole : IdentityRole<ApplicationUserId>, IEntity<ApplicationUserId>
 {
     private readonly List<DomainEvent> _domainEvents = new();
 

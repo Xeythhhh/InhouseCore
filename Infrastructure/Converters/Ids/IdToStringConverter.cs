@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Converters.Ids;
 
-public abstract class IdToStringConverter<TId>(ConverterMappingHints? mappingHints = null)
+public class IdToStringConverter<TId>(ConverterMappingHints? mappingHints = null)
     : ValueConverter<TId, string>(
         id => id.Value.ToString(),
         base32 => (TId)Ulid.Parse(base32),

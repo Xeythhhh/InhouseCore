@@ -97,7 +97,7 @@ internal static class HostingExtensions
 
     private static WebApplicationBuilder AddDatabaseServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValueConverters();
+        builder.Services.AddEntityFrameworkValueConverters();
 
         string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
             ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");

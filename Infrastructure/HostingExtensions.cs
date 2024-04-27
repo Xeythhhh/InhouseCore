@@ -1,22 +1,16 @@
-﻿using Domain.Entities.Users;
-
-using Infrastructure.Converters.Ids;
+﻿using Infrastructure.Converters.Ids;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using static System.Formats.Asn1.AsnWriter;
-
 namespace Infrastructure;
 public static class HostingExtensions
 {
-    public static IServiceCollection AddValueConverters(this IServiceCollection services)
+    public static IServiceCollection AddEntityFrameworkValueConverters(this IServiceCollection services)
     {
-        services.AddSingleton<ValueConverter<ApplicationUserId, string>, ApplicationUserIdConverter>();
-
+        services.AddSingleton<IdConverters>();
         return services;
     }
 
