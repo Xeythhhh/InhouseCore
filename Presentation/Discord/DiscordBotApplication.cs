@@ -57,7 +57,7 @@ public class DiscordBotApplication
         var channel = guild.Channels.Select(c => c.Value)
             .FirstOrDefault(c => !c.IsCategory) ?? throw DiscordConfigurationException.NoChannels();
 
-        _logger.LogDebug("Channels:{@channelCount}", guild.Channels.Count());
+        _logger.LogDebug("Channels:{@channelCount}", guild.Channels.Count);
 
         await channel.SendMessageAsync("Hello world");
     }

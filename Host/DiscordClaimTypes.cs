@@ -79,5 +79,4 @@ public static class DiscordClaimTypes
     /// <para>Scope: email</para>
     /// </summary>
     public static string Verified => "Discord:Verified";
-
 }

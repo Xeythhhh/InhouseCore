@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # InhouseCore
 .dev/
 *.Development.json
+/Tests/Domain.UnitTests/DevDriver.cs
