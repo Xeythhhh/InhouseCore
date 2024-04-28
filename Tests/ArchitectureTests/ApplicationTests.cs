@@ -8,7 +8,7 @@ namespace Tests.ArchitectureTests;
 public class ApplicationTests(ITestOutputHelper output) : ArchitectureBaseTest
 {
     [Fact]
-    public void Application_ShouldOnlyDefine_CommandsQuerriesAndHandlers()
+    public void Application_ShouldOnlyDefine_CommandsQueriesAndHandlers()
     {
         // Arrange
         PredicateList types = Types.InAssembly(Application)

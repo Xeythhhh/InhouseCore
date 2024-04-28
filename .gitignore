@@ -401,3 +401,4 @@ FodyWeavers.xsd
 .dev/
 *.Development.json
 /Tests/Domain.UnitTests/DevDriver.cs
+/Domain/Entities/Dev
