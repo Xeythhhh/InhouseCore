@@ -18,7 +18,7 @@ public class IdConverters : Dictionary<Type, ValueConverter>
             ValueConverter converter = (ValueConverter)Activator.CreateInstance(
                 typeof(IdToStringConverter<>).MakeGenericType(idType),
                 new object?[] { null })!;
-         
+
             Add(type, converter);
         }
     }
@@ -26,15 +26,16 @@ public class IdConverters : Dictionary<Type, ValueConverter>
     private static bool IsAssignableToGenericType(Type givenType, Type genericType)
     {
         foreach (var it in givenType.GetInterfaces())
+        {
             if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
                 return true;
+        }
 
         if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
             return true;
 
         Type? baseType = givenType.BaseType;
-        return baseType == null
-            ? false
-            : IsAssignableToGenericType(baseType, genericType);
+        return baseType != null
+            && IsAssignableToGenericType(baseType, genericType);
     }
 }
