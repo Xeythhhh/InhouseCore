@@ -9,6 +9,9 @@
   <ItemGroup>
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.41.0" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="IdGen" Version="3.0.5" />
+    <PackageReference Include="IdGen.Configuration" Version="3.0.5" />
+    <PackageReference Include="IdGen.DependencyInjection" Version="3.0.5" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
