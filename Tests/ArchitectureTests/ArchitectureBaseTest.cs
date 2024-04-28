@@ -53,6 +53,5 @@ public abstract class ArchitectureBaseTest
             ---------------------------------
             {string.Join("\n", testResult.SelectedTypesForTesting.Select(t => t.Name))}
             """);
-
     }
 }
