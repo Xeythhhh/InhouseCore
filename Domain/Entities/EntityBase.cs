@@ -1,8 +1,6 @@
 ﻿namespace Domain.Entities;
 
-/// <summary>
-/// Base model for entities.
-/// </summary>
+/// <summary>Base model for entities.</summary>
 public abstract class EntityBase<TEntityId> : IEntity<TEntityId>
     where TEntityId : IEntityId
 {

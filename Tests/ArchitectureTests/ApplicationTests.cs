@@ -29,8 +29,8 @@ public class ApplicationTests(ITestOutputHelper output) : ArchitectureBaseTest
             .GetResult();
 
         // Assert
-        testResult.IsSuccessful.Should().BeTrue();
         OutputTestResults(output, testResult);
+        testResult.IsSuccessful.Should().BeTrue();
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class ApplicationTests(ITestOutputHelper output) : ArchitectureBaseTest
         //    .GetResult();
 
         //// Assert
-        //testResult.IsSuccessful.Should().BeTrue();
         //OutputTestResults(output, testResult);
+        //testResult.IsSuccessful.Should().BeTrue();
     }
 }

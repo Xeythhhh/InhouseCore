@@ -23,8 +23,8 @@ public class LayerTests(ITestOutputHelper output) : ArchitectureBaseTest
             .GetResult();
 
         // Assert
-        testResult.IsSuccessful.Should().BeTrue();
         OutputTestResults(output, testResult);
+        testResult.IsSuccessful.Should().BeTrue();
     }
 
 
