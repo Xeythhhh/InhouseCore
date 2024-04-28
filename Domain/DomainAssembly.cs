@@ -4,6 +4,6 @@ namespace Domain;
 /// <summary> Class to reference the Domain <see cref="Assembly"/> </summary>
 public static class DomainAssembly
 {
-    /// <returns> A Reference to the Domain <see cref="Assembly"/> </returns>
+    /// <summary>A Reference to the Domain <see cref="Assembly"/></summary>
     public static Assembly Reference => typeof(DomainAssembly).Assembly;
 }

@@ -7,7 +7,8 @@ using NetArchTest.Rules;
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public class DomainTests(ITestOutputHelper output) : ArchitectureBaseTest
+public class DomainTests(ITestOutputHelper output)
+    : ArchitectureBaseTest
 {
     [Fact]
     public void Entities_ShouldBe_Public()

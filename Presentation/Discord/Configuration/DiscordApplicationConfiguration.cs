@@ -1,7 +1,6 @@
 ﻿using Presentation.Discord.Exceptions;
 
 namespace Presentation.Discord.Configuration;
-
 public class DiscordApplicationConfiguration
 {
     public ulong DebugGuildId { get; set; }

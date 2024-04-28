@@ -4,6 +4,6 @@ namespace Presentation;
 /// <summary> Class to reference the Presentation <see cref="Assembly"/> </summary>
 public static class PresentationAssembly
 {
-    /// <returns> A Reference to the Presentation <see cref="Assembly"/> </returns>
+    /// <summary> A Reference to the Presentation <see cref="Assembly"/> </summary>
     public static Assembly Reference => typeof(PresentationAssembly).Assembly;
 }

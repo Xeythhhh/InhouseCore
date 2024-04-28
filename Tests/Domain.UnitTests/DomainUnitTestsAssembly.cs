@@ -4,6 +4,6 @@ namespace Domain.UnitTests;
 /// <summary> Class to reference the Domain.UnitTests <see cref="Assembly"/> </summary>
 public static class DomainUnitTestsAssembly
 {
-    /// <returns> A Reference to the Domain.UnitTests <see cref="Assembly"/> </returns>
+    /// <summary> A Reference to the Domain.UnitTests <see cref="Assembly"/> </summary>
     public static Assembly Reference => typeof(DomainUnitTestsAssembly).Assembly;
 }

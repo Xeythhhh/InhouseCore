@@ -7,7 +7,8 @@ using NetArchTest.Rules;
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public class LayerTests(ITestOutputHelper output) : ArchitectureBaseTest
+public class LayerTests(ITestOutputHelper output)
+    : ArchitectureBaseTest
 {
     [Theory]
     [ClassData(typeof(Architecture))]
@@ -26,7 +27,6 @@ public class LayerTests(ITestOutputHelper output) : ArchitectureBaseTest
         OutputTestResults(output, testResult);
         testResult.IsSuccessful.Should().BeTrue();
     }
-
 
     public class Architecture : IEnumerable<object[]>
     {

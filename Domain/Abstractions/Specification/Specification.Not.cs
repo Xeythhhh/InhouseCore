@@ -3,7 +3,6 @@
 namespace Domain.Abstractions.Specification;
 internal sealed class NotSpecification<T>(Specification<T> specification)
     : Specification<T>
-    where T : class
 {
     public override Expression<Func<T, bool>> ToExpression()
     {

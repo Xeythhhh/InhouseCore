@@ -3,7 +3,6 @@
 namespace Domain.Abstractions.Specification;
 internal sealed class AndSpecification<T>(Specification<T> left, Specification<T> right)
     : Specification<T>
-    where T : class
 {
     public override Expression<Func<T, bool>> ToExpression()
     {

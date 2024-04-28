@@ -4,7 +4,8 @@ using Domain.Entities;
 using Domain.Entities.Users;
 
 namespace Domain.UnitTests.TestImplementations;
-public class TestEntity : EntityBase<ApplicationUserId>
+public class TestEntity
+    : EntityBase<ApplicationUserId>
 {
     public string Something { get; set; }
 

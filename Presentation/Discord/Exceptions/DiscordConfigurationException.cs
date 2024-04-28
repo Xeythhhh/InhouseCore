@@ -1,6 +1,7 @@
 ﻿namespace Presentation.Discord.Exceptions;
 
-internal class DiscordConfigurationException : Exception
+internal class DiscordConfigurationException
+    : Exception
 {
     public DiscordConfigurationException() { }
     public DiscordConfigurationException(string? message) : base(message) { }

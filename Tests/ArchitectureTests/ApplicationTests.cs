@@ -5,7 +5,8 @@ using NetArchTest.Rules;
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public class ApplicationTests(ITestOutputHelper output) : ArchitectureBaseTest
+public class ApplicationTests(ITestOutputHelper output)
+    : ArchitectureBaseTest
 {
     [Fact]
     public void Application_ShouldOnlyDefine_CommandsQueriesAndHandlers()
@@ -36,7 +37,9 @@ public class ApplicationTests(ITestOutputHelper output) : ArchitectureBaseTest
     [Fact]
     public void Handlers_Should_BeSealed()
     {
+#pragma warning disable IDE0022 // Use expression body for method
         throw new NotImplementedException();
+#pragma warning restore IDE0022 // Use expression body for method
 
         //// Arrange
         //var types = Types.InAssembly(Application)

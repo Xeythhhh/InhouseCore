@@ -15,7 +15,9 @@ public class DiscordBotApplication
 {
     private readonly DiscordApplicationConfiguration _configuration;
     private readonly ILogger<DiscordBotApplication> _logger;
+#pragma warning disable IDE0052 // Remove unread private members
     private readonly IServiceProvider _services;
+#pragma warning restore IDE0052 // Remove unread private members
 
     public DiscordClient DiscordClient { get; init; }
     public CommandsExtension CommandsExtension { get; init; }

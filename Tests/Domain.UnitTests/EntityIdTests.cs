@@ -1,29 +1,32 @@
 using Domain.Entities.Users;
-using Domain.UnitTests.TestImplementations;
 
 using FluentAssertions;
+
+using IdGen;
 
 namespace Domain.UnitTests;
 public class EntityIdTests
 {
     [Fact]
-    public void EntityId_ShouldImplicitlyConvertTo_Ulid()
+    public void EntityId_ShouldImplicitlyConvertTo_Int64()
     {
         // Arrange
-        ApplicationUserId testId = new(Ulid.NewUlid());
+        IdGenerator idGenerator = new(69);
+        ApplicationUserId testId = new(idGenerator.CreateId());
 
         // Act
-        Ulid converted = testId;
+        long converted = testId;
 
         // Assert
         converted.Should().Be(testId.Value);
     }
 
     [Fact]
-    public void Ulid_ShouldExplicitlyConvertTo_EntityId()
+    public void Int64_ShouldExplicitlyConvertTo_EntityId()
     {
         // Arrange
-        Ulid testId = Ulid.NewUlid();
+        IdGenerator idGenerator = new(69);
+        long testId = idGenerator.CreateId();
 
         // Act
         ApplicationUserId converted = (ApplicationUserId)testId;

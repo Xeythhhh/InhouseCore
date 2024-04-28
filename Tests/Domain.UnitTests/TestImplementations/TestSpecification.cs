@@ -3,10 +3,8 @@
 using Domain.Abstractions.Specification;
 
 namespace Domain.UnitTests.TestImplementations;
-public sealed class TestSpecification(string testValue) : Specification<TestEntity>
+public sealed class TestSpecification(string testValue)
+    : Specification<TestEntity>
 {
-    public override Expression<Func<TestEntity, bool>> ToExpression()
-    {
-        return entity => entity.Something.Contains(testValue);
-    }
+    public override Expression<Func<TestEntity, bool>> ToExpression() => entity => entity.Something.Contains(testValue);
 }
