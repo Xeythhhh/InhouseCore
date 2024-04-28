@@ -10,22 +10,21 @@ namespace Infrastructure.Identifiers;
 internal sealed class IdValueGenerator
     : ValueGenerator<long>
 {
-    internal static Result RegisterGenerator(IdValueGeneratorOptions options)
+    internal static Result Register(int id)
     {
-        if (options is null)
-            return Result.Failure("IdValueGenerator configuration not found");
+        if (_generator is not null) return Result.Failure("IdValueGenerator already registered");
 
-        _generatorId = options.GeneratorId;
+        _generator = new IdGenerator(id);
         return Result.Success();
     }
 
-    private IdValueGenerator() { }
+    internal IdValueGenerator() { }
 
-    private static int? _generatorId;
+    private static IdGenerator? _generator;
 
     public override bool GeneratesTemporaryValues => false;
 
-    public override long Next(EntityEntry entry) => _generatorId is null
+    public override long Next(EntityEntry entry) => _generator is null
         ? throw new InvalidOperationException("The Value Generator must be initialized first")
-        : new IdGenerator(_generatorId.Value).CreateId();
+        : _generator.CreateId();
 }

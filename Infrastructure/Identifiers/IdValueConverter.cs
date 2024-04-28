@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Identifiers;
-public class IdToLongConverter<TId, TEntity>(ConverterMappingHints? mappingHints = null)
+internal sealed class IdValueConverter<TId, TEntity>(ConverterMappingHints? mappingHints = null)
     : ValueConverter<TId, long>(
         id => id.Value,
         base32 => (TId)base32,

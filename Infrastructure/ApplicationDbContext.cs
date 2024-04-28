@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IdConverters idConverters)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<ApplicationUser, ApplicationRole, ApplicationUserId>(options)
 {
     protected override void OnModelCreating(ModelBuilder builder)
@@ -18,12 +18,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<ApplicationRole>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd()
-            .HasConversion(idConverters[typeof(ApplicationUser)])
+            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)])
             .HasValueGenerator<IdValueGenerator>();
 
         builder.Entity<ApplicationUser>()
             .Property(e => e.Id)
-            .HasConversion(idConverters[typeof(ApplicationUser)]);
+            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)]);
 
         base.OnModelCreating(builder);
     }
