@@ -2,7 +2,10 @@
 
 namespace Domain.Entities.Users;
 
-public sealed class ApplicationRole : IdentityRole<ApplicationUserId>, IEntity<ApplicationUserId>
+// Used ApplicationUserId as a strongly-typed id due to identity limitations :/
+// Might implement own IdentityDbContext
+public sealed class ApplicationRole
+    : IdentityRole<ApplicationUserId>, IEntity<ApplicationUserId>
 {
     private readonly List<DomainEvent> _domainEvents = new();
 

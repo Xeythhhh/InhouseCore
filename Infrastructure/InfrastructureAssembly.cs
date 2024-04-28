@@ -4,6 +4,6 @@ namespace Infrastructure;
 /// <summary> Class to reference the Infrastructure <see cref="Assembly"/> </summary>
 public static class InfrastructureAssembly
 {
-    /// <returns> A Reference to the Infrastructure <see cref="Assembly"/> </returns>
+    /// <summary> A Reference to the Infrastructure <see cref="Assembly"/> </summary>
     public static Assembly Reference => typeof(InfrastructureAssembly).Assembly;
 }

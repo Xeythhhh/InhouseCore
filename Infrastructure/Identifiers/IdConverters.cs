@@ -3,9 +3,10 @@ using Domain.Entities;
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Converters.Ids;
+namespace Infrastructure.Identifiers;
 
-public class IdConverters : Dictionary<Type, ValueConverter>
+public class IdConverters
+    : Dictionary<Type, ValueConverter>
 {
     public IdConverters()
     {
@@ -17,7 +18,7 @@ public class IdConverters : Dictionary<Type, ValueConverter>
         {
             var idType = type.GetProperty("Id")!.PropertyType;
             ValueConverter converter = (ValueConverter)Activator.CreateInstance(
-                typeof(IdToStringConverter<,>).MakeGenericType(idType, type),
+                typeof(IdToLongConverter<,>).MakeGenericType(idType, type),
                 new object?[] { null })!;
 
             Add(type, converter);

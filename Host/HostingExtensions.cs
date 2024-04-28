@@ -1,23 +1,16 @@
 ﻿using Domain.Entities.Users;
 
-using FluentAssertions.Common;
-
 using Host.Client;
 using Host.Components;
 using Host.Components.Account;
 
 using Infrastructure;
-using Infrastructure.Converters;
-using Infrastructure.Converters.Ids;
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 using Presentation;
-using Presentation.Discord;
-using Presentation.Discord.Configuration;
 
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -97,7 +90,7 @@ internal static class HostingExtensions
 
     private static WebApplicationBuilder AddDatabaseServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddEntityFrameworkValueConverters();
+        builder.AddEntityFrameworkServices();
 
         string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
             ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");

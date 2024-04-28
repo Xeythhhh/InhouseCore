@@ -1,5 +1,4 @@
 ﻿namespace Domain.Entities;
-
 public interface IEntity<TEntityId>
     where TEntityId : IEntityId
 {

@@ -2,12 +2,11 @@
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Converters.Ids;
-
-public class IdToStringConverter<TId, TEntity>(ConverterMappingHints? mappingHints = null)
-    : ValueConverter<TId, string>(
-        id => id.Value.ToString(),
-        base32 => (TId)Ulid.Parse(base32),
+namespace Infrastructure.Identifiers;
+public class IdToLongConverter<TId, TEntity>(ConverterMappingHints? mappingHints = null)
+    : ValueConverter<TId, long>(
+        id => id.Value,
+        base32 => (TId)base32,
         DefaultHints.With(mappingHints))
     where TId : EntityId<TId>
     where TEntity : IEntity<TId>

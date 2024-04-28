@@ -1,7 +1,8 @@
 ﻿namespace Domain.Entities;
 
 /// <summary>Base model for entities.</summary>
-public abstract class EntityBase<TEntityId> : IEntity<TEntityId>
+public abstract class EntityBase<TEntityId>
+    : IEntity<TEntityId>
     where TEntityId : IEntityId
 {
     protected readonly List<DomainEvent> _domainEvents = new();
