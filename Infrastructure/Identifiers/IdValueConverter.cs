@@ -8,7 +8,7 @@ internal sealed class IdValueConverter<TId, TEntity>(ConverterMappingHints? mapp
         id => id.Value,
         base32 => (TId)base32,
         DefaultHints.With(mappingHints))
-    where TId : EntityId<TId>
+    where TId : EntityId<TEntity>
     where TEntity : IEntity<TId>
 {
     static readonly ConverterMappingHints DefaultHints = new(26);

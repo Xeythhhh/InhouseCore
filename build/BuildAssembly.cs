@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Build.UnitTests")]
 namespace Build;
 /// <summary> Class to reference the Build <see cref="Assembly"/> </summary>
 public static class BuildAssembly

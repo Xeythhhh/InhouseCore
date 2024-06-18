@@ -6,5 +6,6 @@ namespace Domain.UnitTests.TestImplementations;
 public sealed class TestSpecification(string testValue)
     : Specification<TestEntity>
 {
-    public override Expression<Func<TestEntity, bool>> ToExpression() => entity => entity.Something.Contains(testValue);
+    public override Expression<Func<TestEntity, bool>> ToExpression() => entity =>
+        !string.IsNullOrEmpty(entity.Something) && entity.Something.Contains(testValue);
 }

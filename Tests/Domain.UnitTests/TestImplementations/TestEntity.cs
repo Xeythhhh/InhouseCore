@@ -4,17 +4,21 @@ using Domain.Entities;
 using Domain.Entities.Users;
 
 namespace Domain.UnitTests.TestImplementations;
-public class TestEntity
-    : EntityBase<ApplicationUserId>
+public sealed record TestEntityId(long Value) : EntityId<TestEntity>(Value);
+public sealed class TestEntity
+    : EntityBase<TestEntityId>
 {
-    public string Something { get; set; }
+    public string? Something { get; set; }
 
-    protected TestEntity(string something)
+    private TestEntity() { }
+    private TestEntity(string something)
     {
         Something = something;
     }
 
-    public static Result<TestEntity> Create(string something) => string.IsNullOrEmpty(something)
+    public static Result<TestEntity> Create() => Result.Success(new TestEntity());
+
+    public static Result<TestEntity> CreateWithValue(string something) => string.IsNullOrEmpty(something)
         ? Result.Failure<TestEntity>("This thing needs something")
         : Result.Success(new TestEntity(something));
 }

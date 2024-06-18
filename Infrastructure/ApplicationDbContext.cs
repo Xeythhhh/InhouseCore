@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<ApplicationUser, ApplicationRole, ApplicationUserId>(options)
+    : IdentityDbContext<ApplicationUser, ApplicationRole, AspNetIdentityId>(options)
 {
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -18,12 +18,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<ApplicationRole>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd()
-            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)])
+            .HasConversion(Id.ValueConverters[typeof(ApplicationRole)])
             .HasValueGenerator<IdValueGenerator>();
 
         builder.Entity<ApplicationUser>()
             .Property(e => e.Id)
-            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)]);
+            .ValueGeneratedOnAdd()
+            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)])
+            .HasValueGenerator<IdValueGenerator>();
 
         base.OnModelCreating(builder);
     }

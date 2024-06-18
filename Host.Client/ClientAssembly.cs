@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Host.Client.UnitTests")]
 namespace Host.Client;
 /// <summary> Class to reference the Client <see cref="Assembly"/> </summary>
 public static class ClientAssembly

@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Entities;
+using Domain.Entities.Users;
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -14,23 +15,27 @@ internal static class Id
         var entityTypes = DomainAssembly.Reference.GetTypes()
             .Where(t => !t.IsAbstract && IsAssignableToGenericType(t, typeof(IEntity<>)));
 
+        // ApplicationRole invariance due to Identity Implementation :/
+        entityTypes = entityTypes.Where(t => t != typeof(ApplicationRole));
+        ValueConverters.Add(typeof(ApplicationRole),
+            new IdValueConverter<AspNetIdentityId, ApplicationUser>());
+
         foreach (var type in entityTypes)
             ValueConverters.Add(type, CreateConverter(type));
     }
 
     internal static void RegisterGenerator(int generatorId)
     {
-        var result = IdValueGenerator.Register(generatorId);
-        if (result.IsFailure) throw new InvalidOperationException(result.Error);
+        var result = IdValueGenerator.Create(generatorId);
+        if (result.IsFailure) throw new InvalidOperationException(result.Error); //TODO
     }
 
     private static ValueConverter CreateConverter(Type type)
     {
         var idType = type.GetProperty("Id")!.PropertyType;
-        ValueConverter converter = (ValueConverter)Activator.CreateInstance(
+        return (ValueConverter)Activator.CreateInstance(
             typeof(IdValueConverter<,>).MakeGenericType(idType, type),
             new object?[] { null })!;
-        return converter;
     }
 
     private static bool IsAssignableToGenericType(Type givenType, Type genericType)

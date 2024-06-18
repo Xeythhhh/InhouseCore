@@ -1,8 +1,9 @@
-﻿using Domain.UnitTests.TestImplementations;
+﻿using Domain.Abstractions.Specification;
+using Domain.UnitTests.TestImplementations;
 
 using FluentAssertions;
 
-namespace Domain.UnitTests;
+namespace Domain.UnitTests.Abstractions;
 public class SpecificationTests
 {
     [Fact]
@@ -11,9 +12,9 @@ public class SpecificationTests
         // Arrange
         TestEntity[] entities = new[]
         {
-            TestEntity.Create("1").Value,
-            TestEntity.Create("2").Value,
-            TestEntity.Create("3").Value
+            TestEntity.CreateWithValue("1").Value,
+            TestEntity.CreateWithValue("2").Value,
+            TestEntity.CreateWithValue("3").Value
         };
         IQueryable<TestEntity> queryable = entities.AsQueryable();
         TestSpecification specification = new("1");
@@ -35,13 +36,13 @@ public class SpecificationTests
         // Arrange
         TestEntity[] entities = new[]
         {
-                TestEntity.Create("1").Value,
-                TestEntity.Create("2").Value,
-                TestEntity.Create("3").Value,
-                TestEntity.Create("4").Value
+                TestEntity.CreateWithValue("1").Value,
+                TestEntity.CreateWithValue("2").Value,
+                TestEntity.CreateWithValue("3").Value,
+                TestEntity.CreateWithValue("4").Value
         };
         IQueryable<TestEntity> queryable = entities.AsQueryable();
-        Abstractions.Specification.Specification<TestEntity> notSpecification = new TestSpecification("1").Not();
+        Specification<TestEntity> notSpecification = new TestSpecification("1").Not();
 
         // Act
         IQueryable<TestEntity> filteredEntities = queryable.Where(notSpecification.ToExpression());
@@ -60,14 +61,14 @@ public class SpecificationTests
         // Arrange
         TestEntity[] entities = new[]
         {
-                TestEntity.Create("1").Value,
-                TestEntity.Create("2").Value,
-                TestEntity.Create("3").Value
+                TestEntity.CreateWithValue("1").Value,
+                TestEntity.CreateWithValue("2").Value,
+                TestEntity.CreateWithValue("3").Value
         };
         IQueryable<TestEntity> queryable = entities.AsQueryable();
         TestSpecification spec1 = new("1");
         TestSpecification spec2 = new("2");
-        Abstractions.Specification.Specification<TestEntity> orSpecification = spec1.Or(spec2);
+        Specification<TestEntity> orSpecification = spec1.Or(spec2);
 
         // Act
         IQueryable<TestEntity> filteredEntities = queryable.Where(orSpecification.ToExpression());
@@ -86,15 +87,15 @@ public class SpecificationTests
         // Arrange
         TestEntity[] entities = new[]
         {
-            TestEntity.Create("1 2").Value,
-            TestEntity.Create("1 3").Value,
-            TestEntity.Create("2 3").Value,
-            TestEntity.Create("1 2 3").Value
+            TestEntity.CreateWithValue("1 2").Value,
+            TestEntity.CreateWithValue("1 3").Value,
+            TestEntity.CreateWithValue("2 3").Value,
+            TestEntity.CreateWithValue("1 2 3").Value
         };
         IQueryable<TestEntity> queryable = entities.AsQueryable();
         TestSpecification spec1 = new("1");
         TestSpecification spec2 = new("2");
-        Abstractions.Specification.Specification<TestEntity> andSpecification = spec1.And(spec2);
+        Specification<TestEntity> andSpecification = spec1.And(spec2);
 
         // Act
         IQueryable<TestEntity> filteredEntities = queryable.Where(andSpecification.ToExpression());

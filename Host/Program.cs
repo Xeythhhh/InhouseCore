@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 
 using Host;
@@ -7,10 +8,11 @@ using Serilog;
 //Logger used during bootstrap, this is replaced further down the pipeline
 const string logFormat = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
 Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
     .WriteTo.Console(
         outputTemplate: logFormat,
         formatProvider: CultureInfo.InvariantCulture,
-        theme: HostingExtensions.GetConsoleTheme())
+        theme: HostAssembly.GetConsoleTheme())
     .CreateBootstrapLogger();
 
 Log.Information("Starting up...");
@@ -24,7 +26,7 @@ try
         .WriteTo.Console(
                 outputTemplate: logFormat,
                 formatProvider: CultureInfo.InvariantCulture,
-                theme: HostingExtensions.GetConsoleTheme())
+                theme: HostAssembly.GetConsoleTheme())
         .Enrich.FromLogContext());
 
     var app = builder
