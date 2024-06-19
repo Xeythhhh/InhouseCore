@@ -1,6 +1,5 @@
-﻿using CSharpFunctionalExtensions;
-
-using Domain.Primitives;
+﻿using Domain.Primitives;
+using Domain.Primitives.Result;
 
 using FluentValidation;
 using FluentValidation.Results;
@@ -8,12 +7,12 @@ using FluentValidation.Results;
 namespace Domain.Entities;
 
 /// <summary>Strongly-typed Id for <see cref="Champion"/>.</summary>
-public sealed record ChampionId(long Value)
-    : EntityId<Champion>(Value);
+public sealed record ChampionId(long Value) :
+    EntityId<Champion>(Value);
 
 /// <summary>Represents a champion entity.</summary>
-public sealed class Champion
-    : EntityBase<ChampionId>
+public sealed class Champion :
+    EntityBase<ChampionId>
 {
     /// <summary>Gets or sets the name of the champion.</summary>
     public string Name { get; set; } = string.Empty;
@@ -42,8 +41,9 @@ public sealed class Champion
         ValidationResult validationResult = Validator.Instance.Validate(instance);
         return validationResult.IsValid
             ? Result.Success(instance)
-            : Result.Failure<Champion>(string.Join(", ",
-                validationResult.Errors.Select(e => e.ErrorMessage)));
+            : Result.Failure<Champion>(
+                new Error("Validation", string.Join(", ",
+                    validationResult.Errors.Select(e => e.ErrorMessage))));
     }
 
     /// <summary>Enumeration of possible champion classes.</summary>

@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-using Domain.Entities;
+﻿using Domain.Entities;
 
 using FluentAssertions;
 

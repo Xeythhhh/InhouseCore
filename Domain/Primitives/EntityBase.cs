@@ -2,7 +2,7 @@
 
 namespace Domain.Primitives;
 
-/// <summary>Base model for entities, providing core functionality such as domain event handling and timestamp management.</summary>
+/// <summary>Base model for entities</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
 public abstract class EntityBase<TEntityId> :
     IEntity<TEntityId>,
@@ -10,9 +10,6 @@ public abstract class EntityBase<TEntityId> :
     where TEntityId :
         IEntityId
 {
-    /// <summary>A list of domain events associated with the entity./// </summary>
-    protected readonly List<DomainEvent> _domainEvents = new();
-
     /// <summary>Gets the unique identifier for the entity.</summary>
     public TEntityId Id { get; protected set; }
     /// <summary>Gets the timestamp of when the entity was created.</summary>
@@ -24,20 +21,6 @@ public abstract class EntityBase<TEntityId> :
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
     protected EntityBase() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
-    /// <summary>Gets the domain events associated with the entity.</summary>
-    /// <returns>A collection of domain events.</returns>
-    public virtual IEnumerable<DomainEvent> GetDomainEvents() =>
-        _domainEvents.ToList();
-
-    /// <summary>Clears the domain events associated with the entity.</summary>
-    public virtual void ClearDomainEvents() =>
-        _domainEvents.Clear();
-
-    /// <summary>Raises a new domain event.</summary>
-    /// <param name="domainEvent">The domain event to raise.</param>
-    public virtual void RaiseEvent(DomainEvent domainEvent) =>
-        _domainEvents.Add(domainEvent);
 
     public override bool Equals(object? obj) =>
         obj is not null &&
@@ -59,7 +42,7 @@ public abstract class EntityBase<TEntityId> :
         !(first == second);
 
     public override int GetHashCode() =>
-        Id.GetHashCode();
+        Id.GetHashCode() * 41;
 }
 
 /// <summary>Base type for entity identifiers, providing implicit and explicit conversions to and from long.</summary>
@@ -97,15 +80,6 @@ public interface IEntity<TEntityId>
     public DateTime CreatedAt { get; init; }
     /// <summary>Gets or sets the timestamp of when the entity was last updated.</summary>
     public DateTime LastUpdatedAt { get; set; }
-
-    /// <summary>Gets the domain events associated with the entity.</summary>
-    /// <returns>A collection of domain events.</returns>
-    public IEnumerable<DomainEvent> GetDomainEvents();
-    /// <summary>Clears the domain events associated with the entity.</summary>
-    public void ClearDomainEvents();
-    /// <summary>Raises a new domain event.</summary>
-    /// <param name="domainEvent">The domain event to raise.</param>
-    public void RaiseEvent(DomainEvent domainEvent);
 }
 
 /// <summary>Interface for defining a strongly-typed entity identifier.</summary>
@@ -113,10 +87,4 @@ public interface IEntityId
 {
     /// <summary>Gets the value of the entity identifier.</summary>
     public long Value { get; init; }
-}
-
-// TODO ignore xml for now
-public class DomainEvent
-{
-    //todo
 }

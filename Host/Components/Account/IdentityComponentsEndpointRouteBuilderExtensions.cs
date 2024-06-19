@@ -88,7 +88,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             downloadLogger.LogInformation("User with ID '{UserId}' asked for their personal data.", userId);
 
             // Only include personal data for download
-            Dictionary<string, string> personalData = new Dictionary<string, string>();
+            Dictionary<string, string> personalData = new();
             IEnumerable<System.Reflection.PropertyInfo> personalDataProps = typeof(ApplicationUser).GetProperties().Where(
                 prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
             foreach (System.Reflection.PropertyInfo? p in personalDataProps)

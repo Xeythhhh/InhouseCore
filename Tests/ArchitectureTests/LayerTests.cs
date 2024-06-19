@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Reflection;
 
-using Microsoft.CodeAnalysis;
 using FluentAssertions;
+
 using NetArchTest.Rules;
+
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;

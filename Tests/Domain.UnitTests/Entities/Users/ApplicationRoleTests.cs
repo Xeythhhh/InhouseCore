@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-using Domain.Entities.Users;
+﻿using Domain.Entities.Users;
 
 using FluentAssertions;
 

@@ -1,5 +1,4 @@
-﻿using Domain.Primitives;
-using Domain.UnitTests.TestImplementations;
+﻿using Domain.UnitTests.TestImplementations;
 
 using FluentAssertions;
 

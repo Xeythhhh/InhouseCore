@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-using FluentAssertions;
+﻿using FluentAssertions;
 
 using Infrastructure.Identifiers;
 

@@ -1,7 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-using Domain.Entities.Users;
-using Domain.Primitives;
+﻿using Domain.Primitives;
 
 namespace Domain.UnitTests.TestImplementations;
 
