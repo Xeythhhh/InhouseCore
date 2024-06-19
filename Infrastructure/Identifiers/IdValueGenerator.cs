@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace Infrastructure.Identifiers;
 
-internal sealed class IdValueGenerator
-    : ValueGenerator<long>
+internal sealed class IdValueGenerator :
+    ValueGenerator<long>
 {
     private static IdGenerator? _generator;
 

@@ -4,9 +4,12 @@ using Domain.Entities;
 using Domain.Entities.Users;
 
 namespace Domain.UnitTests.TestImplementations;
-public sealed record TestEntityId(long Value) : EntityId<TestEntity>(Value);
-public sealed class TestEntity
-    : EntityBase<TestEntityId>
+
+public sealed record TestEntityId(long Value) :
+    EntityId<TestEntity>(Value);
+
+public sealed class TestEntity :
+    EntityBase<TestEntityId>
 {
     public string? Something { get; set; }
 

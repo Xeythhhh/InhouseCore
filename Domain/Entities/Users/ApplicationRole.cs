@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities.Users;
 
-public sealed class ApplicationRole
-    : IdentityRole<AspNetIdentityId>, IEntity<AspNetIdentityId>
+public sealed class ApplicationRole :
+    IdentityRole<AspNetIdentityId>,
+    IEntity<AspNetIdentityId>
 {
     private readonly List<DomainEvent> _domainEvents = new();
 

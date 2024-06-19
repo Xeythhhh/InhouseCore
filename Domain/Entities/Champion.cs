@@ -6,17 +6,17 @@ using FluentValidation.Results;
 namespace Domain.Entities;
 
 /// <summary>Strongly-typed Id for <see cref="Champion"/>.</summary>
-public sealed record ChampionId(long Value) : EntityId<Champion>(Value);
+public sealed record ChampionId(long Value)
+    : EntityId<Champion>(Value);
 
 /// <summary>Represents a champion entity.</summary>
-public sealed class Champion : EntityBase<ChampionId>
+public sealed class Champion
+    : EntityBase<ChampionId>
 {
     /// <summary>Gets or sets the name of the champion.</summary>
     public string Name { get; set; } = string.Empty;
-
     /// <summary>Gets the class of the champion.</summary>
     public Classes Class { get; init; }
-
     /// <summary>Gets the role of the champion.</summary>
     public Roles Role { get; init; }
 
@@ -59,7 +59,8 @@ public sealed class Champion : EntityBase<ChampionId>
     }
 
     /// <summary>Validator for <see cref="Champion"/> instances.</summary>
-    private sealed class Validator : AbstractValidator<Champion>
+    private sealed class Validator
+        : AbstractValidator<Champion>
     {
         /// <summary>Gets a singleton instance of the <see cref="Validator"/> class.</summary>
         public static Validator Instance { get; } = new();

@@ -7,8 +7,8 @@ using NetArchTest.Rules;
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public class ApplicationTests(ITestOutputHelper output)
-    : ArchitectureBaseTest
+public class ApplicationTests(ITestOutputHelper output) :
+    ArchitectureBaseTest
 {
     [Fact]
     public void Application_ShouldOnlyDefine_CommandsQueriesAndHandlers()

@@ -4,9 +4,11 @@ namespace Domain.Entities;
 
 /// <summary>Base model for entities, providing core functionality such as domain event handling and timestamp management.</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
-public abstract class EntityBase<TEntityId>
-    : IEntity<TEntityId>, IEquatable<EntityBase<TEntityId>>
-    where TEntityId : IEntityId
+public abstract class EntityBase<TEntityId> :
+    IEntity<TEntityId>,
+    IEquatable<EntityBase<TEntityId>>
+    where TEntityId :
+        IEntityId
 {
     /// <summary>A list of domain events associated with the entity./// </summary>
     protected readonly List<DomainEvent> _domainEvents = new();
@@ -62,8 +64,8 @@ public abstract class EntityBase<TEntityId>
 
 /// <summary>Base type for entity identifiers, providing implicit and explicit conversions to and from long.</summary>
 /// <typeparam name="TEntity">The entity type associated with this identifier.</typeparam>
-public abstract record EntityId<TEntity>(long Value = default)
-    : IEntityId
+public abstract record EntityId<TEntity>(long Value = default) :
+    IEntityId
 {
     /// <summary>Implicitly converts an <see cref="EntityId{TEntity}"/> to a long.</summary>
     /// <param name="id">The entity identifier to convert.</param>
@@ -86,7 +88,8 @@ public abstract record EntityId<TEntity>(long Value = default)
 /// <summary>Interface representing an entity with a strongly-typed identifier, creation and update timestamps and domain event handling capabilities.</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
 public interface IEntity<TEntityId>
-    where TEntityId : IEntityId
+    where TEntityId :
+        IEntityId
 {
     /// <summary>Gets the unique identifier for the entity.</summary>
     public TEntityId Id { get; }
