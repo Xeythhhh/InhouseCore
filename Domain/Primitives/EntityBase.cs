@@ -5,7 +5,7 @@ namespace Domain.Entities;
 /// <summary>Base model for entities, providing core functionality such as domain event handling and timestamp management.</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
 public abstract class EntityBase<TEntityId>
-    : IEntity<TEntityId>
+    : IEntity<TEntityId>, IEquatable<EntityBase<TEntityId>>
     where TEntityId : IEntityId
 {
     /// <summary>A list of domain events associated with the entity./// </summary>
@@ -25,12 +25,39 @@ public abstract class EntityBase<TEntityId>
 
     /// <summary>Gets the domain events associated with the entity.</summary>
     /// <returns>A collection of domain events.</returns>
-    public virtual IEnumerable<DomainEvent> GetDomainEvents() => _domainEvents.ToList();
+    public virtual IEnumerable<DomainEvent> GetDomainEvents() =>
+        _domainEvents.ToList();
+
     /// <summary>Clears the domain events associated with the entity.</summary>
-    public virtual void ClearDomainEvents() => _domainEvents.Clear();
+    public virtual void ClearDomainEvents() =>
+        _domainEvents.Clear();
+
     /// <summary>Raises a new domain event.</summary>
     /// <param name="domainEvent">The domain event to raise.</param>
-    public virtual void RaiseEvent(DomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+    public virtual void RaiseEvent(DomainEvent domainEvent) =>
+        _domainEvents.Add(domainEvent);
+
+    public override bool Equals(object? obj) =>
+        obj is not null &&
+        obj.GetType() == GetType() &&
+        obj is EntityBase<TEntityId> entity &&
+        entity.Id.Value == Id.Value;
+
+    public bool Equals(EntityBase<TEntityId>? other) =>
+        other is not null &&
+        other.GetType() == GetType() &&
+        other.Id.Value == Id.Value;
+
+    public static bool operator ==(EntityBase<TEntityId>? first, EntityBase<TEntityId>? second) =>
+        first is not null &&
+        second is not null &&
+        first.Equals(second);
+
+    public static bool operator !=(EntityBase<TEntityId>? first, EntityBase<TEntityId>? second) =>
+        !(first == second);
+
+    public override int GetHashCode() =>
+        Id.GetHashCode();
 }
 
 /// <summary>Base type for entity identifiers, providing implicit and explicit conversions to and from long.</summary>
@@ -85,6 +112,7 @@ public interface IEntityId
     public long Value { get; init; }
 }
 
+// TODO ignore xml for now
 public class DomainEvent
 {
     //todo
