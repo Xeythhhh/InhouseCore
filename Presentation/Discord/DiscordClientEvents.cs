@@ -11,29 +11,14 @@ public static class DiscordClientEvents
     {
         DiscordGuild guild = args.Guilds.Select(g => g.Value)
             .FirstOrDefault()
-                ?? throw DiscordConfigurationException.NoGuilds();
+                ?? throw new NoDiscordGuildsException();
 
         DiscordChannel channel = guild.Channels.Select(c => c.Value)
             .FirstOrDefault(c => !c.IsCategory)
-                ?? throw DiscordConfigurationException.NoChannels();
+                ?? throw new NoDiscordChannelsException();
 
         channel.SendMessageAsync("123");
 
         return Task.CompletedTask;
     }
-
-    //todo
-    //public static DiscordClient DiscordClient { get; set; }
-
-    //public static Task Connect()
-    //{
-    //    _logger.LogInformation("Discord Client Connecting to Gateway");
-    //    return DiscordClient.ConnectAsync();
-    //}
-
-    //public static Task Disconnect(string reason, string disconnectedBy = "Host")
-    //{
-    //    _logger.LogDisconnect(reason, disconnectedBy);
-    //    return DiscordClient.DisconnectAsync();
-    //}
 }

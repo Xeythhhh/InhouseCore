@@ -23,14 +23,12 @@ public static class PresentationAssembly
     /// <summary> A Reference to the Presentation <see cref="Assembly"/> </summary>
     public static Assembly Reference => typeof(PresentationAssembly).Assembly;
 
-    /// <summary>
-    /// Adds Discord application services to the <see cref="IHostApplicationBuilder"/>.
-    /// </summary>
+    /// <summary>Adds Discord application services to the <see cref="IHostApplicationBuilder"/></summary>
     /// <param name="builder">The <see cref="IHostApplicationBuilder"/> to add services to.</param>
     /// <returns>The <see cref="IHostApplicationBuilder"/>  for chained invocation.</returns>
     public static IHostApplicationBuilder AddDiscordApplication(this IHostApplicationBuilder builder)
     {
-        builder.Services.ConfigureOptions<CommandsConfigurationOptions>();
+        builder.Services.ConfigureOptions<Discord.Configuration.DiscordConfiguration>();
         string? token = builder.Configuration.GetDiscordGatewayToken();
 
         builder.Services.AddDiscordClient(token, DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents)
@@ -45,7 +43,8 @@ public static class PresentationAssembly
     public static void UseDiscord(this IHost app)
     {
         DiscordClient discordClient = app.Services.GetRequiredService<DiscordClient>();
-        discordClient.UseCommands(app.Services.GetRequiredService<IOptions<CommandsConfiguration>>().Value);
+        DiscordOptions options = app.Services.GetRequiredService<IOptions<DiscordOptions>>().Value;
+        discordClient.UseCommands(options.CommandsConfiguration);
 
         discordClient.ConnectAsync();
     }
@@ -58,7 +57,7 @@ public static class PresentationAssembly
     {
         string? token = configuration.GetValue<string>("Discord:Token");
         return string.IsNullOrEmpty(token)
-            ? throw DiscordConfigurationException.MissingTokenException()
+            ? throw new MissingDiscordGatewayTokenException()
             : token;
     }
 }
