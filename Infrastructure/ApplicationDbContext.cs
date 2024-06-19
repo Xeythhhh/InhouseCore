@@ -18,13 +18,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<ApplicationRole>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd()
-            .HasConversion(Id.ValueConverters[typeof(ApplicationRole)])
+            .HasConversion(Id.GetValueConverter<ApplicationRole>())
             .HasValueGenerator<IdValueGenerator>();
 
         builder.Entity<ApplicationUser>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd()
-            .HasConversion(Id.ValueConverters[typeof(ApplicationUser)])
+            .HasConversion(Id.GetValueConverter<ApplicationUser>())
             .HasValueGenerator<IdValueGenerator>();
 
         base.OnModelCreating(builder);

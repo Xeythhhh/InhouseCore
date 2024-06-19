@@ -2,13 +2,19 @@
 using Domain.Entities;
 using Domain.Entities.Users;
 
+using Infrastructure.Exceptions;
+
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Identifiers;
 /// <summary>Helper class for Identifiers</summary>
 internal static class Id
 {
-    internal static readonly Dictionary<Type, ValueConverter> ValueConverters = new();
+    private static readonly Dictionary<Type, ValueConverter> ValueConverters = new();
+
+    internal static ValueConverter GetValueConverter<T>() =>
+        ValueConverters.GetValueOrDefault(typeof(T))
+        ?? throw new ValueConverterNotRegisteredException(typeof(T));
 
     internal static void RegisterConverters()
     {
