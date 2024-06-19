@@ -28,7 +28,8 @@ public class LayerTests(ITestOutputHelper output)
         testResult.IsSuccessful.Should().BeTrue();
     }
 
-    public class Architecture : IEnumerable<object[]>
+    public class Architecture
+        : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

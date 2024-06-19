@@ -1,11 +1,18 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
+using DSharpPlus;
+using DSharpPlus.Commands;
+using DSharpPlus.Extensions;
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 using Presentation.Discord;
 using Presentation.Discord.Configuration;
+using Presentation.Discord.Exceptions;
 
 [assembly: InternalsVisibleTo("Presentation.UnitTests")]
 namespace Presentation;
@@ -16,19 +23,42 @@ public static class PresentationAssembly
     /// <summary> A Reference to the Presentation <see cref="Assembly"/> </summary>
     public static Assembly Reference => typeof(PresentationAssembly).Assembly;
 
-    public static IHostApplicationBuilder AddDiscordBotApplication(this IHostApplicationBuilder builder)
+    /// <summary>
+    /// Adds Discord application services to the <see cref="IHostApplicationBuilder"/>.
+    /// </summary>
+    /// <param name="builder">The <see cref="IHostApplicationBuilder"/> to add services to.</param>
+    /// <returns>The <see cref="IHostApplicationBuilder"/>  for chained invocation.</returns>
+    public static IHostApplicationBuilder AddDiscordApplication(this IHostApplicationBuilder builder)
     {
-        builder.Services.Configure<DiscordApplicationConfiguration>(builder.Configuration.GetSection("Discord"));
+        builder.Services.ConfigureOptions<CommandsConfigurationOptions>();
+        string? token = builder.Configuration.GetDiscordGatewayToken();
 
-        builder.Services.AddSingleton<DiscordBotApplication>();
+        builder.Services.AddDiscordClient(token, DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents)
+            .ConfigureEventHandlers(eventHandlingBuilder =>
+                eventHandlingBuilder.HandleGuildDownloadCompleted(DiscordClientEvents.OnGuidDownloadCompleted));
+
         return builder;
     }
 
+    /// <summary> Use Discord services/>.</summary>
+    /// <param name="app">The <see cref="IHost"/> to use Discord services with.</param>
     public static void UseDiscord(this IHost app)
     {
-        DiscordBotApplication discordBotApplication = app.Services.GetRequiredService<DiscordBotApplication>();
+        DiscordClient discordClient = app.Services.GetRequiredService<DiscordClient>();
+        discordClient.UseCommands(app.Services.GetRequiredService<IOptions<CommandsConfiguration>>().Value);
 
-        discordBotApplication.Connect();
-        discordBotApplication.Disconnect("Test");
+        discordClient.ConnectAsync();
+    }
+
+    /// <summary> Gets the Discord gateway token from the configuration.</summary>
+    /// <param name="configuration">The <see cref="IConfiguration"/> to get the token from.</param>
+    /// <returns>The Discord gateway token.</returns>
+    /// <exception cref="DiscordConfigurationException">Thrown when the Discord token is missing.</exception>
+    private static string GetDiscordGatewayToken(this IConfiguration configuration)
+    {
+        string? token = configuration.GetValue<string>("Discord:Token");
+        return string.IsNullOrEmpty(token)
+            ? throw DiscordConfigurationException.MissingTokenException()
+            : token;
     }
 }

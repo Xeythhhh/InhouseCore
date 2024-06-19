@@ -70,7 +70,7 @@ public static class HostAssembly
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-        builder.AddDiscordBotApplication();
+        builder.AddDiscordApplication();
 
         return builder.Build();
     }

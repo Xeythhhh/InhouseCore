@@ -1,10 +1,11 @@
-﻿using Domain.UnitTests.TestImplementations;
+﻿using Domain.Entities;
+using Domain.UnitTests.TestImplementations;
 
 using FluentAssertions;
 
 using IdGen;
 
-namespace Domain.Entities.Tests
+namespace Domain.UnitTests.Primitives
 {
     public class EntityBaseTests
     {

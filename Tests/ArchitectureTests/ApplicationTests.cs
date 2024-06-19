@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 
+using MediatR;
+
 using NetArchTest.Rules;
 
 using Xunit.Abstractions;
@@ -37,22 +39,18 @@ public class ApplicationTests(ITestOutputHelper output)
     [Fact]
     public void Handlers_Should_BeSealed()
     {
-#pragma warning disable IDE0022 // Use expression body for method
-        throw new NotImplementedException();
-#pragma warning restore IDE0022 // Use expression body for method
+        // Arrange
+        var types = Types.InAssembly(Application)
+            .That().ImplementInterface(typeof(IRequestHandler<,>));
 
-        //// Arrange
-        //var types = Types.InAssembly(Application)
-        //    .That().ImplementInterface(typeof(IRequestHandler<,>));
+        // Act
+        var testResult = types
+            .Should()
+            .BeSealed()
+            .GetResult();
 
-        //// Act
-        //var testResult = types
-        //    .Should()
-        //    .BeSealed()
-        //    .GetResult();
-
-        //// Assert
-        //OutputTestResults(output, testResult);
-        //testResult.IsSuccessful.Should().BeTrue();
+        // Assert
+        OutputTestResults(output, testResult);
+        testResult.IsSuccessful.Should().BeTrue();
     }
 }

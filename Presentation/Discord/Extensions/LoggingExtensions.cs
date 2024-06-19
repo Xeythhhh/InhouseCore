@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DSharpPlus;
+
+using Microsoft.Extensions.Logging;
 
 namespace Presentation.Discord.Logging;
 public static partial class LoggingExtensions
@@ -6,7 +8,7 @@ public static partial class LoggingExtensions
     [LoggerMessage(LogLevel.Information,
 "\x1b[45m[Discord Startup]{@message}")]
     public static partial void LogDiscordStartupMessage(
-        this ILogger<DiscordBotApplication> logger,
+        this ILogger<DiscordClient> logger,
         string message);
 
     [LoggerMessage(LogLevel.Warning,
@@ -14,7 +16,7 @@ public static partial class LoggingExtensions
 Triggered by:{@disconnectedBy}
 Reason:{@reason}")]
     public static partial void LogDisconnect(
-        this ILogger<DiscordBotApplication> logger,
+        this ILogger<DiscordClient> logger,
         string reason,
         string disconnectedBy = "Gateway");
 }

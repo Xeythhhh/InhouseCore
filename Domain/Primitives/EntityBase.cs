@@ -2,9 +2,7 @@
 
 namespace Domain.Entities;
 
-/// <summary>
-/// Base model for entities, providing core functionality such as domain event handling and timestamp management.
-/// </summary>
+/// <summary>Base model for entities, providing core functionality such as domain event handling and timestamp management.</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
 public abstract class EntityBase<TEntityId>
     : IEntity<TEntityId>
@@ -28,9 +26,7 @@ public abstract class EntityBase<TEntityId>
     public virtual void RaiseEvent(DomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 }
 
-/// <summary>
-/// Base type for entity identifiers, providing implicit and explicit conversions to and from long.
-/// </summary>
+/// <summary>Base type for entity identifiers, providing implicit and explicit conversions to and from long.</summary>
 /// <typeparam name="TEntity">The entity type associated with this identifier.</typeparam>
 public abstract record EntityId<TEntity>(long Value = default)
     : IEntityId

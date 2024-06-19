@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02214" />
+    <PackageReference Include="DSharpPlus.Commands" Version="5.0.0-nightly-02295" />
   </ItemGroup>
 
   <ItemGroup>
