@@ -1,5 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 
+using Domain.Primitives;
+
 using FluentValidation;
 using FluentValidation.Results;
 

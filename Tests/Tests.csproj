@@ -12,10 +12,19 @@
   <ItemGroup>
     <Compile Remove="Application.UnitTests\**" />
     <Compile Remove="Domain.UnitTests\**" />
+    <Compile Remove="Infrastructure.UnitTests\**" />
+    <Compile Remove="Presentation.Blazor.UnitTests\**" />
+    <Compile Remove="Presentation.Discord.UnitTests\**" />
     <EmbeddedResource Remove="Application.UnitTests\**" />
     <EmbeddedResource Remove="Domain.UnitTests\**" />
+    <EmbeddedResource Remove="Infrastructure.UnitTests\**" />
+    <EmbeddedResource Remove="Presentation.Blazor.UnitTests\**" />
+    <EmbeddedResource Remove="Presentation.Discord.UnitTests\**" />
     <None Remove="Application.UnitTests\**" />
     <None Remove="Domain.UnitTests\**" />
+    <None Remove="Infrastructure.UnitTests\**" />
+    <None Remove="Presentation.Blazor.UnitTests\**" />
+    <None Remove="Presentation.Discord.UnitTests\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,16 +43,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\build\Build.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Host.Client\Host.Client.csproj" />
     <ProjectReference Include="..\Host\Host.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Presentation\Presentation.csproj" />
-    <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="Application.UnitTests\Application.UnitTests.csproj" />
     <ProjectReference Include="Domain.UnitTests\Domain.UnitTests.csproj" />
+    <ProjectReference Include="Infrastructure.UnitTests\Infrastructure.UnitTests.csproj" />
+    <ProjectReference Include="Presentation.Blazor.UnitTests\Presentation.Blazor.UnitTests.csproj" />
+    <ProjectReference Include="Presentation.Discord.UnitTests\Presentation.Discord.UnitTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

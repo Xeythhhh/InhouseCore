@@ -1,7 +1,7 @@
 ﻿namespace Presentation.Discord;
 
 /// <summary>Utility class for generating ANSI escape sequences for text styling in console outputs</summary>
-public static class DiscordAnsiHelper
+public static class AnsiHelper
 {
     private const string AnsiEscape = "\x1b[";
 

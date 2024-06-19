@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 
-using Domain.Entities;
 using Domain.Entities.Users;
+using Domain.Primitives;
 
 namespace Domain.UnitTests.TestImplementations;
 

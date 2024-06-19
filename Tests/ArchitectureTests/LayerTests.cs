@@ -40,9 +40,12 @@ public class LayerTests(ITestOutputHelper output) :
                 [Build, .. External, .. Hosts, .. Tests]) };
 
             yield return new object[] { new Rule(Infrastructure,
-                [Build, Presentation, .. Hosts, .. Tests]) };
+                [Build, .. Presentation, .. Hosts, .. Tests]) };
 
-            yield return new object[] { new Rule(Presentation,
+            yield return new object[] { new Rule(PresentationDiscord,
+                [Build, Infrastructure, .. Hosts, .. Tests]) };
+
+            yield return new object[] { new Rule(PresentationBlazor,
                 [Build, Infrastructure, .. Hosts, .. Tests]) };
 
             yield return new object[] { new Rule(Host,

@@ -1,8 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
 
+using Domain.Entities;
+
 using FluentAssertions;
 
-namespace Domain.Entities.Tests;
+namespace Domain.UnitTests.Entities;
 
 public class ChampionTests
 {

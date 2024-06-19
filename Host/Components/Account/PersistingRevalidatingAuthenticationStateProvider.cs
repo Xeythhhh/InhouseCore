@@ -47,14 +47,14 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
         AuthenticationState authenticationState, CancellationToken cancellationToken)
     {
         // Get the user manager from a new scope to ensure it fetches fresh data
-        await using var scope = scopeFactory.CreateAsyncScope();
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        await using AsyncServiceScope scope = scopeFactory.CreateAsyncScope();
+        UserManager<ApplicationUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         return await ValidateSecurityStampAsync(userManager, authenticationState.User);
     }
 
     private async Task<bool> ValidateSecurityStampAsync(UserManager<ApplicationUser> userManager, ClaimsPrincipal principal)
     {
-        var user = await userManager.GetUserAsync(principal);
+        ApplicationUser? user = await userManager.GetUserAsync(principal);
         if (user is null)
         {
             return false;
@@ -65,8 +65,8 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
         }
         else
         {
-            var principalStamp = principal.FindFirstValue(options.ClaimsIdentity.SecurityStampClaimType);
-            var userStamp = await userManager.GetSecurityStampAsync(user);
+            string? principalStamp = principal.FindFirstValue(options.ClaimsIdentity.SecurityStampClaimType);
+            string userStamp = await userManager.GetSecurityStampAsync(user);
             return principalStamp == userStamp;
         }
     }
@@ -83,13 +83,13 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
             throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
         }
 
-        var authenticationState = await authenticationStateTask;
-        var principal = authenticationState.User;
+        AuthenticationState authenticationState = await authenticationStateTask;
+        ClaimsPrincipal principal = authenticationState.User;
 
         if (principal.Identity?.IsAuthenticated == true)
         {
-            var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
-            var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
+            string? userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
+            string? email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
 
             if (userId != null && email != null)
             {

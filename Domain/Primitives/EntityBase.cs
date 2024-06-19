@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Domain.Entities;
+namespace Domain.Primitives;
 
 /// <summary>Base model for entities, providing core functionality such as domain event handling and timestamp management.</summary>
 /// <typeparam name="TEntityId">Type of the entity's identifier.</typeparam>
@@ -77,7 +77,7 @@ public abstract record EntityId<TEntity>(long Value = default) :
     /// <exception cref="InvalidCastException">Thrown when the conversion fails.</exception>
     public static explicit operator EntityId<TEntity>(long id)
     {
-        var IdType = typeof(TEntity).GetProperty("Id")?.PropertyType
+        Type IdType = typeof(TEntity).GetProperty("Id")?.PropertyType
             ?? throw new UnreachableException("All Entities should have an Id");
 
         return (EntityId<TEntity>)(Activator.CreateInstance(IdType, new object[] { id })

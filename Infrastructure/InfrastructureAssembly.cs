@@ -43,8 +43,8 @@ public static class InfrastructureAssembly
     /// <param name="serviceProvider">The service provider.</param>
     private static void EnsureDatabaseMigrated(this IServiceProvider serviceProvider)
     {
-        using var scope = serviceProvider.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        using IServiceScope scope = serviceProvider.CreateScope();
+        ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         if (!dbContext.Database.GetPendingMigrations().Any()) return;
 

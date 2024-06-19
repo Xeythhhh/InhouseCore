@@ -10,25 +10,24 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-using Presentation.Discord;
 using Presentation.Discord.Configuration;
 using Presentation.Discord.Exceptions;
 
-[assembly: InternalsVisibleTo("Presentation.UnitTests")]
-namespace Presentation;
+[assembly: InternalsVisibleTo("Presentation.Discord.UnitTests")]
+namespace Presentation.Discord;
 
-/// <summary> Class to reference the Presentation <see cref="Assembly"/> </summary>
-public static class PresentationAssembly
+/// <summary> Class to reference the Presentation.Discord <see cref="Assembly"/> </summary>
+public static class PresentationDiscordAssembly
 {
-    /// <summary> A Reference to the Presentation <see cref="Assembly"/> </summary>
-    public static Assembly Reference => typeof(PresentationAssembly).Assembly;
+    /// <summary> A Reference to the Presentation.Discord <see cref="Assembly"/> </summary>
+    public static Assembly Reference => typeof(PresentationDiscordAssembly).Assembly;
 
     /// <summary>Adds Discord application services to the <see cref="IHostApplicationBuilder"/></summary>
     /// <param name="builder">The <see cref="IHostApplicationBuilder"/> to add services to.</param>
     /// <returns>The <see cref="IHostApplicationBuilder"/>  for chained invocation.</returns>
     public static IHostApplicationBuilder AddDiscordApplication(this IHostApplicationBuilder builder)
     {
-        builder.Services.ConfigureOptions<Discord.Configuration.DiscordConfiguration>();
+        builder.Services.ConfigureOptions<Configuration.DiscordConfiguration>();
         string? token = builder.Configuration.GetDiscordGatewayToken();
 
         builder.Services.AddDiscordClient(token, DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents)

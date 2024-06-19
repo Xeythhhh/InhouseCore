@@ -40,11 +40,11 @@ public class ApplicationTests(ITestOutputHelper output) :
     public void Handlers_Should_BeSealed()
     {
         // Arrange
-        var types = Types.InAssembly(Application)
+        PredicateList types = Types.InAssembly(Application)
             .That().ImplementInterface(typeof(IRequestHandler<,>));
 
         // Act
-        var testResult = types
+        TestResult testResult = types
             .Should()
             .BeSealed()
             .GetResult();

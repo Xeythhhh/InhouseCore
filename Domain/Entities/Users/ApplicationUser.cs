@@ -1,3 +1,5 @@
+using Domain.Primitives;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities.Users;

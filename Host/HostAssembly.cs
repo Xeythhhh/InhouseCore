@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using Presentation;
+using Presentation.Discord;
 
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;

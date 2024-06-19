@@ -19,7 +19,7 @@ Log.Information("Starting up...");
 
 try
 {
-    var builder = WebApplication.CreateBuilder(args);
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((builderContext, loggerConfig) => loggerConfig
         .ReadFrom.Configuration(builderContext.Configuration)
@@ -29,7 +29,7 @@ try
                 theme: HostAssembly.GetConsoleTheme())
         .Enrich.FromLogContext());
 
-    var app = builder
+    WebApplication app = builder
         .ConfigureServices()
         .ConfigurePipeline();
 
