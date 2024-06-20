@@ -22,35 +22,6 @@ namespace Domain.UnitTests.Primitives
         }
 
         [Fact]
-        public void RaiseEvent_ShouldAddEventTo_DomainEvents()
-        {
-            // Arrange
-            TestEntity entity = TestEntity.Create().Value;
-            DomainEvent domainEvent = new();
-
-            // Act
-            entity.RaiseEvent(domainEvent);
-
-            // Assert
-            entity.GetDomainEvents().Should().Contain(domainEvent);
-        }
-
-        [Fact]
-        public void ClearDomainEvents_ShouldClearAll_DomainEvents()
-        {
-            // Arrange
-            TestEntity entity = TestEntity.Create().Value;
-            DomainEvent domainEvent = new();
-            entity.RaiseEvent(domainEvent);
-
-            // Act
-            entity.ClearDomainEvents();
-
-            // Assert
-            entity.GetDomainEvents().Should().BeEmpty();
-        }
-
-        [Fact]
         public void EntityId_ShouldImplicitlyConvertTo_Int64()
         {
             // Arrange

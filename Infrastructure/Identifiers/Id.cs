@@ -1,7 +1,7 @@
 ﻿using Domain;
-using Domain.Entities.Users;
 using Domain.Primitives;
-
+using Domain.Primitives.Result;
+using Domain.Users;
 using Infrastructure.Exceptions;
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -39,7 +39,7 @@ internal static class Id
     /// <param name="generatorId"> The ID to register with the identifier generator. </param>
     internal static void RegisterGenerator(int generatorId)
     {
-        CSharpFunctionalExtensions.Result result = IdValueGenerator.Create(generatorId);
+        Result result = IdValueGenerator.Register(generatorId);
         if (result.IsFailure) throw new InvalidOperationException(result.Error); //TODO
     }
 

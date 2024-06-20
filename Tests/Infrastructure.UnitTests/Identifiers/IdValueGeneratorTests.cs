@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using Domain.Primitives.Result;
+
+using FluentAssertions;
 
 using Infrastructure.Identifiers;
 
@@ -15,12 +17,12 @@ public class IdValueGeneratorTests(IdValueGeneratorTestFixture fixture, ITestOut
     IClassFixture<IdValueGeneratorTestFixture>
 {
     [Fact]
-    public void Create_FailureWhenAlreadyInitialized()
+    public void Register_FailureWhenAlreadyRegistered()
     {
-        Result result = IdValueGenerator.Create(fixture.TestId); // Initialize once
+        Result result = IdValueGenerator.Register(fixture.TestId); // Register once
         result.IsSuccess.Should().BeTrue();
 
-        result = IdValueGenerator.Create(fixture.TestId); // Try to initialize again
+        result = IdValueGenerator.Register(fixture.TestId); // Try to register again
 
         if (result.IsFailure) output.WriteLine(result.Error);
         result.IsFailure.Should().BeTrue();

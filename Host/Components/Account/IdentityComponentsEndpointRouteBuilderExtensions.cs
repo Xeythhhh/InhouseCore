@@ -1,8 +1,6 @@
 using System.Security.Claims;
 using System.Text.Json;
-
-using Domain.Entities.Users;
-
+using Domain.Users;
 using Host.Components.Account.Pages;
 using Host.Components.Account.Pages.Manage;
 

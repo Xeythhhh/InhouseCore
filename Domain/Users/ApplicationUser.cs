@@ -1,8 +1,7 @@
 using Domain.Primitives;
-
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities.Users;
+namespace Domain.Users;
 
 /// <summary>Represents an application user with a strongly-typed identifier and domain event handling capabilities.</summary>
 public sealed class ApplicationUser :

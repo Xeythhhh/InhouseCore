@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
-
-using Domain.Entities.Users;
-
+using Domain.Users;
 using Host.Client;
 using Host.Components;
 using Host.Components.Account;

@@ -1,15 +1,14 @@
 ﻿using Domain.Primitives;
 using Domain.Primitives.Result;
 
-using FluentValidation;
 using FluentValidation.Results;
 
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities.Users;
+namespace Domain.Users;
 
 /// <summary>Represents an application role.</summary>
-public sealed class ApplicationRole :
+public sealed partial class ApplicationRole :
     IdentityRole<AspNetIdentityId>,
     IEntity<AspNetIdentityId>
 {
@@ -34,19 +33,5 @@ public sealed class ApplicationRole :
             : Result.Failure<ApplicationRole>(
                 new Error("Validation", string.Join(", ",
                     validationResult.Errors.Select(e => e.ErrorMessage))));
-    }
-
-    /// <summary>Validator for <see cref="ApplicationRole"/>.</summary>
-    private class Validator : AbstractValidator<ApplicationRole>
-    {
-        /// <summary>Singleton instance of the validator.</summary>
-        public static Validator Instance = new();
-
-        public Validator()
-        {
-            RuleFor(x => x.Name)
-                .NotNull()
-                .NotEmpty();
-        }
     }
 }

@@ -1,4 +1,4 @@
-using Domain.Entities.Users;
+using Domain.Users;
 
 using Infrastructure.Identifiers;
 

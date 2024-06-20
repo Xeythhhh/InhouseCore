@@ -2,8 +2,10 @@
 
 /// <summary>Represents the aggregate root.</summary>
 public abstract class AggregateRoot<TEntityId> :
-    EntityBase<TEntityId>
-    where TEntityId : IEntityId
+    EntityBase<TEntityId>,
+    IAggregateRoot
+    where TEntityId :
+        IEntityId
 {
     /// <summary>Initializes a new instance of the <see cref="AggregateRoot"/> class.</summary>
     /// <remarks>Required by EF Core.</remarks>

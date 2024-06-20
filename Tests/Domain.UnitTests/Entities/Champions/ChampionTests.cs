@@ -1,8 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Champions;
+using Domain.Primitives.Result;
 
 using FluentAssertions;
 
-namespace Domain.UnitTests.Entities;
+namespace Domain.UnitTests.Entities.Champions;
 
 public class ChampionTests
 {
@@ -38,7 +39,7 @@ public class ChampionTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("'Name' must not be empty.");
+        result.Error.Message.Should().Contain("'Name' must not be empty.");
     }
 
     [Fact]
@@ -54,7 +55,7 @@ public class ChampionTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("Name must be less than 100 characters.");
+        result.Error.Message.Should().Contain("Name must be less than 100 characters.");
     }
 
     [Fact]
@@ -70,7 +71,7 @@ public class ChampionTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("Class must be a valid enum value.");
+        result.Error.Message.Should().Contain("Class must be a valid enum value.");
     }
 
     [Fact]
@@ -86,6 +87,6 @@ public class ChampionTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("Role must be a valid enum value.");
+        result.Error.Message.Should().Contain("Role must be a valid enum value.");
     }
 }

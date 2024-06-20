@@ -1,9 +1,7 @@
 ﻿using System.Reflection;
-
-using Domain.Entities;
-using Domain.Entities.Users;
+using Domain.Champions;
 using Domain.UnitTests.TestImplementations;
-
+using Domain.Users;
 using FluentAssertions;
 
 using Infrastructure.Exceptions;

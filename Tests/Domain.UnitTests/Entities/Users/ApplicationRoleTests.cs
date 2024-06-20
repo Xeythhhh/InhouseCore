@@ -1,5 +1,5 @@
-﻿using Domain.Entities.Users;
-
+﻿using Domain.Primitives.Result;
+using Domain.Users;
 using FluentAssertions;
 
 namespace Domain.UnitTests.Entities.Users;
@@ -31,7 +31,7 @@ public class ApplicationRoleTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("'Name' must not be empty.");
+        result.Error.Message.Should().Contain("'Name' must not be empty.");
     }
 
     [Fact]
@@ -45,6 +45,6 @@ public class ApplicationRoleTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-        result.Error.Should().Contain("'Name' must not be empty.");
+        result.Error.Message.Should().Contain("'Name' must not be empty.");
     }
 }
