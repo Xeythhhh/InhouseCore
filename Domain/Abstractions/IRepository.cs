@@ -10,9 +10,9 @@ public interface IRepository<T, TId> :
     where T : IAggregateRoot
     where TId : IEntityId
 {
-    public Task<Result<List<T>>> GetAll();
-    public Task<Result<T>> GetById(TId entityId);
+    public Task<Result<List<T>>> GetAll(CancellationToken cancellationToken);
+    public Task<Result<T>> GetById(TId entityId, CancellationToken cancellationToken);
     public Result<List<T>> GetBy(Func<T, bool> predicate);
-    public Task<Result<T>> Add(T Aggregate);
+    public Task<Result<T>> Add(T Aggregate, CancellationToken cancellationToken);
     public Result<T> Delete(T Aggregate);
 }

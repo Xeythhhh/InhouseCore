@@ -4,5 +4,8 @@ namespace Domain.Champions;
 
 public sealed partial class Champion
 {
-    private sealed class Errors : DomainErrors;
+    public sealed class Errors
+    {
+        public static string NameIsNotUnique(string? name) => $"Champion name is not unique. {name}";
+    }
 }

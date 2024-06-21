@@ -1,6 +1,7 @@
 ﻿using Domain.Primitives;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Interceptors;
@@ -14,10 +15,12 @@ public sealed class UpdateTimeStampsInterceptor :
         int result,
         CancellationToken cancellationToken = default)
     {
+        Console.WriteLine("sakdjhsakjdakjdahsdjksa");
+
         DbContext? dbContext = eventData.Context;
         if (dbContext is null) return base.SavedChangesAsync(eventData, result, cancellationToken);
 
-        foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<IEntity> entity in dbContext.ChangeTracker.Entries<IEntity>())
+        foreach (EntityEntry<IEntity> entity in dbContext.ChangeTracker.Entries<IEntity>())
             entity.Entity.LastUpdatedAt = DateTime.UtcNow;
 
         dbContext.SaveChanges();

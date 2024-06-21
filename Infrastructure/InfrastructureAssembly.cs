@@ -2,11 +2,12 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Domain.Champions;
+using Domain.Abstractions;
 
 using FluentResults;
 
 using Infrastructure.Identifiers;
+using Infrastructure.Interceptors;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,14 +29,35 @@ public static class InfrastructureAssembly
     /// <summary>Registers Entity Framework services for the application.</summary>
     /// <param name="builder">The host application builder.</param>
     /// <exception cref="ConfigurationErrorsException"></exception>
+    /// <returns>The <see cref="IHostApplicationBuilder"/> for chained invocation.</returns>
     public static IHostApplicationBuilder AddEntityFrameworkServices(this IHostApplicationBuilder builder)
     {
         Result registerConvertersResult = Id.RegisterConverters();
-        if (registerConvertersResult.IsFailed) throw new ConfigurationErrorsException(registerConvertersResult.GetErrorMessage());
+        if (registerConvertersResult.IsFailed) throw new ConfigurationErrorsException(registerConvertersResult.Errors[0].Message); //todo
 
         Id.RegisterGeneratorId(builder.Configuration.GetValue<int>("IdGen:EfCore"));
 
+        builder.Services.AddSingleton<UpdateTimeStampsInterceptor>();
+
         return builder;
+    }
+
+    /// <summary>Registers <see cref="IRepository"/>>s to the <see cref="IServiceCollection"/>.</summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>The <see cref="IServiceCollection"/> for chained invocation.</returns>
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        IEnumerable<Type> repositoryTypes = Reference.GetTypes()
+            .Where(x => !x.IsAbstract && x.Name.EndsWith("Repository"));
+
+        foreach (Type? implementationType in repositoryTypes)
+        {
+            services.AddScoped(implementationType);
+            foreach (Type serviceType in implementationType.GetInterfaces())
+                services.AddScoped(serviceType, implementationType);
+        }
+
+        return services;
     }
 
     /// <summary>Configures database usage for the application.</summary>
@@ -51,7 +73,7 @@ public static class InfrastructureAssembly
     /// <returns>The <see cref="IServiceProvider"/> for chained invocation.</returns>
     private static IServiceProvider UseDatabaseSeed(this IServiceProvider serviceProvider)
     {
-        Console.WriteLine("Implement Database Seed ");
+        Console.WriteLine("Implement Database Seed");
 
         return serviceProvider;
     }

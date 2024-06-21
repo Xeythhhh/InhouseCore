@@ -8,10 +8,12 @@ using Host.Components;
 using Host.Components.Account;
 
 using Infrastructure;
+using Infrastructure.Interceptors;
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 using Presentation.Discord;
 
@@ -112,9 +114,16 @@ namespace Host
 
             string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
                 ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+            builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
+                SaveChangesInterceptor[] saveChangesInterceptor = [
+                    serviceProvider.GetRequiredService<UpdateTimeStampsInterceptor>()
+                ];
+
                 options.UseSqlServer(connectionString);
+                options.AddInterceptors(saveChangesInterceptor);
+
                 if (builder.Environment.IsDevelopment())
                 {
                     options.EnableSensitiveDataLogging();
@@ -127,6 +136,8 @@ namespace Host
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
+
+            builder.Services.AddRepositories();
 
             return builder;
         }

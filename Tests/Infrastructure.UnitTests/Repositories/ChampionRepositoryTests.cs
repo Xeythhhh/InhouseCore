@@ -49,7 +49,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.Add.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.Add.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -73,7 +73,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.GetAll.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.GetAll.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -97,7 +97,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.Get.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.Get.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -121,7 +121,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.Get.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.Get.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -145,7 +145,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.Update.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.Update.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -169,7 +169,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Be(ChampionRepository.Errors.Delete.Message);
+            .Which.Message.Should().Be(ChampionRepository.ErrorMessages.Delete.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
