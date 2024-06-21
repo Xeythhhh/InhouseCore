@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Interceptors;
-
+/// <summary>Interceptor for updating timestamps on entities implementing <see cref="IEntity"/> before saving changes.</summary>
 public sealed class UpdateTimeStampsInterceptor :
     SaveChangesInterceptor
 {
+    /// <inheritdoc/>
     public override ValueTask<int> SavedChangesAsync(
         SaveChangesCompletedEventData eventData,
         int result,

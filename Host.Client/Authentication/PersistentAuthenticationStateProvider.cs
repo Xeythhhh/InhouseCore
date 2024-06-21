@@ -21,9 +21,11 @@ internal class PersistentAuthenticationStateProvider : AuthenticationStateProvid
 
     public PersistentAuthenticationStateProvider(PersistentComponentState state)
     {
-        if (!state.TryTakeFromJson<UserInfo>(nameof(UserInfo), out UserInfo? userInfo)
+        if (!state.TryTakeFromJson(nameof(UserInfo), out UserInfo? userInfo)
             || userInfo is null)
+        {
             return;
+        }
 
         Claim[] claims = [
             new Claim(ClaimTypes.NameIdentifier, userInfo.UserId),

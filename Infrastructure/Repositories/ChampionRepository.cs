@@ -12,6 +12,15 @@ namespace Infrastructure.Repositories;
 public class ChampionRepository(ApplicationDbContext dbContext) :
     IChampionRepository
 {
+    public static class Errors
+    {
+        public static Error GetAll => new("An error occurred while retrieving Champions");
+        public static Error Get => new("An error occurred while retrieving the Champion");
+        public static Error Add => new("An error occurred while adding the Champion");
+        public static Error Update => new("An error occurred while updating the Champion");
+        public static Error Delete => new("An error occurred while deleting the Champion");
+    }
+
     /// <summary>Adds a new Champion to the repository</summary>
     /// <param name="champion">The Champion to add</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the added Champion</returns>
@@ -24,8 +33,7 @@ public class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while adding the Champion")
-                .CausedBy(ex));
+            return Result.Fail(Errors.Add.CausedBy(ex));
         }
     }
 
@@ -40,8 +48,7 @@ public class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while retrieving Champions")
-                .CausedBy(ex));
+            return Result.Fail(Errors.GetAll.CausedBy(ex));
         }
     }
 
@@ -59,27 +66,25 @@ public class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while retrieving the Champion")
-                .CausedBy(ex));
+            return Result.Fail(Errors.Get.CausedBy(ex));
         }
     }
 
-    /// <summary>Gets a Champion by its name</summary>
-    /// <param name="name">The Champion name</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the Champion</returns>
-    public async Task<Result<Champion>> GetByName(string name)
+    /// <summary>Gets a Champion by a predicate</summary>
+    /// <param name="predicate">The search query</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the Champions that match the predicate</returns>
+    public Result<List<Champion>> GetBy(Func<Champion, bool> predicate)
     {
         try
         {
-            Champion? champion = await dbContext.Set<Champion>().FirstOrDefaultAsync(c => c.Name == name);
-            return champion is not null
-                ? Result.Ok(champion)
+            List<Champion> champions = dbContext.Set<Champion>().Where(predicate).ToList();
+            return champions.Count is not 0
+                ? Result.Ok(champions)
                 : Result.Fail(new Error("Champion not found"));
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while retrieving the Champion")
-                .CausedBy(ex));
+            return Result.Fail(Errors.Get.CausedBy(ex));
         }
     }
 
@@ -95,8 +100,7 @@ public class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while updating the Champion")
-                .CausedBy(ex));
+            return Result.Fail(Errors.Update.CausedBy(ex));
         }
     }
 
@@ -112,8 +116,7 @@ public class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error("An error occurred while deleting the Champion")
-                .CausedBy(ex));
+            return Result.Fail(Errors.Delete.CausedBy(ex));
         }
     }
 }

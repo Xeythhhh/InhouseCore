@@ -7,6 +7,5 @@ namespace Domain.Champions;
 public interface IChampionRepository :
     IRepository<Champion, ChampionId>
 {
-    public Task<Result<Champion>> GetByName(string championName);
     public Result<Champion> Update(Champion champion);
 }

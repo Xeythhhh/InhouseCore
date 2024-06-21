@@ -12,6 +12,7 @@ public interface IRepository<T, TId> :
 {
     public Task<Result<List<T>>> GetAll();
     public Task<Result<T>> GetById(TId entityId);
+    public Result<List<T>> GetBy(Func<T, bool> predicate);
     public Task<Result<T>> Add(T Aggregate);
     public Result<T> Delete(T Aggregate);
 }

@@ -6,9 +6,7 @@ internal class ValueConverterNotRegisteredException :
 {
     /// <summary> Initializes a new instance of the <see cref="ValueConverterNotRegisteredException"/> class with the specified type. </summary>
     /// <param name="type"> The type for which no ValueConverter is registered. </param>
-    public ValueConverterNotRegisteredException(Type type) :
-        base($"No ValueConverter registered for type '{type.AssemblyQualifiedName}'")
-    { }
+    public ValueConverterNotRegisteredException(Type type) : base($"No ValueConverter registered for type '{type.AssemblyQualifiedName}'") { }
 
     /// <summary> Initializes a new instance of the <see cref="ValueConverterNotRegisteredException"/> class with a specified error message. </summary>
     /// <param name="message"> The error message that explains the reason for the exception. </param>

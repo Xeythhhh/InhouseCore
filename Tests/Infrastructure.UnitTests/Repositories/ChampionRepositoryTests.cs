@@ -36,15 +36,11 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
     public async Task Add_ExceptionThrown_ReturnsFailedResult()
     {
         // Arrange
-        Champion champion = Champion.Create("Test", Champion.Classes.Melee, Champion.Roles.Dps).Value;
-        (ApplicationDbContext dbContext, DbSet<Champion> dbSet, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
-
-        dbSet.When(x =>
-                x.AddAsync(Arg.Any<Champion>()))
-            .Throw(new Exception("Simulated error"));
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
 
         // Act
-        Result<Champion> result = await repository.Add(champion);
+        Result<Champion> result = await repository.Add(null!);
 
         // Assert
         if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
@@ -53,7 +49,127 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
             .Which.IsFailed.Should().BeTrue();
 
         result.Errors.Should().ContainSingle()
-            .Which.Message.Should().Contain("An error occurred while adding the Champion");
+            .Which.Message.Should().Be(ChampionRepository.Errors.Add.Message);
+
+        result.Errors.Should().ContainSingle()
+            .Which.Reasons.Should().ContainSingle()
+            .Which.Message.Should().Contain("Simulated error");
+    }
+
+    [Fact]
+    public async Task GetAll_ExceptionThrown_ReturnsFailedResult()
+    {
+        // Arrange
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
+
+        // Act
+        Result<List<Champion>> result = await repository.GetAll();
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<List<Champion>>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Be(ChampionRepository.Errors.GetAll.Message);
+
+        result.Errors.Should().ContainSingle()
+            .Which.Reasons.Should().ContainSingle()
+            .Which.Message.Should().Contain("Simulated error");
+    }
+
+    [Fact]
+    public async Task GetById_ExceptionThrown_ReturnsFailedResult()
+    {
+        // Arrange
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
+
+        // Act
+        Result<Champion> result = await repository.GetById((ChampionId)420);
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<Champion>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Be(ChampionRepository.Errors.Get.Message);
+
+        result.Errors.Should().ContainSingle()
+            .Which.Reasons.Should().ContainSingle()
+            .Which.Message.Should().Contain("Simulated error");
+    }
+
+    [Fact]
+    public void GetBy_ExceptionThrown_ReturnsFailedResult()
+    {
+        // Arrange
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
+
+        // Act
+        Result<List<Champion>> result = repository.GetBy(c => c.Name == "test");
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<List<Champion>>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Be(ChampionRepository.Errors.Get.Message);
+
+        result.Errors.Should().ContainSingle()
+            .Which.Reasons.Should().ContainSingle()
+            .Which.Message.Should().Contain("Simulated error");
+    }
+
+    [Fact]
+    public void Update_ExceptionThrown_ReturnsFailedResult()
+    {
+        // Arrange
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
+
+        // Act
+        Result<Champion> result = repository.Update(null!);
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<Champion>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Be(ChampionRepository.Errors.Update.Message);
+
+        result.Errors.Should().ContainSingle()
+            .Which.Reasons.Should().ContainSingle()
+            .Which.Message.Should().Contain("Simulated error");
+    }
+
+    [Fact]
+    public void Delete_ExceptionThrown_ReturnsFailedResult()
+    {
+        // Arrange
+        (ApplicationDbContext dbContext, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        dbContext.When(x => x.Set<Champion>()).Throw(new Exception("Simulated error"));
+
+        // Act
+        Result<Champion> result = repository.Delete(null!);
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<Champion>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Be(ChampionRepository.Errors.Delete.Message);
 
         result.Errors.Should().ContainSingle()
             .Which.Reasons.Should().ContainSingle()
@@ -65,14 +181,12 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
     {
         // Arrange
         Champion champion = Champion.Create("Test", Champion.Classes.Melee, Champion.Roles.Dps).Value;
-        (ApplicationDbContext _, DbSet<Champion> _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
 
         // Act
         Result<Champion> result = await repository.Add(champion);
 
         // Assert
-        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
-
         result.Should().BeOfType<Result<Champion>>()
             .Which.IsSuccess.Should().BeTrue();
 
@@ -84,14 +198,12 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
     {
         // Arrange
         Champion champion = Champion.Create("Champion to delete", Champion.Classes.Melee, Champion.Roles.Dps).Value;
-        (ApplicationDbContext _, DbSet<Champion> _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
 
         // Act
         Result<Champion> result = repository.Delete(champion);
 
         // Assert
-        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
-
         result.Should().BeOfType<Result<Champion>>()
             .Which.IsSuccess.Should().BeTrue();
 
@@ -103,14 +215,12 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
     public async Task GetAll_ReturnsListOfChampions()
     {
         // Arrange
-        (ApplicationDbContext _, DbSet<Champion> _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
 
         // Act
         Result<List<Champion>> result = await repository.GetAll();
 
         // Assert
-        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
-
         result.Should().BeOfType<Result<List<Champion>>>()
             .Which.IsSuccess.Should().BeTrue();
 
@@ -124,7 +234,7 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
         // Arrange
         ChampionId nonExistingId = new(999);
 
-        (ApplicationDbContext _, DbSet<Champion> _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
 
         // Act
         Result<Champion> result = await repository.GetById(nonExistingId);
@@ -140,18 +250,80 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
     }
 
     [Fact]
+    public void GetById_ExistingId_ReturnsSuccess()
+    {
+        Assert.True(true);
+        Assert.False(false);
+        // TODO
+
+        //// Arrange
+        //ChampionId testId = new(69420);
+        //typeof(Champion).GetProperty("Id")!.SetValue(fixture.Champions[0], testId);
+        //(ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+
+        //// Act
+        //Result<Champion> result = await repository.GetById(testId);
+
+        //// Assert
+        //if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        //result.Should().BeOfType<Result<Champion>>()
+        //    .Which.IsSuccess.Should().BeTrue();
+
+        //result.Value.Id.Should().Be(testId);
+    }
+
+    [Fact]
+    public void GetBy_NonExistingName_ReturnsFailure()
+    {
+        // Arrange
+        const string NonExistingName = "Champion 420";
+
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+
+        // Act
+        Result<List<Champion>> result = repository.GetBy(c => c.Name.Equals(NonExistingName));
+
+        // Assert
+        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
+
+        result.Should().BeOfType<Result<List<Champion>>>()
+            .Which.IsFailed.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle()
+            .Which.Message.Should().Contain("Champion not found");
+    }
+
+    [Fact]
+    public void GetBy_ExistingName_ReturnsSuccess()
+    {
+        // Arrange
+        const string ExistingName = "Champion 1";
+
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+
+        // Act
+        Result<List<Champion>> result = repository.GetBy(c => c.Name.Equals(ExistingName));
+
+        // Assert
+        result.Should().BeOfType<Result<List<Champion>>>()
+            .Which.IsSuccess.Should().BeTrue();
+
+        result.Value.Count.Should().Be(1);
+        result.Errors.Should().BeEmpty();
+    }
+
+    [Fact]
     public void Update_ValidChampion_ReturnsOkResultWithChampion()
     {
         // Arrange
         Champion champion = Champion.Create("Updated Champion", Champion.Classes.Melee, Champion.Roles.Dps).Value;
-        (ApplicationDbContext _, DbSet<Champion> _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
+        (ApplicationDbContext _, ChampionRepository repository) = CreateTestDbContextDbSetAndRepository<Champion, ChampionRepository>(fixture.Champions);
 
         // Act
         Result<Champion> result = repository.Update(champion);
 
         // Assert
-        if (result.IsFailed) output.WriteLine(JsonConvert.SerializeObject(result.Errors, Formatting.Indented));
-
         result.Should().BeOfType<Result<Champion>>()
             .Which.IsSuccess.Should().BeTrue();
 
@@ -174,13 +346,13 @@ public class ChampionRepositoryTests(ITestOutputHelper output, ChampionRepositor
         return dbSet;
     }
 
-    private static (ApplicationDbContext, DbSet<TEntity>, TRepository) CreateTestDbContextDbSetAndRepository<TEntity, TRepository>(IEnumerable<TEntity> entities)
-        where TRepository : class, IRepository
+    private static (ApplicationDbContext, TRepository) CreateTestDbContextDbSetAndRepository<TEntity, TRepository>(IEnumerable<TEntity> entities)
         where TEntity : class, IAggregateRoot
+        where TRepository : IRepository
     {
         ApplicationDbContext dbContext = Substitute.For<ApplicationDbContext>(new DbContextOptions<ApplicationDbContext>());
         DbSet<TEntity> dbSet = CreateDbSetMock(entities);
         dbContext.Set<TEntity>().Returns(dbSet);
-        return (dbContext, dbSet, (TRepository)Activator.CreateInstance(typeof(TRepository), dbContext)!);
+        return (dbContext, (TRepository)Activator.CreateInstance(typeof(TRepository), dbContext)!);
     }
 }

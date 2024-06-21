@@ -15,7 +15,7 @@ public sealed class RegisterDomainEventsInterceptor :
         DbContext? dbContext = eventData.Context;
         if (dbContext is null) return base.SavedChangesAsync(eventData, result, cancellationToken);
 
-        dbContext.ChangeTracker.Entries<IAggregateRoot>()
+        _ = dbContext.ChangeTracker.Entries<IAggregateRoot>()
             .Select(x => x.Entity)
             .SelectMany(x =>
             {
@@ -23,9 +23,7 @@ public sealed class RegisterDomainEventsInterceptor :
                 x.ClearDomainEvents();
                 return domainEvents;
             })
-            .Select(x => new OutboxMessage
-            {
-            });
+            .Select(_ => new OutboxMessage());
 
         Console.WriteLine("Msg from interceptor");
 
@@ -35,10 +33,6 @@ public sealed class RegisterDomainEventsInterceptor :
 
 public sealed record OutboxMessageId : EntityId<OutboxMessage>
 {
-
 }
 
-public sealed class OutboxMessage : EntityBase<OutboxMessageId>
-{
-
-}
+public sealed class OutboxMessage : EntityBase<OutboxMessageId>;

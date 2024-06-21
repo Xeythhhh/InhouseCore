@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
+
 using Domain.Users;
+
 using Host.Components.Account.Pages;
 using Host.Components.Account.Pages.Manage;
 
@@ -41,7 +43,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         });
 
         accountGroup.MapPost("/Logout", async (
-            ClaimsPrincipal user,
+            ClaimsPrincipal _,
             SignInManager<ApplicationUser> signInManager,
             [FromForm] string returnUrl) =>
         {
@@ -74,7 +76,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         manageGroup.MapPost("/DownloadPersonalData", async (
             HttpContext context,
             [FromServices] UserManager<ApplicationUser> userManager,
-            [FromServices] AuthenticationStateProvider authenticationStateProvider) =>
+            [FromServices] AuthenticationStateProvider _) =>
         {
             ApplicationUser? user = await userManager.GetUserAsync(context.User);
             if (user is null)

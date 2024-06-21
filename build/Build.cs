@@ -3,24 +3,26 @@ using Nuke.Common;
 namespace Build;
 public class Build : NukeBuild
 {
-    /// Support plugins are available for:
-    ///   - JetBrains ReSharper        https://nuke.build/resharper
-    ///   - JetBrains Rider            https://nuke.build/rider
-    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
-    ///   - Microsoft VSCode           https://nuke.build/vscode
-
     public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+#pragma warning disable IDE0052 // Remove unread private members
+#pragma warning disable RCS1213 // Remove unused member declaration
     private readonly Configuration Configuration = IsLocalBuild
+#pragma warning restore RCS1213 // Remove unused member declaration
+#pragma warning restore IDE0052 // Remove unread private members
         ? Configuration.Debug
         : Configuration.Release;
 
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable RCS1213 // Remove unused member declaration
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
         });
+#pragma warning restore RCS1213 // Remove unused member declaration
+#pragma warning restore IDE0051 // Remove unused private members
 
     Target Restore => _ => _
         .Executes(() =>
