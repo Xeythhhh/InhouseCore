@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Repositories;
 
-public partial class ChampionRepository(ApplicationDbContext dbContext)
+public partial class ChampionRepository
 {
     public static class ErrorMessages
     {

@@ -19,16 +19,13 @@ internal sealed class CreateChampionCommandHandler(
     IUnitOfWork unitOfWork) :
     ICommandHandler<CreateChampionCommand>
 {
-    public async Task<Result> Handle(CreateChampionCommand request, CancellationToken cancellationToken)
-    {
-        Result<Champion> result = (await Champion.Create(
+    public async Task<Result> Handle(CreateChampionCommand request, CancellationToken cancellationToken) =>
+        (await Champion.Create(
             request.Name,
             request.Class,
             request.Role)
-            .Ensure(repository.CheckIsNameUnique, Champion.Errors.NameIsNotUnique(request.Name))
-            .Ensure(r => repository.Add(r, cancellationToken)))
-            .OnSuccessTry((token) => unitOfWork.SaveChangesAsync(token), cancellationToken);
-
-        return result.ToResult();
-    }
+        .Ensure(repository.CheckIsNameUnique, Champion.Errors.NameIsNotUnique(request.Name))
+        .Ensure(champion => repository.Add(champion, cancellationToken)))
+        .OnSuccessTry((token) => unitOfWork.SaveChangesAsync(token), cancellationToken)
+        .ToResult();
 }
