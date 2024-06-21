@@ -1,13 +1,12 @@
 ﻿using Domain.Abstractions;
-using Domain.Primitives.Result;
+
+using FluentResults;
 
 namespace Domain.Champions;
 
-public interface IChampionRepository : IRepository<Champion>
+public interface IChampionRepository :
+    IRepository<Champion, ChampionId>
 {
-    public Task<Result<IEnumerable<Champion>>> GetAll();
-    public Task<Result<Champion>> GetById();
-    public Task<Result<Champion>> GetByName();
-    public Task<Result<Champion>> Add();
-    public Task<Result<Champion>> Update();
+    public Task<Result<Champion>> GetByName(string championName);
+    public Result<Champion> Update(Champion champion);
 }

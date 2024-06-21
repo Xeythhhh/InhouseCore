@@ -1,7 +1,8 @@
 ﻿using Domain.Champions;
-using Domain.Primitives.Result;
 
 using FluentAssertions;
+
+using FluentResults;
 
 namespace Domain.UnitTests.Entities.Champions;
 
@@ -38,8 +39,9 @@ public class ChampionTests
         Result<Champion> result = Champion.Create(invalidName, validClass, validRole);
 
         // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Error.Message.Should().Contain("'Name' must not be empty.");
+        result.IsFailed.Should().BeTrue();
+        result.HasError(e => e.Message.Contains("'Name' must not be empty."))
+            .Should().BeTrue();
     }
 
     [Fact]
@@ -54,8 +56,9 @@ public class ChampionTests
         Result<Champion> result = Champion.Create(invalidName, validClass, validRole);
 
         // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Error.Message.Should().Contain("Name must be less than 100 characters.");
+        result.IsFailed.Should().BeTrue();
+        result.HasError(e => e.Message.Contains("Name must be less than 100 characters."))
+            .Should().BeTrue();
     }
 
     [Fact]
@@ -70,8 +73,9 @@ public class ChampionTests
         Result<Champion> result = Champion.Create(validName, invalidClass, validRole);
 
         // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Error.Message.Should().Contain("Class must be a valid enum value.");
+        result.IsFailed.Should().BeTrue();
+        result.HasError(e => e.Message.Contains("Class must be a valid enum value."))
+            .Should().BeTrue();
     }
 
     [Fact]
@@ -86,7 +90,8 @@ public class ChampionTests
         Result<Champion> result = Champion.Create(validName, validClass, invalidRole);
 
         // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Error.Message.Should().Contain("Role must be a valid enum value.");
+        result.IsFailed.Should().BeTrue();
+        result.HasError(e => e.Message.Contains("Role must be a valid enum value."))
+            .Should().BeTrue();
     }
 }

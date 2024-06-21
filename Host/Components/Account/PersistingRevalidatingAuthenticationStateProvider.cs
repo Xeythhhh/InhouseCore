@@ -69,10 +69,7 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
         }
     }
 
-    private void OnAuthenticationStateChanged(Task<AuthenticationState> task)
-    {
-        authenticationStateTask = task;
-    }
+    private void OnAuthenticationStateChanged(Task<AuthenticationState> task) => authenticationStateTask = task;
 
     private async Task OnPersistingAsync()
     {

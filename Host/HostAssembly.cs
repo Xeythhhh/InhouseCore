@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
+
 using Domain.Users;
+
 using Host.Client;
 using Host.Components;
 using Host.Components.Account;
@@ -110,7 +112,15 @@ namespace Host
 
             string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
                 ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+                if (builder.Environment.IsDevelopment())
+                {
+                    options.EnableSensitiveDataLogging();
+                    options.EnableDetailedErrors();
+                }
+            });
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

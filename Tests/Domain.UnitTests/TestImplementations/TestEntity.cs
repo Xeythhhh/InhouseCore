@@ -1,5 +1,6 @@
 ﻿using Domain.Primitives;
-using Domain.Primitives.Result;
+
+using FluentResults;
 
 namespace Domain.UnitTests.TestImplementations;
 
@@ -17,9 +18,9 @@ public sealed class TestEntity :
         Something = something;
     }
 
-    public static Result<TestEntity> Create() => Result.Success(new TestEntity());
+    public static Result<TestEntity> Create() => Result.Ok(new TestEntity());
 
     public static Result<TestEntity> CreateWithValue(string something) => string.IsNullOrEmpty(something)
-        ? Result.Failure<TestEntity>(new Error("UnitTest.TestEntity", "This thing needs a value"))
-        : Result.Success(new TestEntity(something));
+        ? Result.Fail<TestEntity>(new Error("This thing needs a value"))
+        : Result.Ok(new TestEntity(something));
 }

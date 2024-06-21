@@ -1,5 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Configuration;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+
+using Domain.Champions;
+
+using FluentResults;
 
 using Infrastructure.Identifiers;
 
@@ -8,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+using SharedKernel.Extensions;
 
 [assembly: InternalsVisibleTo("Infrastructure.UnitTests")]
 namespace Infrastructure;
@@ -20,10 +27,14 @@ public static class InfrastructureAssembly
 
     /// <summary>Registers Entity Framework services for the application.</summary>
     /// <param name="builder">The host application builder.</param>
+    /// <exception cref="ConfigurationErrorsException"></exception>
     public static IHostApplicationBuilder AddEntityFrameworkServices(this IHostApplicationBuilder builder)
     {
-        Id.RegisterConverters();
-        Id.RegisterGenerator(builder.Configuration.GetValue<int>("IdGen:EfCore"));
+        Result registerConvertersResult = Id.RegisterConverters();
+        if (registerConvertersResult.IsFailed) throw new ConfigurationErrorsException(registerConvertersResult.GetErrorMessage());
+
+        Id.RegisterGeneratorId(builder.Configuration.GetValue<int>("IdGen:EfCore"));
+
         return builder;
     }
 
@@ -32,12 +43,18 @@ public static class InfrastructureAssembly
     public static void UseDatabase(this IHost app)
     {
         app.Services.EnsureDatabaseMigrated();
-        //app.Services.UseDatabaseSeed();
+        app.Services.UseDatabaseSeed();
     }
 
     /// <summary>Seeds the database with initial data.</summary>
     /// <param name="serviceProvider">The service provider.</param>
-    private static void UseDatabaseSeed(this IServiceProvider serviceProvider) => throw new NotImplementedException();
+    /// <returns>The <see cref="IServiceProvider"/> for chained invocation.</returns>
+    private static IServiceProvider UseDatabaseSeed(this IServiceProvider serviceProvider)
+    {
+        Console.WriteLine("Implement Database Seed ");
+
+        return serviceProvider;
+    }
 
     /// <summary>Ensures that the database migrations are applied.</summary>
     /// <param name="serviceProvider">The service provider.</param>

@@ -13,7 +13,7 @@ public abstract record ValueObject
     {
         HashCode hashCode = default;
 
-        foreach (object obj in GetAtomicValues())
+        foreach (object? obj in GetAtomicValues())
         {
             hashCode.Add(obj);
         }
@@ -23,5 +23,5 @@ public abstract record ValueObject
 
     /// <summary>Gets the atomic values of the value object.</summary>
     /// <returns>The collection of objects representing the value object values.</returns>
-    protected abstract IEnumerable<object> GetAtomicValues();
+    protected abstract IEnumerable<object?> GetAtomicValues();
 }

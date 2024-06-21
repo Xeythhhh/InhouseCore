@@ -1,7 +1,9 @@
 ﻿using Domain.Primitives;
-using Domain.Primitives.Result;
+
+using FluentResults;
 
 using FluentValidation.Results;
+using SharedKernel.Extensions;
 
 using Microsoft.AspNetCore.Identity;
 
@@ -29,9 +31,9 @@ public sealed partial class ApplicationRole :
         ApplicationRole instance = new() { Name = name };
         ValidationResult validationResult = Validator.Instance.Validate(instance);
         return validationResult.IsValid
-            ? Result.Success(instance)
-            : Result.Failure<ApplicationRole>(
-                new Error("Validation", string.Join(", ",
-                    validationResult.Errors.Select(e => e.ErrorMessage))));
+            ? Result.Ok(instance)
+            : Result.Fail<ApplicationRole>(new Error("An error occurred validating new ApplicationRole")
+                .WithMetadata(typeof(ApplicationRole).Name, instance)
+                .CausedBy(validationResult));
     }
 }

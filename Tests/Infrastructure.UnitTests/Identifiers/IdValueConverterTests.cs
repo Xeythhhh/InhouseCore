@@ -18,7 +18,7 @@ public class IdValueConverterTests(IdValueConverterTestFixture fixture) :
     public void ConvertToProvider_Success()
     {
         // Arrange
-        IdValueConverter<TestEntityId, TestEntity> converter = new();
+        IdValueConverter<TestEntityId> converter = new();
 
         // Act
         object? longValue = converter.ConvertToProvider(new TestEntityId(fixture.TestId));
@@ -31,7 +31,7 @@ public class IdValueConverterTests(IdValueConverterTestFixture fixture) :
     public void ConvertFromProvider_Success()
     {
         // Arrange
-        IdValueConverter<TestEntityId, TestEntity> converter = new();
+        IdValueConverter<TestEntityId> converter = new();
 
         // Act
         object? entityId = converter.ConvertFromProvider(fixture.TestId);

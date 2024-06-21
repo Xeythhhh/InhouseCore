@@ -1,31 +1,41 @@
-﻿using Domain.Primitives.Result;
-
-using FluentAssertions;
-
+﻿using NSubstitute;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Infrastructure.Identifiers;
-
-using Xunit.Abstractions;
+using Domain.Champions;
+using FluentAssertions;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace Infrastructure.UnitTests.Identifiers;
 
-public class IdValueGeneratorTestFixture
-{
-    public readonly int TestId = 420;
-}
-
-public class IdValueGeneratorTests(IdValueGeneratorTestFixture fixture, ITestOutputHelper output) :
-    IClassFixture<IdValueGeneratorTestFixture>
+public class IdValueGeneratorTests
 {
     [Fact]
-    public void Register_FailureWhenAlreadyRegistered()
+    public void Next_ReturnsNextId()
     {
-        Result result = IdValueGenerator.Register(fixture.TestId); // Register once
-        result.IsSuccess.Should().BeTrue();
+        // Arrange
+        IdValueGenerator<ChampionId>.SetGeneratorId(420);
+        IdValueGenerator<ChampionId> generator = new();
 
-        result = IdValueGenerator.Register(fixture.TestId); // Try to register again
+        // Act
+        ChampionId result1 = generator.Next(null!);
+        ChampionId result2 = generator.Next(null!);
 
-        if (result.IsFailure) output.WriteLine(result.Error);
-        result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be("IdValueGenerator already registered");
+        // Assert
+        (result1 < result2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void Next_Static_ReturnsNextId()
+    {
+        // Arrange
+        IdValueGenerator<ChampionId>.SetGeneratorId(420);
+
+        // Act
+        ChampionId result1 = IdValueGenerator<ChampionId>.Next();
+        ChampionId result2 = IdValueGenerator<ChampionId>.Next();
+
+        // Assert
+        (result1 < result2).Should().BeTrue();
     }
 }

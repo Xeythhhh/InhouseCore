@@ -2,14 +2,14 @@
 
 /// <summary>Represents a wrapper around a value that may or may not be null.</summary>
 /// <typeparam name="T">The value type.</typeparam>
-public sealed class Maybe<T> :
+public sealed record Maybe<T> :
     IEquatable<Maybe<T>>
 {
-    private readonly T _value;
+    private readonly T? _value;
 
     /// <summary>Initializes a new instance of the <see cref="Maybe{T}"/> class.</summary>
     /// <param name="value">The value.</param>
-    private Maybe(T value) => _value = value;
+    private Maybe(T? value) => _value = value;
 
     /// <summary>Gets a value indicating whether the value exists.</summary>
     public bool HasValue => !HasNoValue;
@@ -20,11 +20,11 @@ public sealed class Maybe<T> :
     /// <summary>Gets the value.</summary>
     /// <exception cref="InvalidOperationException">Thrown when trying to access the value when it does not exist.</exception>
     public T Value => HasValue
-        ? _value
+        ? _value!
         : throw new InvalidOperationException("The value can not be accessed because it does not exist.");
 
     /// <summary>Gets the default empty instance.</summary>
-    public static Maybe<T> None => new(default!);
+    public static Maybe<T> None => new(default(T));
 
     /// <summary>Creates a new <see cref="Maybe{T}"/> instance based on the specified value.</summary>
     /// <param name="value">The value.</param>
@@ -46,16 +46,6 @@ public sealed class Maybe<T> :
             (HasValue && other.HasValue &&
             Value!.Equals(other.Value))
         );
-
-    /// <inheritdoc />
-    public override bool Equals(object? obj) =>
-        obj switch
-        {
-            null => false,
-            T value => Equals(new Maybe<T>(value)),
-            Maybe<T> maybe => Equals(maybe),
-            _ => false
-        };
 
     /// <inheritdoc />
     public override int GetHashCode() => HasValue ? Value!.GetHashCode() : 0;

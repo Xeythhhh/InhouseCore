@@ -1,67 +1,81 @@
 ﻿using System.Reflection;
+
 using Domain.Champions;
-using Domain.UnitTests.TestImplementations;
-using Domain.Users;
+using Domain.Primitives;
+
 using FluentAssertions;
 
+using FluentResults;
+
+using IdGen;
+
 using Infrastructure.Exceptions;
-using Infrastructure.Identifiers;
+
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+using Id = Infrastructure.Identifiers.Id;
 
 namespace Infrastructure.UnitTests.Identifiers;
 
-public class IdTestFixture
-{
-    public readonly int TestId = 420;
-}
-
-public class IdTests(IdTestFixture fixture) :
-    IClassFixture<IdTestFixture>
+public class IdTests
 {
     [Fact]
-    public void GetValueConverter_ShouldThrowExceptionWhenNotRegistered() =>
-        Assert.Throws<ValueConverterNotRegisteredException>(Id.GetValueConverter<TestEntity>);
-
-    [Fact]
-    public void RegisterConverters_ShouldRegisterValueConverters()
+    public void RegisterGeneratorId_ShouldSet_GeneratorId()
     {
+        // Arrange
+        const int generatorId = 420;
+
         // Act
+        Id.RegisterGeneratorId(generatorId);
+
+        // Assert
+        Type? valueGeneratorType = Id.GetValueGenerator<ChampionId>();
+        valueGeneratorType.Should().NotBeNull();
+
+        IdGenerator? generator = (IdGenerator?)valueGeneratorType?
+            .GetField("_generator", BindingFlags.Static | BindingFlags.NonPublic)?
+            .GetValue(null);
+
+        generator.Should().NotBeNull();
+        generator?.Id.Should().Be(420);
+    }
+
+    [Fact]
+    public void GetValueConverter_ShouldReturnConverter_WhenConverterRegistered()
+    {
+        // Arrange
         Id.RegisterConverters();
 
-        // Assert
-        Id.GetValueConverter<ApplicationUser>().Should().NotBeNull();
-        Id.GetValueConverter<ApplicationRole>().Should().NotBeNull();
-        Id.GetValueConverter<Champion>().Should().NotBeNull();
-    }
-
-    [Fact]
-    public void RegisterGenerator_SuccessfulRegistration()
-    {
-        // Arrange
-        ResetStaticState();
-
         // Act
-        Action action = () => Id.RegisterGenerator(fixture.TestId);
+        ValueConverter converter = Id.GetValueConverter<ChampionId>();
 
         // Assert
-        action.Should().NotThrow();
+        converter.Should().NotBeNull();
     }
 
     [Fact]
-    public void RegisterGenerator_FailureOnDuplicateRegistration()
+    public void GetValueConverter_ShouldThrow_WhenConverterNotRegistered()
     {
-        // Arrange
-        ResetStaticState();
-        Id.RegisterGenerator(fixture.TestId); // Register a generator
-
-        // Act 
-        Action action = () => Id.RegisterGenerator(fixture.TestId); // Try to register again
+        // Act
+        Action act = () => Id.GetValueConverter<UnregisteredId>();
 
         // Assert
-        action.Should().Throw<InvalidOperationException>();
+        act.Should().Throw<ValueConverterNotRegisteredException>()
+            .WithMessage($"No ValueConverter registered for type '{typeof(UnregisteredId).AssemblyQualifiedName}'");
     }
 
-    private static void ResetStaticState() =>
-        typeof(IdValueGenerator)
-            .GetField("_generator", BindingFlags.Static | BindingFlags.NonPublic)?
-            .SetValue(null, null);
+    [Fact]
+    public void RegisterConverters_ShouldReturnOk_WhenNoErrors()
+    {
+        // Act
+        Result result = Id.RegisterConverters();
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+    }
+
+    private sealed record UnregisteredId : IEntityId
+    {
+        public long Value { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+    }
 }

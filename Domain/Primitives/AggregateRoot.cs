@@ -13,13 +13,12 @@ public abstract class AggregateRoot<TEntityId> :
 
     private readonly List<IDomainEvent> _domainEvents = new();
 
-    /// <summary>Gets the domain events. This collection is readonly.</summary>
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    /// <inheritdoc/>
+    IReadOnlyCollection<IDomainEvent> IAggregateRoot.GetDomainEvents() => _domainEvents.AsReadOnly();
 
-    /// <summary>Clears all the domain events from the <see cref="AggregateRoot"/>.</summary>
-    public void ClearDomainEvents() => _domainEvents.Clear();
+    /// <inheritdoc/>
+    void IAggregateRoot.ClearDomainEvents() => _domainEvents.Clear();
 
-    /// <summary>Adds the specified <see cref="IDomainEvent"/> to the <see cref="AggregateRoot"/>.</summary>
-    /// <param name="domainEvent">The domain event.</param>
-    protected void AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+    /// <inheritdoc/>
+    void IAggregateRoot.AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 }

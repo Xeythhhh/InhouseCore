@@ -44,20 +44,10 @@ public class DomainTests(ITestOutputHelper output) :
     }
 
     private static PredicateList GetEntityTypes() => Types.InAssembly(Domain)
-        .That().ResideInNamespace($"{Domain.GetName().Name}.Entities")
-        .And().Inherit<EntityBase<IEntityId>>()
-        .And().AreNotAbstract()
-        .Or().ImplementInterface<IEntity<IEntityId>>()
-        .And().AreNotAbstract()
-        .And().AreNotInterfaces()
-        .And().AreNotStatic();
+        .That().Inherit(typeof(EntityBase<>)).And().AreNotAbstract()
+        .Or().ImplementInterface<IEntity>().And().AreNotAbstract();
 
     private static PredicateList GetEntityIdTypes() => Types.InAssembly(Domain)
-        .That().ResideInNamespace($"{Domain.GetName().Name}.Entities")
-        .And().Inherit<EntityId<IEntity<IEntityId>>>()
-        .And().AreNotAbstract()
-        .Or().ImplementInterface<IEntityId>()
-        .And().AreNotAbstract()
-        .And().AreNotInterfaces()
-        .And().AreNotStatic();
+        .That().Inherit(typeof(EntityId<>)).And().AreNotAbstract()
+        .Or().ImplementInterface<IEntityId>().And().AreNotAbstract();
 }

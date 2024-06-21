@@ -1,7 +1,10 @@
 ﻿using Domain.Primitives;
-using Domain.Primitives.Result;
+
+using FluentResults;
 
 using FluentValidation.Results;
+
+using SharedKernel.Extensions;
 
 namespace Domain.Champions;
 
@@ -35,8 +38,9 @@ public sealed partial class Champion :
 
         ValidationResult validationResult = Validator.Instance.Validate(instance);
         return validationResult.IsValid
-            ? Result.Success(instance)
-            : Result.Failure<Champion>(
-                Errors.Validation(validationResult.Errors));
+            ? Result.Ok(instance)
+            : Result.Fail<Champion>(new Error("An error occurred validating new Champion")
+                .WithMetadata(typeof(Champion).Name, instance)
+                .CausedBy(validationResult));
     }
 }

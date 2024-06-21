@@ -1,10 +1,4 @@
-﻿using Domain.Abstractions;
-using Domain.Errors;
-using Domain.Primitives;
-using Domain.Primitives.Result;
-
-using FluentValidation;
-using FluentValidation.Results;
+﻿using Domain.Primitives;
 
 namespace Domain.Champions;
 
