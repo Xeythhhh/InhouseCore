@@ -1,31 +1,38 @@
 ﻿using Application.Abstractions;
 
 using Domain.Champions;
+using Domain.Champions.ValueObjects;
 
 using FluentResults;
+using FluentResults.Extensions;
 
+using Microsoft.Extensions.Logging;
+
+using SharedKernel.Champions;
 using SharedKernel.Extensions.ResultExtensions;
 
 namespace Application.Champions.Commands;
 
-public sealed record CreateChampionCommand(
+public sealed record class CreateChampionCommand(
     string Name,
-    Champion.Classes Class,
-    Champion.Roles Role) :
-    ICommand;
-
-internal sealed class CreateChampionCommandHandler(
-    IChampionRepository repository,
-    IUnitOfWork unitOfWork) :
-    ICommandHandler<CreateChampionCommand>
+    string Role) :
+    ICommand<ChampionId>
 {
-    public async Task<Result> Handle(CreateChampionCommand request, CancellationToken cancellationToken) =>
-        (await Champion.Create(
-            request.Name,
-            request.Class,
-            request.Role)
-        .Ensure(repository.CheckIsNameUnique, Champion.Errors.NameIsNotUnique(request.Name))
-        .Ensure(champion => repository.Add(champion, cancellationToken)))
-        .OnSuccessTry((token) => unitOfWork.SaveChangesAsync(token), cancellationToken)
-        .ToResult();
+    internal sealed class Handler(
+        IChampionRepository repository,
+        IUnitOfWork unitOfWork) :
+        ICommandHandler<CreateChampionCommand, ChampionId>
+    {
+        public async Task<Result<ChampionId>> Handle(CreateChampionCommand request, CancellationToken cancellationToken) =>
+            await Champion.Create(
+                request.Name,
+                request.Role)
+            .Ensure(repository.CheckIsNameUnique, ChampionName.Errors.NameIsNotUnique(request.Name))
+            .Bind(champion => repository.Add(champion, cancellationToken)
+                .Map(champion => champion.Id))
+            .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
+    }
+
+    public static Result<CreateChampionCommand> FromDto(CreateChampionDto dto) =>
+        new CreateChampionCommand(dto.Name, dto.Role);
 }

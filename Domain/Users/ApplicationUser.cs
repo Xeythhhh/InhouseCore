@@ -9,9 +9,9 @@ public sealed class ApplicationUser :
     IEntity<AspNetIdentityId>
 {
     /// <summary>Gets the timestamp of when the user was created.</summary>
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAtUtc { get; init; } = DateTime.UtcNow;
     /// <summary>Gets or sets the timestamp of when the user was last updated.</summary>
-    public DateTime LastUpdatedAt { get; set; }
+    public DateTime LastUpdatedAtUtc { get; set; }
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
     private ApplicationUser() { }

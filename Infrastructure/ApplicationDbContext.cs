@@ -1,6 +1,7 @@
 using Application.Abstractions;
 
 using Domain.Champions;
+using Domain.Champions.ValueObjects;
 using Domain.Users;
 
 using Infrastructure.Configuration;
@@ -17,10 +18,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-        builder.ApplyConfiguration(new ApplicationRoleEntityConfiguration());
-        builder.ApplyConfiguration(new ChampionEntityConfiguration());
-
         base.OnModelCreating(builder);
+
+        builder.ApplyConfigurationsFromAssembly(InfrastructureAssembly.Reference);
+
+        //builder.Entity<ChampionName>().HasNoKey();
+        //builder.Entity<ChampionRole>().HasNoKey();
+
     }
 }

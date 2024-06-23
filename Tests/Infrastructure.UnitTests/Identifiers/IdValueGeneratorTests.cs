@@ -1,10 +1,6 @@
-﻿using NSubstitute;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Infrastructure.Identifiers;
+﻿using Infrastructure.Identifiers;
 using Domain.Champions;
 using FluentAssertions;
-using Castle.Components.DictionaryAdapter.Xml;
 
 namespace Infrastructure.UnitTests.Identifiers;
 

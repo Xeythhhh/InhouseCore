@@ -8,8 +8,8 @@ namespace SharedKernel.Extensions.ResultExtensions;
 public static partial class ResultExtensions
 {
     /// <summary>Returns a new failure result if the predicate is false. Otherwise returns the starting result.</summary>
-    public static Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, Task<bool>> predicate, string errorMessage)
-        => resultTask.Ensure(predicate, new Error(errorMessage));
+    public static Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, Task<bool>> predicate, string errorMessage) =>
+        resultTask.Ensure(predicate, new Error(errorMessage));
 
     /// <summary>Returns a new failure result if the predicate is false. Otherwise returns the starting result.</summary>
     public static Task<Result<T>> Ensure<T, E>(this Task<Result<T>> resultTask, Func<T, Task<bool>> predicate, E error)

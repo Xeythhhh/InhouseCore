@@ -1,10 +1,6 @@
 using System.Globalization;
 
-using Domain.Champions;
-
 using Host;
-
-using Infrastructure;
 
 using Serilog;
 

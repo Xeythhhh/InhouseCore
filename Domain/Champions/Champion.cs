@@ -1,10 +1,7 @@
-﻿using Domain.Primitives;
+﻿using Domain.Champions.ValueObjects;
+using Domain.Primitives;
 
 using FluentResults;
-
-using FluentValidation.Results;
-
-using SharedKernel.Extensions;
 
 namespace Domain.Champions;
 
@@ -13,34 +10,46 @@ public sealed partial class Champion :
     AggregateRoot<ChampionId>
 {
     /// <summary>Gets or sets the name of the champion.</summary>
-    public string Name { get; set; } = string.Empty;
-    /// <summary>Gets the class of the champion.</summary>
-    public Classes Class { get; init; }
+    public ChampionName Name { get; private set; }
     /// <summary>Gets the role of the champion.</summary>
-    public Roles Role { get; init; }
+    public ChampionRole Role { get; private set; }
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Champion() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     /// <summary>Creates a new instance of the <see cref="Champion"/> class.</summary>
     /// <param name="name">The name of the champion.</param>
-    /// <param name="class">The class of the champion.</param>
     /// <param name="role">The role of the champion.</param>
     /// <returns>A result containing the created <see cref="Champion"/> instance if successful, otherwise a failure result.</returns>
-    public static Result<Champion> Create(string name, Classes @class, Roles role)
+    public static Result<Champion> Create(string name, string role)
+    {
+        try
+        {
+            return CreateInternal((ChampionName)name, (ChampionRole)role);
+        }
+        catch (Exception exception)
+        {
+            return Result.Fail(new Error(Errors.Create).CausedBy(exception));
+        }
+    }
+
+    private static Result<Champion> CreateInternal(ChampionName name, ChampionRole role)
     {
         Champion instance = new()
         {
             Name = name,
-            Role = role,
-            Class = @class
+            Role = role
         };
 
-        ValidationResult validationResult = Validator.Instance.Validate(instance);
-        return validationResult.IsValid
-            ? Result.Ok(instance)
-            : Result.Fail<Champion>(new Error("An error occurred validating new Champion")
-                .WithMetadata(typeof(Champion).Name, instance)
-                .CausedBy(validationResult));
+        return Result.Ok(instance);
+    }
+
+    /// <summary>Provides error messages for <see cref="Champion"/>.</summary>
+    public static class Errors
+    {
+        /// <summary>Error message for Create method failure</summary>
+        public static string Create => "An error occurred creating a champion instance.";
     }
 }

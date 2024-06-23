@@ -4,9 +4,9 @@
 public interface IEntity
 {
     /// <summary>Gets the timestamp of when the entity was created.</summary>
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAtUtc { get; init; }
     /// <summary>Gets or sets the timestamp of when the entity was last updated.</summary>
-    public DateTime LastUpdatedAt { get; set; }
+    public DateTime LastUpdatedAtUtc { get; set; }
 }
 
 /// <summary>Interface representing an entity with a strongly-typed identifier</summary>

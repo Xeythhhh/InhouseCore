@@ -2,20 +2,15 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Domain.Abstractions;
-
 using FluentResults;
 
 using Infrastructure.Identifiers;
-using Infrastructure.Interceptors;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
-using SharedKernel.Extensions;
 
 [assembly: InternalsVisibleTo("Infrastructure.UnitTests")]
 namespace Infrastructure;
@@ -30,34 +25,30 @@ public static class InfrastructureAssembly
     /// <param name="builder">The host application builder.</param>
     /// <exception cref="ConfigurationErrorsException"></exception>
     /// <returns>The <see cref="IHostApplicationBuilder"/> for chained invocation.</returns>
-    public static IHostApplicationBuilder AddEntityFrameworkServices(this IHostApplicationBuilder builder)
+    private static IHostApplicationBuilder AddEntityFrameworkServices(this IHostApplicationBuilder builder)
     {
         Result registerConvertersResult = Id.RegisterConverters();
         if (registerConvertersResult.IsFailed) throw new ConfigurationErrorsException(registerConvertersResult.Errors[0].Message); //todo
 
         Id.RegisterGeneratorId(builder.Configuration.GetValue<int>("IdGen:EfCore"));
 
-        builder.Services.AddSingleton<UpdateTimeStampsInterceptor>();
-
         return builder;
     }
 
-    /// <summary>Registers <see cref="IRepository"/>>s to the <see cref="IServiceCollection"/>.</summary>
-    /// <param name="services">The service collection.</param>
-    /// <returns>The <see cref="IServiceCollection"/> for chained invocation.</returns>
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    /// <summary>Registers Infrastructure services for the application.</summary>
+    /// <param name="builder">The host application builder.</param>
+    /// <returns>The <see cref="IHostApplicationBuilder"/> for chained invocation.</returns>
+    public static IHostApplicationBuilder AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-        IEnumerable<Type> repositoryTypes = Reference.GetTypes()
-            .Where(x => !x.IsAbstract && x.Name.EndsWith("Repository"));
+        builder.AddEntityFrameworkServices();
 
-        foreach (Type? implementationType in repositoryTypes)
-        {
-            services.AddScoped(implementationType);
-            foreach (Type serviceType in implementationType.GetInterfaces())
-                services.AddScoped(serviceType, implementationType);
-        }
+        builder.Services.Scan(selector =>
+            selector.FromAssemblies(Reference)
+                .AddClasses()
+                .AsSelfWithInterfaces()
+                .WithScopedLifetime());
 
-        return services;
+        return builder;
     }
 
     /// <summary>Configures database usage for the application.</summary>

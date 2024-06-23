@@ -15,9 +15,9 @@ public sealed partial class ApplicationRole :
     IEntity<AspNetIdentityId>
 {
     /// <summary>Gets or initializes the creation date of the role.</summary>
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAtUtc { get; init; } = DateTime.UtcNow;
     /// <summary>Gets or sets the last updated date of the role.</summary>
-    public DateTime LastUpdatedAt { get; set; }
+    public DateTime LastUpdatedAtUtc { get; set; }
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
     private ApplicationRole() { }

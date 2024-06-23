@@ -1,4 +1,7 @@
 ﻿using Domain.Champions;
+using Domain.Champions.ValueObjects;
+
+using FluentAssertions;
 
 using FluentResults;
 
@@ -20,7 +23,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            await dbContext.Set<Champion>().AddAsync(champion, cancellationToken);
+            await dbContext.Champions.AddAsync(champion, cancellationToken);
             return Result.Ok(champion);
         }
         catch (Exception ex)
@@ -38,10 +41,31 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            List<Champion> champions = await dbContext.Set<Champion>().ToListAsync(cancellationToken);
-            return champions.Count is not 0
-                ? Result.Ok(champions)
-                : Result.Fail(ErrorMessages.NotFound);
+            List<Champion> champions = await dbContext.Champions
+                .ToListAsync(cancellationToken);
+
+            return Result.Ok(champions);
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new Error(ErrorMessages.GetAll)
+                .CausedBy(ex));
+        }
+    }
+
+    /// <summary>Gets all Champions from the repository<para/>
+    /// - <see cref="ErrorMessages.NotFound"/> when the id is not found.<para/>
+    /// - <see cref="ErrorMessages.GetAll"/> when exception is thrown.</summary>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the list of TOut</returns>
+    public async Task<Result<List<TOut>>> GetAll<TOut>(Func<Champion, TOut> converter, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            List<TOut> champions = (await dbContext.Champions
+                .ToListAsync(cancellationToken)) // TODO Register conversion before materialization for performance
+                .ConvertAll(c => converter(c));
+
+            return Result.Ok(champions);
         }
         catch (Exception ex)
         {
@@ -59,7 +83,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            Champion? champion = await dbContext.Set<Champion>().FindAsync(
+            Champion? champion = await dbContext.Champions.FindAsync(
                 new object?[] { id },
                 cancellationToken: cancellationToken);
 
@@ -83,8 +107,8 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            List<Champion> champions = dbContext.Set<Champion>().Where(predicate).ToList();
-            return champions.Count is not 0
+            List<Champion> champions = dbContext.Champions.Where(predicate).ToList();
+            return champions.Count != 0
                 ? Result.Ok(champions)
                 : Result.Fail(ErrorMessages.NotFound);
         }
@@ -103,7 +127,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            dbContext.Set<Champion>().Update(champion);
+            dbContext.Champions.Update(champion);
             return Result.Ok(champion);
         }
         catch (Exception ex)
@@ -121,7 +145,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            dbContext.Set<Champion>().Remove(champion);
+            dbContext.Champions.Remove(champion);
             return Result.Ok(champion);
         }
         catch (Exception ex)
@@ -132,8 +156,9 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     }
 
     public bool CheckIsNameUnique(Champion champion) => CheckIsNameUnique(champion.Name);
-    public bool CheckIsNameUnique(string championName) => !CheckIsNameInUse(championName);
+    public bool CheckIsNameUnique(ChampionName championName) => CheckIsNameUnique(championName.Value);
+    public bool CheckIsNameUnique(string championName) => !IsNameInUse(championName);
 
-    private bool CheckIsNameInUse(string championName) => dbContext.Set<Champion>()
-        .Any(c => c.Name.Equals(championName));
+    private bool IsNameInUse(string championName) =>
+            dbContext.Champions.AsEnumerable().Any(champion => champion.Name.Value == championName);
 }

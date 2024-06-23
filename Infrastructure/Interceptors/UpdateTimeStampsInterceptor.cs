@@ -15,13 +15,11 @@ public sealed class UpdateTimeStampsInterceptor :
         int result,
         CancellationToken cancellationToken = default)
     {
-        Console.WriteLine("sakdjhsakjdakjdahsdjksa");
-
         DbContext? dbContext = eventData.Context;
         if (dbContext is null) return base.SavedChangesAsync(eventData, result, cancellationToken);
 
         foreach (EntityEntry<IEntity> entity in dbContext.ChangeTracker.Entries<IEntity>())
-            entity.Entity.LastUpdatedAt = DateTime.UtcNow;
+            entity.Entity.LastUpdatedAtUtc = DateTime.UtcNow;
 
         dbContext.SaveChanges();
 

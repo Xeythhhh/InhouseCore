@@ -11,9 +11,9 @@ public abstract class EntityBase<TEntityId> :
     /// <summary>Gets the unique identifier for the entity.</summary>
     public TEntityId Id { get; protected set; }
     /// <summary>Gets the timestamp of when the entity was created.</summary>
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAtUtc { get; init; } = DateTime.UtcNow;
     /// <summary>Gets or sets the timestamp of when the entity was last updated.</summary>
-    public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime LastUpdatedAtUtc { get; set; } = DateTime.UtcNow;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>

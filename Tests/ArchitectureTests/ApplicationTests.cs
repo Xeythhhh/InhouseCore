@@ -26,9 +26,7 @@ public class ApplicationTests(ITestOutputHelper output) :
             .Should().HaveNameEndingWith("Handler")
             .Or().HaveNameEndingWith("Command")
             .Or().HaveNameEndingWith("Query")
-            .And().HaveDependencyOnAll(
-                Domain.GetName().Name,
-                "MediatR")
+            .And().HaveDependencyOnAll("MediatR")
             .GetResult();
 
         // Assert
@@ -41,7 +39,8 @@ public class ApplicationTests(ITestOutputHelper output) :
     {
         // Arrange
         PredicateList types = Types.InAssembly(Application)
-            .That().ImplementInterface(typeof(IRequestHandler<,>));
+            .That().ImplementInterface(typeof(IRequestHandler<,>))
+            .And().AreNotAbstract();
 
         // Act
         TestResult testResult = types

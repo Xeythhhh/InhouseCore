@@ -63,9 +63,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Discord.UnitTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Discord", "Presentation.Discord\Presentation.Discord.csproj", "{CE07EE1C-8586-460C-9DE0-4CAA2BEBCE9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Blazor", "Presentation.Blazor\Presentation.Blazor.csproj", "{8236D2F5-43A7-453D-8E6C-95968F0832E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Blazor", "Presentation.Blazor\Presentation.Blazor.csproj", "{8236D2F5-43A7-453D-8E6C-95968F0832E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Blazor.UnitTests", "Tests\Presentation.Blazor.UnitTests\Presentation.Blazor.UnitTests.csproj", "{42A62F85-B92C-49B9-AAF8-D901C9A2D291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Blazor.UnitTests", "Tests\Presentation.Blazor.UnitTests\Presentation.Blazor.UnitTests.csproj", "{42A62F85-B92C-49B9-AAF8-D901C9A2D291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
