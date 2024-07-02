@@ -1,6 +1,6 @@
 ﻿using Domain.Primitives;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.Abstractions;
 public interface IRepository;

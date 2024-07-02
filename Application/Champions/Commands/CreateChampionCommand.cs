@@ -3,20 +3,13 @@
 using Domain.Champions;
 using Domain.Champions.ValueObjects;
 
-using FluentResults;
-using FluentResults.Extensions;
-
-using Microsoft.Extensions.Logging;
-
-using SharedKernel.Champions;
+using SharedKernel.Contracts.Requests.Champions;
 using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Result;
 
 namespace Application.Champions.Commands;
 
-public sealed record class CreateChampionCommand(
-    string Name,
-    string Role) :
-    ICommand<ChampionId>
+public sealed record class CreateChampionCommand(string Name, string Role) : ICommand<ChampionId>
 {
     internal sealed class Handler(
         IChampionRepository repository,
@@ -24,15 +17,13 @@ public sealed record class CreateChampionCommand(
         ICommandHandler<CreateChampionCommand, ChampionId>
     {
         public async Task<Result<ChampionId>> Handle(CreateChampionCommand request, CancellationToken cancellationToken) =>
-            await Champion.Create(
-                request.Name,
-                request.Role)
-            .Ensure(repository.CheckIsNameUnique, ChampionName.Errors.NameIsNotUnique(request.Name))
-            .Bind(champion => repository.Add(champion, cancellationToken)
-                .Map(champion => champion.Id))
-            .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
+            await Champion.Create(request.Name, request.Role)
+                .Ensure(repository.CheckIsNameUnique, new ChampionName.NameIsNotUniqueError(request.Name))
+                .Bind(champion => repository.Add(champion, cancellationToken)
+                    .Map(champion => champion.Id))
+                .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
 
-    public static Result<CreateChampionCommand> FromDto(CreateChampionDto dto) =>
+    public static Result<CreateChampionCommand> FromRequest(CreateChampionRequest dto) =>
         new CreateChampionCommand(dto.Name, dto.Role);
 }

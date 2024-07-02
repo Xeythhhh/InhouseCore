@@ -1,9 +1,9 @@
 ﻿using Domain.Champions.ValueObjects;
-using Domain.Primitives;
+using Domain.Errors;
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.UnitTests.Champions;
 public class ChampionRoleTests
@@ -33,8 +33,7 @@ public class ChampionRoleTests
 
         // Assert
         result.IsSuccess.Should().BeFalse();
-        result.Errors.Should().Contain(e =>
-            e.Message == ChampionRole.Errors.ValueOutOfRange);
+        result.Errors.Should().ContainItemsAssignableTo<ChampionRole.ValueOutOfRangeError>();
     }
 
     [Fact]
@@ -60,8 +59,8 @@ public class ChampionRoleTests
         Action act = () => { ChampionRole role = invalidValue; };
 
         // Assert
-        act.Should().Throw<InvalidOperationException>()
-            .WithMessage(ValueObjectCommonErrors.InvalidValueForImplicitConversion);
+        act.Should().Throw<Exception>()
+            .WithMessage(DomainErrors.InvalidValueForImplicitConversionError.ErrorMessageTemplate);
     }
 
     [Fact]

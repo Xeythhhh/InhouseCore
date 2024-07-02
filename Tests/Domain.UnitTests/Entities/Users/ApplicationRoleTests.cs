@@ -2,7 +2,7 @@
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.UnitTests.Entities.Users;
 public class ApplicationRoleTests

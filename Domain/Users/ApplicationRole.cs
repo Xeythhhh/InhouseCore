@@ -1,16 +1,13 @@
 ﻿using Domain.Primitives;
 
-using FluentResults;
-
-using FluentValidation.Results;
-using SharedKernel.Extensions;
+using SharedKernel.Primitives.Result;
 
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Users;
 
 /// <summary>Represents an application role.</summary>
-public sealed partial class ApplicationRole :
+public sealed class ApplicationRole :
     IdentityRole<AspNetIdentityId>,
     IEntity<AspNetIdentityId>
 {
@@ -25,15 +22,9 @@ public sealed partial class ApplicationRole :
     /// <summary>Creates a new instance of <see cref="ApplicationRole"/> with the specified name.</summary>
     /// <param name="name">The name of the role.</param>
     /// <returns>A result containing the new <see cref="ApplicationRole"/> or an error.</returns>
-    public static Result<ApplicationRole> Create(string name)
-    {
-        name = name?.Trim() ?? string.Empty;
-        ApplicationRole instance = new() { Name = name };
-        ValidationResult validationResult = Validator.Instance.Validate(instance);
-        return validationResult.IsValid
-            ? Result.Ok(instance)
-            : Result.Fail<ApplicationRole>(new Error("An error occurred validating new ApplicationRole")
-                .WithMetadata(typeof(ApplicationRole).Name, instance)
-                .CausedBy(validationResult));
-    }
+    public static Result<ApplicationRole> Create(string name) =>
+        Result
+            .Try(() => ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name)))
+            .ToResult(name.Trim())
+            .Map(trimmedName => new ApplicationRole() { Name = trimmedName });
 }

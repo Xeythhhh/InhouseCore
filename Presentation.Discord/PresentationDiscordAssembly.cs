@@ -27,7 +27,7 @@ public static class PresentationDiscordAssembly
     /// <returns>The <see cref="IHostApplicationBuilder"/>  for chained invocation.</returns>
     public static IHostApplicationBuilder AddDiscordApplication(this IHostApplicationBuilder builder)
     {
-        builder.Services.ConfigureOptions<Configuration.DiscordConfiguration>();
+        builder.Services.ConfigureOptions<DiscordApplicationConfiguration>();
         string? token = builder.Configuration.GetDiscordGatewayToken();
 
         builder.Services.AddDiscordClient(token, DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents)

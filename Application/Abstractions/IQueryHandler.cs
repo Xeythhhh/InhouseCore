@@ -1,4 +1,4 @@
-﻿using FluentResults;
+﻿using SharedKernel.Primitives.Result;
 
 using MediatR;
 

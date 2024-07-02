@@ -1,0 +1,4 @@
+@Api_HostAddress = https://localhost:7420/api
+
+GET {{Api_HostAddress}}/champions/
+Accept: application/json

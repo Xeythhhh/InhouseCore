@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.Champions;
 

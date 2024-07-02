@@ -1,8 +1,8 @@
-﻿using Domain.Primitives;
+﻿using Domain.Errors;
+using Domain.Primitives;
 
-using FluentResults;
-
-using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.Champions.ValueObjects;
 
@@ -15,9 +15,10 @@ public sealed record ChampionRole : ValueObject<string>
     /// <param name="value">The value of the champion role.</param>
     /// <returns>A <see cref="Result{ChampionRole}"/> indicating success or failure.</returns>
     public static Result<ChampionRole> Create(string? value) =>
-        Result.Ok(value?.Trim()?.ToLower())
-            .Ensure(role => !string.IsNullOrEmpty(role), ValueObjectCommonErrors.NullOrEmpty).Map(role => role!)
-            .Ensure(ValidValues.Contains, Errors.ValueOutOfRange)
+        Result.Try(() => value?.Trim()?.ToLower())
+            .OnSuccessTry(roleOrEmpty => ArgumentException.ThrowIfNullOrWhiteSpace(roleOrEmpty))
+            .Map(role => role!)
+            .Ensure(ValidValues.Contains, new ValueOutOfRangeError())
             .Map(role => new ChampionRole(role));
 
     /// <summary>Gets the atomic values used for equality comparison.</summary>
@@ -36,17 +37,12 @@ public sealed record ChampionRole : ValueObject<string>
     {
         Result<ChampionRole> result = Create(value);
         return result.IsSuccess ? result.Value
-            : throw new InvalidOperationException(ValueObjectCommonErrors.InvalidValueForImplicitConversion);
+            : throw DomainErrors.InvalidValueForImplicitConversionError.Exception(result);
     }
 
     /// <summary>Explicitly converts a <see cref="ChampionRole"/> to a <see cref="string"/>.</summary>
     /// <param name="role">The <see cref="ChampionRole"/> to convert.</param>
     public static explicit operator string(ChampionRole role) => role.Value;
 
-    /// <summary>Provides error messages for <see cref="ChampionRole"/>.</summary>
-    public static class Errors
-    {
-        /// <summary>Error message for invalid values.</summary>
-        public static string ValueOutOfRange => $"Champion Role can only be '{string.Join(", ", ValidValues)}'";
-    }
+    public sealed class ValueOutOfRangeError() : Error($"Value outside of supported range. (valid values: '{string.Join(", ", ValidValues)}'");
 }

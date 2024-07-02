@@ -5,7 +5,7 @@ using Domain.Primitives;
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 using IdGen;
 

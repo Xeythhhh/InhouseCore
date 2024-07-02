@@ -1,11 +1,10 @@
-﻿using SharedKernel.Champions;
-
-using Domain.Champions;
+﻿using Domain.Champions;
+using SharedKernel.Contracts.Responses.Champions;
 
 namespace Application.Champions;
 public static class ChampionExtensions
 {
-    public static GetChampionDto ToGetChampionDto(this Champion champion) =>
+    public static GetChampionResponse ToGetChampionDto(this Champion champion) =>
         new(
             champion.Id,
             champion.Name.Value,

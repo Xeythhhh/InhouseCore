@@ -1,5 +1,8 @@
 using Domain.Primitives;
+
 using Microsoft.AspNetCore.Identity;
+
+using SharedKernel.Primitives.Result;
 
 namespace Domain.Users;
 

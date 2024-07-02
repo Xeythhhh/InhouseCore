@@ -1,6 +1,7 @@
 ﻿using Domain.Primitives;
 
-using FluentResults;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.UnitTests.TestImplementations;
 

@@ -1,0 +1,70 @@
+﻿@* @page "/champions"
+@inject ChampionService ChampionService
+@using Microsoft.AspNetCore.Components.Web
+@using SharedKernel.Contracts.Responses.Champions;
+@using SharedKernel.Contracts.Requests.Champions
+
+<PageTitle>Champions</PageTitle>
+
+<h1>Champions</h1>
+
+<button @onclick="CreateChampion">Create New champion</button>
+<button @onclick="GetAllChampions">Refresh</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var champion in GetAllChampionsResponse.Champions)
+        {
+            <tr>
+                <td>@champion.Id</td>
+                <td>@champion.Name</td>
+                <td>@champion.Role</td>
+                <td>
+                    <button @onclick="() => EditChampion(champion.Id)">Edit</button>
+                    <button @onclick="() => DeleteChampion(champion.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private GetAllChampionsResponse GetAllChampionsResponse = new GetAllChampionsResponse(Array.Empty<GetAllChampionsResponse.ChampionDto>());
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllChampions();
+    }
+
+    protected async Task GetAllChampions()
+    {
+        GetAllChampionsResponse = await ChampionService.GetChampionsAsync();
+    }
+
+    private async Task CreateChampion()
+    {
+        await ChampionService.CreateChampionAsync(new CreateChampionRequest($"CreateChampion-test-{DateTime.UtcNow}", "Melee"));
+    }
+
+    private async Task EditChampion(long id)
+    {
+        Console.WriteLine("Navigate to EditChampion");
+        // Navigate to the edit champion page with the given id
+    }
+
+    private async Task DeleteChampion(long id)
+    {
+        Console.WriteLine("DeleteChampion");
+        // Prompt
+        // Delete
+    }
+}
+ *@

@@ -4,25 +4,28 @@ using Application.Abstractions;
 
 using Dapper;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
-using SharedKernel.Champions;
+using SharedKernel.Contracts.Responses.Champions;
+using SharedKernel.Extensions.ResultExtensions;
 
 namespace Application.Champions.Queries;
 
-public sealed record GetAllChampionsQuery : IQuery<List<GetChampionDto>>
+public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
 {
-    internal sealed class Handler(
-        ReadConnectionString connectionString) :
-        IQueryHandler<GetAllChampionsQuery, List<GetChampionDto>>
+    internal sealed class Handler(IReadConnectionString connectionString) :
+        IQueryHandler<GetAllChampionsQuery, GetAllChampionsResponse>
     {
-        const string sql = "SELECT Id, Name, Role FROM Champions";
+        const string sql =
+            """
+            SELECT Id, Name, Role 
+            FROM Champions
+            """;
 
-        public async Task<Result<List<GetChampionDto>>> Handle(GetAllChampionsQuery request, CancellationToken cancellationToken)
-        {
-            await using SqlConnection connection = new(connectionString.Value);
-            return Result.Ok(await connection.QueryAsync<GetChampionDto>(new CommandDefinition(sql, cancellationToken: cancellationToken)))
-                .Map(dtos => dtos.ToList());
-        }
+        public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken) =>
+            await Result
+                .Try(() => new SqlConnection(connectionString.Value))
+                .Bind(connection => connection.QueryAsync<GetAllChampionsResponse.ChampionDto>(new CommandDefinition(sql, cancellationToken: cancellationToken)))
+                .Map(dtos => new GetAllChampionsResponse(dtos));
     }
 }

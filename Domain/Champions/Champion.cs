@@ -1,7 +1,8 @@
 ﻿using Domain.Champions.ValueObjects;
 using Domain.Primitives;
 
-using FluentResults;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.Champions;
 
@@ -31,7 +32,7 @@ public sealed partial class Champion :
         }
         catch (Exception exception)
         {
-            return Result.Fail(new Error(Errors.Create).CausedBy(exception));
+            return Result.Fail(new CreateChampionError().CausedBy(exception));
         }
     }
 
@@ -47,9 +48,5 @@ public sealed partial class Champion :
     }
 
     /// <summary>Provides error messages for <see cref="Champion"/>.</summary>
-    public static class Errors
-    {
-        /// <summary>Error message for Create method failure</summary>
-        public static string Create => "An error occurred creating a champion instance.";
-    }
+    public class CreateChampionError() : Error("An error occurred creating a champion instance.");
 }

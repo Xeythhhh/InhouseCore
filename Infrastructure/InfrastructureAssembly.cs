@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 using Infrastructure.Identifiers;
 

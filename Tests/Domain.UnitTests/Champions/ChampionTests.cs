@@ -3,7 +3,7 @@ using Domain.Primitives;
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.UnitTests.Champions
 {
@@ -37,8 +37,7 @@ namespace Domain.UnitTests.Champions
 
             // Assert
             result.IsFailed.Should().BeTrue();
-            result.Errors.Should().Contain(e => e.Message == Champion.Errors.Create)
-                .Which.Reasons.Should().Contain(r => r.Message == ValueObjectCommonErrors.InvalidValueForImplicitConversion);
+            result.Errors.Should().ContainItemsAssignableTo<Champion.CreateChampionError>();
         }
     }
 }

@@ -3,9 +3,10 @@ using Domain.Champions.ValueObjects;
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Primitives.Reasons;
 
 namespace Infrastructure.Repositories;
 
@@ -28,7 +29,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.Add)
+            return Result.Fail(new AddError()
                 .CausedBy(ex));
         }
     }
@@ -48,7 +49,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.GetAll)
+            return Result.Fail(new GetAllError()
                 .CausedBy(ex));
         }
     }
@@ -69,7 +70,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.GetAll)
+            return Result.Fail(new GetAllError()
                 .CausedBy(ex));
         }
     }
@@ -89,11 +90,11 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
 
             return champion is not null
                 ? Result.Ok(champion)
-                : Result.Fail(ErrorMessages.NotFound);
+                : Result.Fail(new NotFoundError());
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.Get)
+            return Result.Fail(new GetError()
                 .CausedBy(ex));
         }
     }
@@ -110,11 +111,11 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
             List<Champion> champions = dbContext.Champions.Where(predicate).ToList();
             return champions.Count != 0
                 ? Result.Ok(champions)
-                : Result.Fail(ErrorMessages.NotFound);
+                : Result.Fail(new NotFoundError());
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.Get)
+            return Result.Fail(new GetError()
                 .CausedBy(ex));
         }
     }
@@ -132,7 +133,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.Update)
+            return Result.Fail(new UpdateError()
                 .CausedBy(ex));
         }
     }
@@ -150,7 +151,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new Error(ErrorMessages.Delete)
+            return Result.Fail(new DeleteError()
                 .CausedBy(ex));
         }
     }

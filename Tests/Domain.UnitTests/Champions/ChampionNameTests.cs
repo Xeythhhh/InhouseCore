@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 
 using Domain.Champions.ValueObjects;
+using Domain.Errors;
 using Domain.Primitives;
 
 using FluentAssertions;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 namespace Domain.UnitTests.Champions;
 
@@ -27,15 +28,14 @@ public class ChampionNameTests
 
     [Theory]
     [ClassData(typeof(InvalidNames))]
-    public void Create_ShouldReturnFailure_WhenNameIsInvalid(string invalidName, string expectedErrorMessage)
+    public void Create_ShouldReturnFailure_WhenNameIsInvalid(string invalidName, Type expectedErrorType)
     {
         // Act
         Result<ChampionName> result = ChampionName.Create(invalidName);
 
         // Assert
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().ContainSingle(e =>
-            e.Message == expectedErrorMessage);
+        result.Errors.Should().ContainSingle(e => e.GetType() == expectedErrorType);
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class ChampionNameTests
     }
 
     [Fact]
-    public void ImplicitConversion_ShouldThrowInvalidOperationException_WhenInvalidStringProvided()
+    public void ImplicitConversion_ShouldThrowException_WhenInvalidStringProvided()
     {
         // Arrange
         const string invalidName = "";
@@ -61,8 +61,8 @@ public class ChampionNameTests
         Action act = () => { ChampionName championName = invalidName; };
 
         // Assert
-        act.Should().Throw<InvalidOperationException>()
-            .WithMessage(ValueObjectCommonErrors.InvalidValueForImplicitConversion);
+        act.Should().Throw<Exception>()
+            .WithMessage(DomainErrors.InvalidValueForImplicitConversionError.ErrorMessageTemplate);
     }
 
     [Fact]
@@ -84,9 +84,9 @@ internal class InvalidNames : IEnumerable<object[]>
 {
     public IEnumerator<object[]> GetEnumerator()
     {
-        yield return new object[] { "", ValueObjectCommonErrors.NullOrEmpty };
-        yield return new object[] { null!, ValueObjectCommonErrors.NullOrEmpty };
-        yield return new object[] { new string('a', 101), ChampionName.Errors.GreaterThan101Characters };
+        yield return new object[] { "", typeof(DomainErrors.NullOrEmptyError) };
+        yield return new object[] { null!, typeof(DomainErrors.NullOrEmptyError) };
+        yield return new object[] { new string('a', 101), typeof(ChampionName.GreaterThan101CharactersError) };
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

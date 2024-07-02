@@ -1,4 +1,6 @@
-﻿namespace Domain.Primitives;
+﻿using SharedKernel.Primitives.Reasons;
+
+namespace Domain.Primitives;
 
 /// <summary>Represents the base class all value objects derive from.</summary>
 public abstract record ValueObject<T> : IEquatable<T>
@@ -33,15 +35,4 @@ public abstract record ValueObject<T> : IEquatable<T>
     /// <summary>Gets the atomic values of the value object.</summary>
     /// <returns>The collection of objects representing the value object values.</returns>
     protected abstract IEnumerable<object?> GetAtomicValues();
-}
-
-/// <summary>Provides error messages for <see cref="ValueObject"/>s.</summary>
-public static class ValueObjectCommonErrors
-{
-    /// <summary>Error message for invalid value conversion.</summary>
-    public static string InvalidValueForImplicitConversion => "Invalid value for implicit conversion.";
-    /// <summary>Error message for invalid value.</summary>
-    public static string InvalidValue => "Invalid value.";
-    /// <summary>Error message for null or empty value.</summary>
-    public static string NullOrEmpty => "Value was null or empty.";
 }

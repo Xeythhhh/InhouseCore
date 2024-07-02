@@ -1,6 +1,6 @@
-﻿using FluentResults;
+﻿using MediatR;
 
-using MediatR;
+using SharedKernel.Primitives.Result;
 
 namespace Application.Abstractions;
 

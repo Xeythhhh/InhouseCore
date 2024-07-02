@@ -10,21 +10,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Api.UnitTests\**" />
     <Compile Remove="Application.UnitTests\**" />
     <Compile Remove="Domain.UnitTests\**" />
     <Compile Remove="Infrastructure.UnitTests\**" />
     <Compile Remove="Presentation.Blazor.UnitTests\**" />
     <Compile Remove="Presentation.Discord.UnitTests\**" />
+    <Compile Remove="WebApp.UnitTests\**" />
+    <EmbeddedResource Remove="Api.UnitTests\**" />
     <EmbeddedResource Remove="Application.UnitTests\**" />
     <EmbeddedResource Remove="Domain.UnitTests\**" />
     <EmbeddedResource Remove="Infrastructure.UnitTests\**" />
     <EmbeddedResource Remove="Presentation.Blazor.UnitTests\**" />
     <EmbeddedResource Remove="Presentation.Discord.UnitTests\**" />
+    <EmbeddedResource Remove="WebApp.UnitTests\**" />
+    <None Remove="Api.UnitTests\**" />
     <None Remove="Application.UnitTests\**" />
     <None Remove="Domain.UnitTests\**" />
     <None Remove="Infrastructure.UnitTests\**" />
     <None Remove="Presentation.Blazor.UnitTests\**" />
     <None Remove="Presentation.Discord.UnitTests\**" />
+    <None Remove="WebApp.UnitTests\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,11 +38,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0-release-24177-07" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="NetArchTest.eNhancedEdition" Version="1.4.3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="xunit" Version="2.8.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.0">
+    <PackageReference Include="xunit" Version="2.8.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -44,12 +50,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\build\Build.csproj" />
-    <ProjectReference Include="..\Host\Host.csproj" />
+    <ProjectReference Include="Api.UnitTests\Api.UnitTests.csproj" />
     <ProjectReference Include="Application.UnitTests\Application.UnitTests.csproj" />
     <ProjectReference Include="Domain.UnitTests\Domain.UnitTests.csproj" />
     <ProjectReference Include="Infrastructure.UnitTests\Infrastructure.UnitTests.csproj" />
-    <ProjectReference Include="Presentation.Blazor.UnitTests\Presentation.Blazor.UnitTests.csproj" />
     <ProjectReference Include="Presentation.Discord.UnitTests\Presentation.Discord.UnitTests.csproj" />
+    <ProjectReference Include="WebApp.UnitTests\WebApp.UnitTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

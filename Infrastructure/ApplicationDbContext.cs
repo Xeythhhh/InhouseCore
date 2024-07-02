@@ -1,10 +1,7 @@
 using Application.Abstractions;
 
 using Domain.Champions;
-using Domain.Champions.ValueObjects;
 using Domain.Users;
-
-using Infrastructure.Configuration;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

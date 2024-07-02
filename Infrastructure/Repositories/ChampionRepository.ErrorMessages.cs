@@ -1,14 +1,13 @@
-﻿namespace Infrastructure.Repositories;
+﻿using SharedKernel.Primitives.Reasons;
+
+namespace Infrastructure.Repositories;
 
 public partial class ChampionRepository
 {
-    public static class ErrorMessages
-    {
-        public static string GetAll => "An error occurred while retrieving Champions";
-        public static string Get => "An error occurred while retrieving the Champion";
-        public static string Add => "An error occurred while adding the Champion";
-        public static string Update => "An error occurred while updating the Champion";
-        public static string Delete => "An error occurred while deleting the Champion";
-        public static string NotFound => "Champion not found";
-    }
+    public sealed class GetAllError() : Error("An error occurred while retrieving Champions");
+    public sealed class GetError() : Error("An error occurred while retrieving Champion");
+    public sealed class AddError() : Error("An error occurred while adding the Champion");
+    public sealed class UpdateError() : Error("An error occurred while updating the Champion");
+    public sealed class DeleteError() : Error("An error occurred while deleting Champions");
+    public sealed class NotFoundError() : Error("Champion not found");
 }

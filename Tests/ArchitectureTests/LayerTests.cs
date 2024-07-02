@@ -46,13 +46,10 @@ public class LayerTests(ITestOutputHelper output) :
             yield return new object[] { new Rule(PresentationDiscord,
                 [Build, Infrastructure, .. Hosts, .. Tests]) };
 
-            yield return new object[] { new Rule(PresentationBlazor,
-                [Build, Infrastructure, .. Hosts, .. Tests]) };
-
-            yield return new object[] { new Rule(Host,
+            yield return new object[] { new Rule(Api,
                 [Build, .. Tests]) };
 
-            yield return new object[] { new Rule(Client,
+            yield return new object[] { new Rule(BlazorClient,
                 [Build, .. Tests]) };
 
             yield return new object[] { new Rule(SharedKernel,

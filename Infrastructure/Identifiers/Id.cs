@@ -1,11 +1,12 @@
 ﻿using Domain;
 using Domain.Primitives;
 
-using FluentResults;
+using SharedKernel.Primitives.Result;
 
 using Infrastructure.Exceptions;
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SharedKernel.Primitives.Reasons;
 
 namespace Infrastructure.Identifiers;
 
