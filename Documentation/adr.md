@@ -1,11 +1,11 @@
 # Architectural Decision Records
 - CA - Clean Architecture
 - DDD - Domain Driven Design
-- CQRS - Command and Query Responsability Segregation
+- CQRS - Command and Query Responsibility Segregation
 ---
 
 **Host**
-- ASP.NET Host with Blazor
+- ASP.NET API Host with Blazor
 
 **Build**
 - Nuke Build
@@ -20,21 +20,23 @@
 	- Value Objects
 	- Entities
 	- Aggregates
-- Aplication 
+
+- Application 
 	- Process Logic
 	- Transactions
-	- Commands and Queries
+	- Commands
+	- Queries
 
 ## **External**
 - Infrastructure
 	- Write Model using Entity Framework
 	- Read Model using Dapper
+
 - Presentation 
 	- Discord Application
-	- Api Controllers
-	- Blazor Components
 
 ---
 ## Strategic dependencies in the **Shared Kernel**
-- https://github.com/vkhorikov/CSharpFunctionalExtensions
-- ~~https://github.com/Cysharp/Ulid~~
+- FluentAssertions
+- FluentValidation
+- Microsoft.Extensions.Configuration.Abstractions

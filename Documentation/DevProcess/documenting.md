@@ -1,5 +1,7 @@
 # References and Comments
 
+Please Document the public api of your code if contributing to make generating documentation easier.
+
 ## XML Documentation Tags
 
 `<summary>`

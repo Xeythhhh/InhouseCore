@@ -4,23 +4,31 @@ InhouseCore is a comprehensive and customizable **ranking system** for gaming co
 ---
 ## Contents
 [Features](#Features)
+
 [Architecture](#Architecture)
-> [Build](#Build)
-> [Host](#Host)
-> [Presentation](#Presentation)
-> [Domain](#Domain)
-> [Application](#Application)
-> [Infrastructure](#Infrastructure)
-> [Shared Kernel](#Shared-Kernel)
-> [Tests](#Tests)
+- [Build](#Build)
+- [Host](#Host)
+- [Presentation](#Presentation)
+- [Domain](#Domain)
+- [Application](#Application)
+- [Infrastructure](#Infrastructure)
+- [Shared Kernel](#Shared-Kernel)
+- [Tests](#Tests)
 
 [Target Audience](#Target-Audience)
+
 [Installation](#Installation)
+
 [Usage](#Usage)
+
 [Contributing](#Contributing)
+
 [Credits](#Credits)
+
 [Contributors](#Contributors)
+
 [Libraries](#Libraries)
+
 [License](#License)
 
 ---
@@ -44,11 +52,9 @@ InhouseCore tries to follow [Clean Code](https://gist.github.com/wojteklu/73c691
 ### Build
 - [Nuke](https://nuke.build) Build System 
 ### Host
-- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Host with [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
+- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) API Host / [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) WASM with [MudBlazor](https://mudblazor.com)
 ### Presentation
 - [DSharpPlus](https://dsharpplus.github.io/DSharpPlus/) [Discord](https://discord.com) Application
-- [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Controllers
-- [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) Components
 ### Application
 - Process Logic
 - Transactions
@@ -66,7 +72,10 @@ InhouseCore tries to follow [Clean Code](https://gist.github.com/wojteklu/73c691
 ### Shared Kernel
 - Abstractions
 - Utilities
-- Configuration
+- Constants
+- Contracts
+- Extensions
+- Result Pattern Implementation
 ### Tests
 - [xUnit](https://xunit.net) Tests
 - [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) Tests
@@ -90,16 +99,17 @@ Contributions are welcome! Please read the [contribution](Documentation/contribu
 ## Credits
 ### Contributors
 - [Xeyth](https://github.com/Xeythhhh) - Author
+- [Mingo](https://github.com/arialucia) - Author
 - [Battlerite Community League](https://discord.gg/bcl) - Feedback
 ### Libraries
 - [AspNetCore](https://github.com/dotnet/aspnetcore)
 - [Blazor](https://blazor.net/) - Framework for client-side web UI with .NET
-- ~~[Blazorise](https://blazorise.com) - Blazor Component Library~~
+- [MudBlazor](https://mudblazor.com) - Blazor Component Library
 - [EFCore](https://github.com/dotnet/efcore) - Object-database mapper for .NET
-- [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) - .NET wrapper for the Discord API
-- ~~[Ulid](https://github.com/Cysharp/Ulid) - Fast C# Implementation of ULID~~
-- [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) - Architecture Tests
 - [Dapper](https://github.com/DapperLib/Dapper)
+- [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) - .NET wrapper for the Discord API
+- [IdGen](https://github.com/RobThree/IdGen) - Twitter Snowflake-alike ID generator for .NET
+- [NetArchTest](https://www.ben-morris.com/writing-archunit-style-tests-for-net-and-c-for-self-testing-architectures/) - Architecture Tests
 - [FluentAssertions](https://fluentassertions.com) - Prettier Assertions
 
 ---
