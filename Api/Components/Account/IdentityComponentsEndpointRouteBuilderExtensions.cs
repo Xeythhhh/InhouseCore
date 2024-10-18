@@ -12,7 +12,7 @@ using Api.Components.Account.Pages;
 using Api.Components.Account.Pages.Manage;
 using Domain.Users;
 
-namespace Microsoft.AspNetCore.Routing;
+namespace Api.Components.Account;
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {
     // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.

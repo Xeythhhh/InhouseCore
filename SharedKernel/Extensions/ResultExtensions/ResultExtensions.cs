@@ -24,6 +24,14 @@ public static partial class ResultExtensions
     public static async Task<Result> Bind(this Task<Result> resultTask, Func<Task<Result>> bind) =>
         await (await resultTask).Bind(bind);
 
+    public static async Task<Result> Bind(this Result<Task> resultTask, Func<Task<Result>> bind) =>
+        await Result.Try(async () => await resultTask.Value)
+                .Bind(bind);
+
+    public static async Task<Result<T>> Bind<T>(this Result<Task<T>> resultTask, Func<T, Result<T>> bind) =>
+        await Result.Try(async () => await resultTask.Value)
+                .Bind(bind);
+
     public static async Task<Result> MapErrors(this Task<Result> resultTask, Func<IError, IError> errorMapper) =>
         (await resultTask).MapErrors(errorMapper);
 

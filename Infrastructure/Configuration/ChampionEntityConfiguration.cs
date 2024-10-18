@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Infrastructure.Configuration;
 
 public sealed class ChampionEntityConfiguration :
-    EntityConfiguration<Champion, ChampionId>,
+    EntityConfiguration<Champion, Champion.ChampionId>,
     IEntityTypeConfiguration<Champion>
 {
     new public void Configure(EntityTypeBuilder<Champion> builder)
@@ -23,5 +23,7 @@ public sealed class ChampionEntityConfiguration :
             .HasConversion(
                 role => role.Value,
                 role => ChampionRole.Create(role).Value);
+
+        builder.HasMany(champion => champion.Restrictions);
     }
 }

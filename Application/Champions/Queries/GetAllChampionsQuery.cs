@@ -5,9 +5,8 @@ using Application.Abstractions;
 using Dapper;
 
 using SharedKernel.Primitives.Result;
-
-using SharedKernel.Contracts.Responses.Champions;
 using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Contracts.v1.Champions;
 
 namespace Application.Champions.Queries;
 
@@ -25,7 +24,7 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
         public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken) =>
             await Result
                 .Try(() => new SqlConnection(connectionString.Value))
-                .Bind(connection => connection.QueryAsync<GetAllChampionsResponse.ChampionDto>(new CommandDefinition(sql, cancellationToken: cancellationToken)))
+                .Bind(connection => connection.QueryAsync<ChampionDto>(new CommandDefinition(sql, cancellationToken: cancellationToken)))
                 .Map(dtos => new GetAllChampionsResponse(dtos));
     }
 }

@@ -43,6 +43,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         try
         {
             List<Champion> champions = await dbContext.Champions
+                .Include(champion => champion.Restrictions)
                 .ToListAsync(cancellationToken);
 
             return Result.Ok(champions);
@@ -63,6 +64,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         try
         {
             List<TOut> champions = (await dbContext.Champions
+                .Include(champion => champion.Restrictions)
                 .ToListAsync(cancellationToken)) // TODO Register conversion before materialization for performance
                 .ConvertAll(c => converter(c));
 
@@ -80,13 +82,13 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     /// - <see cref="ErrorMessages.Get"/> when exception is thrown.</summary>
     /// <param name="id">The Champion identifier</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the Champion</returns>
-    public async Task<Result<Champion>> GetById(ChampionId id, CancellationToken cancellationToken = default)
+    public async Task<Result<Champion>> GetById(Champion.ChampionId id, CancellationToken cancellationToken = default)
     {
         try
         {
-            Champion? champion = await dbContext.Champions.FindAsync(
-                new object?[] { id },
-                cancellationToken: cancellationToken);
+            Champion? champion = await dbContext.Champions
+                .Include(champion => champion.Restrictions)
+                .FirstAsync(champion => champion.Id == id, cancellationToken);
 
             return champion is not null
                 ? Result.Ok(champion)
@@ -108,7 +110,10 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            List<Champion> champions = dbContext.Champions.Where(predicate).ToList();
+            List<Champion> champions = dbContext.Champions
+                .Include(champion => champion.Restrictions)
+                .Where(predicate).ToList();
+
             return champions.Count != 0
                 ? Result.Ok(champions)
                 : Result.Fail(new NotFoundError());
@@ -146,6 +151,12 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
+            if (champion.Restrictions.Count != 0)
+            {
+                foreach (ChampionRestriction restriction in champion.Restrictions)
+                    dbContext.ChampionRestrictions.Remove(restriction);
+            }
+
             dbContext.Champions.Remove(champion);
             return Result.Ok(champion);
         }

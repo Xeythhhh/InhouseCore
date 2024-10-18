@@ -46,6 +46,39 @@ namespace Infrastructure.Migrations
                     b.ToTable("Champions");
                 });
 
+            modelBuilder.Entity("Domain.Champions.ChampionRestriction", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ChampionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DefaultKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastUpdatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChampionId");
+
+                    b.ToTable("ChampionRestriction");
+                });
+
             modelBuilder.Entity("Domain.Users.ApplicationRole", b =>
                 {
                     b.Property<long>("Id")
@@ -253,6 +286,13 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Champions.ChampionRestriction", b =>
+                {
+                    b.HasOne("Domain.Champions.Champion", null)
+                        .WithMany("Restrictions")
+                        .HasForeignKey("ChampionId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<Domain.Users.AspNetIdentityId>", b =>
                 {
                     b.HasOne("Domain.Users.ApplicationRole", null)
@@ -302,6 +342,11 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Champions.Champion", b =>
+                {
+                    b.Navigation("Restrictions");
                 });
 #pragma warning restore 612, 618
         }

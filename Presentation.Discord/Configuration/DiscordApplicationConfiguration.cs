@@ -20,9 +20,8 @@ internal sealed class DiscordApplicationConfiguration(IConfiguration configurati
 
 /// <summary>Options class representing Discord-related configuration.</summary>
 internal sealed class DiscordOptions
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 {
     /// <summary>Gets the configuration for Discord commands.</summary>
     public CommandsConfiguration CommandsConfiguration { get; }
 }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

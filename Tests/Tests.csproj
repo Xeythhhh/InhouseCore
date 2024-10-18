@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\build\Build.csproj" />
+    <ProjectReference Include="..\.build\Build.csproj" />
     <ProjectReference Include="Api.UnitTests\Api.UnitTests.csproj" />
     <ProjectReference Include="Application.UnitTests\Application.UnitTests.csproj" />
     <ProjectReference Include="Domain.UnitTests\Domain.UnitTests.csproj" />

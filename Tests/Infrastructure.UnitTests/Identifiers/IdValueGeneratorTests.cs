@@ -10,12 +10,12 @@ public class IdValueGeneratorTests
     public void Next_ReturnsNextId()
     {
         // Arrange
-        IdValueGenerator<ChampionId>.SetGeneratorId(420);
-        IdValueGenerator<ChampionId> generator = new();
+        IdValueGenerator<Champion.ChampionId>.SetGeneratorId(420);
+        IdValueGenerator<Champion.ChampionId> generator = new();
 
         // Act
-        ChampionId result1 = generator.Next(null!);
-        ChampionId result2 = generator.Next(null!);
+        Champion.ChampionId result1 = generator.Next(null!);
+        Champion.ChampionId result2 = generator.Next(null!);
 
         // Assert
         (result1 < result2).Should().BeTrue();
@@ -25,11 +25,11 @@ public class IdValueGeneratorTests
     public void Next_Static_ReturnsNextId()
     {
         // Arrange
-        IdValueGenerator<ChampionId>.SetGeneratorId(420);
+        IdValueGenerator<Champion.ChampionId>.SetGeneratorId(420);
 
         // Act
-        ChampionId result1 = IdValueGenerator<ChampionId>.Next();
-        ChampionId result2 = IdValueGenerator<ChampionId>.Next();
+        Champion.ChampionId result1 = IdValueGenerator<Champion.ChampionId>.Next();
+        Champion.ChampionId result2 = IdValueGenerator<Champion.ChampionId>.Next();
 
         // Assert
         (result1 < result2).Should().BeTrue();

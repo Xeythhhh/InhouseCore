@@ -29,7 +29,7 @@ public class IdTests
         Id.RegisterGeneratorId(generatorId);
 
         // Assert
-        Type? valueGeneratorType = Id.GetValueGenerator<ChampionId>();
+        Type? valueGeneratorType = Id.GetValueGenerator<Champion.ChampionId>();
         valueGeneratorType.Should().NotBeNull();
 
         IdGenerator? generator = (IdGenerator?)valueGeneratorType?
@@ -47,7 +47,7 @@ public class IdTests
         Id.RegisterConverters();
 
         // Act
-        ValueConverter converter = Id.GetValueConverter<ChampionId>();
+        ValueConverter converter = Id.GetValueConverter<Champion.ChampionId>();
 
         // Assert
         converter.Should().NotBeNull();

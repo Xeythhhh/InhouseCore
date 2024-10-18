@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -174,6 +175,28 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ChampionRestriction",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    DefaultKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChampionId = table.Column<long>(type: "bigint", nullable: true),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChampionRestriction", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChampionRestriction_Champions_ChampionId",
+                        column: x => x.ChampionId,
+                        principalTable: "Champions",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -212,6 +235,11 @@ namespace Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChampionRestriction_ChampionId",
+                table: "ChampionRestriction",
+                column: "ChampionId");
         }
 
         /// <inheritdoc />
@@ -233,13 +261,16 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Champions");
+                name: "ChampionRestriction");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Champions");
         }
     }
 }

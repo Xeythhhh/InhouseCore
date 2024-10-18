@@ -8,9 +8,7 @@ using Domain.Champions;
 using SharedKernel.Primitives.Result;
 
 using MediatR;
-
-using SharedKernel.Contracts.Requests.Champions;
-using SharedKernel.Contracts.Responses.Champions;
+using SharedKernel.Contracts.v1.Champions;
 
 namespace Api.Endpoints;
 
@@ -20,7 +18,7 @@ public class ChampionEndpoints : ICarterModule
     {
         app.MapPost("api/champions", async (CreateChampionRequest request, ISender sender) =>
         {
-            Result<ChampionId> result = await CreateChampionCommand.FromRequest(request)
+            Result<Champion.ChampionId> result = await CreateChampionCommand.FromRequest(request)
                 .Bind(command => sender.Send(command));
 
             return result.IsSuccess
@@ -30,7 +28,7 @@ public class ChampionEndpoints : ICarterModule
 
         app.MapPut("api/champions", async (UpdateChampionRequest request, ISender sender) =>
         {
-            Result<ChampionId> result = await UpdateChampionCommand.FromRequest(request)
+            Result<Champion.ChampionId> result = await UpdateChampionCommand.FromRequest(request)
                 .Bind(command => sender.Send(command));
 
             return result.IsSuccess
@@ -60,7 +58,7 @@ public class ChampionEndpoints : ICarterModule
 
         app.MapGet("api/champions/{id}", async (long id, ISender sender) =>
         {
-            Result<GetChampionResponse> result = await Result.Ok(new GetChampionQuery(id))
+            Result<ChampionDto> result = await Result.Ok(new GetChampionQuery(id))
                 .Bind(query => sender.Send(query));
 
             return result.IsSuccess

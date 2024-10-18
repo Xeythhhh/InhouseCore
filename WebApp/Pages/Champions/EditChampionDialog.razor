@@ -1,0 +1,61 @@
+﻿@using SharedKernel.Contracts.v1.Champions
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        Edit
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="Name" Label="Name" Variant="Variant.Filled" Disabled></MudTextField>
+        <MudTextField @bind-Value="Role" Label="Role" Variant="Variant.Filled" Disabled></MudTextField>
+        @foreach (var restriction in Restrictions ?? new List<ChampionRestrictionDto>())
+        {
+            <MudCard>
+                <MudTextField @bind-Value="restriction.DefaultKey" Label="Default Key" Variant="Variant.Filled"></MudTextField>
+                <MudTextField @bind-Value="restriction.Name" Label="Name" Variant="Variant.Filled"></MudTextField>
+                <MudTextField @bind-Value="restriction.Reason" Label="Reason" Variant="Variant.Filled"></MudTextField>
+                <MudIconButton OnClick="(e) => Restrictions?.Remove(restriction)">Remove</MudIconButton>
+            </MudCard>
+        }
+        <MudButton OnClick="AddRestriction">Add Restriction</MudButton>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public long Id { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Role { get; set; }
+
+    [Parameter]
+    public List<ChampionRestrictionDto>? Restrictions { get; set; }
+
+    private void AddRestriction() => Restrictions ??= new() { new()};
+
+    private async Task Submit()
+    {
+        //do stuff
+        var response = await HttpClient.PutAsJsonAsync($"champions/{Id}", new UpdateChampionRequest(Id, Restrictions));
+
+        if (!response.IsSuccessStatusCode)
+            Snackbar.Add("An Error occurred updating the champion", Severity.Error);   
+        else
+            Snackbar.Add("Successfully updated the champion", Severity.Success);
+
+        MudDialog.Close();
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -5,9 +5,7 @@ namespace SharedKernel.Primitives.Result;
 
 public partial class Result<TValue> : ResultBase<Result<TValue>>, IResult<TValue>
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private TValue _value;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     /// <summary><inheritdoc/></summary>
     public TValue Value

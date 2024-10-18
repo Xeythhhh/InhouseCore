@@ -92,7 +92,6 @@ public static class ApiAssembly
         builder.Services.AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
 
-
         builder
             .AddIdentityServices()
             .AddDatabaseServices()
@@ -173,7 +172,6 @@ public static class ApiAssembly
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             }).AddIdentityCookies();
-
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>()

@@ -1,0 +1,102 @@
+@page "/champions"
+@using Microsoft.AspNetCore.Authorization
+@using System.Text.Json
+@using SharedKernel.Contracts.v1.Champions
+
+@inject HttpClient HttpClient
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@attribute [AllowAnonymous]
+
+<PageTitle>Champions</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Champions</MudText>
+
+
+<MudButton Color="Color.Success" OnClick="CreateTestChampion">Create</MudButton>
+<MudButton Color="Color.Error" OnClick="CreateErrorChampion">Create with bad input</MudButton>
+<MudButton OnClick="FetchChampions">Refresh</MudButton>
+
+@if (champions == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <MudTable Items="champions" Hover="true" SortLabel="Sort By" Elevation="0" AllowUnsorted="false">
+        <HeaderContent>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.Name)">
+                    Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.Role)">
+                    Role
+                </MudTableSortLabel>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Role">@context.Role</MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(e) => EditChampion(context.Id)">Edit</MudIconButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(e) => DeleteChampion(context.Id)">Edit</MudIconButton>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{ 5, 10, 25, 50, 100 }" />
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    private IEnumerable<ChampionDto>? champions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchChampions();
+    }
+
+    private async Task FetchChampions()
+    {
+        var apiResponse = await HttpClient.GetFromJsonAsync<GetAllChampionsResponse>("champions");
+        champions = apiResponse?.Champions ?? new List<ChampionDto>();
+    }
+
+    private async Task CreateTestChampion() => await CreateChampion("Ranged");
+    private async Task CreateErrorChampion() => await CreateChampion("Rangeddddddddddd");
+    private async Task CreateChampion(string role)
+    {
+        var request = new CreateChampionRequest($"TestChampion_{DateTime.UtcNow.Ticks}", role);
+
+        var response = await HttpClient.PostAsJsonAsync("champions", request);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(response);
+            Snackbar.Add("An error occurred /shrug", Severity.Error);
+        }
+    }
+
+    private async void DeleteChampion(long id)
+    {
+        //todo    
+    }
+
+    private async void EditChampion(long id)
+    {
+        ChampionDto? champion = await HttpClient.GetFromJsonAsync<ChampionDto>($"champions/{id}");
+        if(champion is null)
+        {
+            Snackbar.Add("Champion not found", Severity.Error);
+            return;
+        }
+
+        DialogParameters<EditChampionDialog> dialogParameters = new()
+        {
+            { x => x.Id, champion.Id },
+            { x => x.Restrictions, champion.Restrictions },
+        };
+
+        DialogService.Show<EditChampionDialog>();
+    }
+}
