@@ -24,7 +24,9 @@ public sealed class Champion :
     public bool HasRestrictions => Restrictions.Count != 0;
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Champion() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     /// <summary>Creates a new instance of the <see cref="Champion"/> class.</summary>
     /// <param name="name">The name of the champion.</param>

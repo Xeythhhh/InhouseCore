@@ -16,7 +16,9 @@ public abstract class EntityBase<TEntityId> :
     public DateTime LastUpdatedAtUtc { get; set; } = DateTime.UtcNow;
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     protected EntityBase() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     /// <inheritdoc />
     public override bool Equals(object? obj) =>

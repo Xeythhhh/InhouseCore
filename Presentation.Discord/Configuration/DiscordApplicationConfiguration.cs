@@ -18,10 +18,11 @@ internal sealed class DiscordApplicationConfiguration(IConfiguration configurati
         configuration.GetSection(ConfigurationSection).Bind(options);
 }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 /// <summary>Options class representing Discord-related configuration.</summary>
 internal sealed class DiscordOptions
-
 {
     /// <summary>Gets the configuration for Discord commands.</summary>
     public CommandsConfiguration CommandsConfiguration { get; }
 }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
