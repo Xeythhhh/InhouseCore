@@ -1,6 +1,6 @@
-﻿namespace Domain.Primitives;
+﻿#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+namespace Domain.Primitives;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 /// <summary>Represents the base class all value objects derive from.</summary>
 public abstract record ValueObject<T> : IEquatable<T>
 {
