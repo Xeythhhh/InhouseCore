@@ -77,12 +77,12 @@ else
         }
     }
 
-    private async void DeleteChampion(long id)
+    private void DeleteChampion(string id)
     {
-        //todo    
+        //todo 
     }
 
-    private async void EditChampion(long id)
+    private async void EditChampion(string id)
     {
         ChampionDto? champion = await HttpClient.GetFromJsonAsync<ChampionDto>($"champions/{id}");
         if(champion is null)

@@ -12,17 +12,17 @@
         @foreach (var restriction in Restrictions ?? new List<ChampionRestrictionDto>())
         {
             <MudCard>
-                <MudTextField @bind-Value="restriction.DefaultKey" Label="Default Key" Variant="Variant.Filled"></MudTextField>
                 <MudTextField @bind-Value="restriction.Name" Label="Name" Variant="Variant.Filled"></MudTextField>
+                <MudTextField @bind-Value="restriction.Identifier" Label="Identifier" Variant="Variant.Filled"></MudTextField>
                 <MudTextField @bind-Value="restriction.Reason" Label="Reason" Variant="Variant.Filled"></MudTextField>
-                <MudIconButton OnClick="(e) => Restrictions?.Remove(restriction)">Remove</MudIconButton>
+                <MudIconButton @ref="SaveButton" OnClick="(e) => SaveRestriction(restriction)" Disabled>Save</MudIconButton>
+                <MudIconButton OnClick="(e) => RemoveRestriction(restriction)">Remove</MudIconButton>
             </MudCard>
         }
         <MudButton OnClick="AddRestriction">Add Restriction</MudButton>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        <MudButton OnClick="() => MudDialog.Close()">Close</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -30,8 +30,10 @@
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; }
 
+    private MudIconButton SaveButton { get; set; }
+
     [Parameter]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [Parameter]
     public string Name { get; set; }
@@ -42,20 +44,23 @@
     [Parameter]
     public List<ChampionRestrictionDto>? Restrictions { get; set; }
 
-    private void AddRestriction() => Restrictions ??= new() { new()};
-
-    private async Task Submit()
+    private void AddRestriction()
     {
-        //do stuff
-        var response = await HttpClient.PutAsJsonAsync($"champions/{Id}", new UpdateChampionRequest(Id, Restrictions));
-
-        if (!response.IsSuccessStatusCode)
-            Snackbar.Add("An Error occurred updating the champion", Severity.Error);   
-        else
-            Snackbar.Add("Successfully updated the champion", Severity.Success);
-
-        MudDialog.Close();
+        Snackbar.Add("Not implemented", Severity.Error);
     }
 
-    private void Cancel() => MudDialog.Cancel();
+    private void RemoveRestriction(ChampionRestrictionDto restriction)
+    {
+        Snackbar.Add("Not implemented", Severity.Error);
+    }
+
+    private void SaveRestriction(ChampionRestrictionDto restriction)
+    {
+        Snackbar.Add("Not implemented", Severity.Error);
+    }
+
+    private void EnableSaveButton()
+    {
+        Snackbar.Add("Not implemented", Severity.Error);
+    }
 }

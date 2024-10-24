@@ -4,27 +4,54 @@ using Application.Abstractions;
 
 using Dapper;
 
-using SharedKernel.Primitives.Result;
-using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Contracts.v1.Champions;
+using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Result;
 
 namespace Application.Champions.Queries;
 
 public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
 {
     internal sealed class Handler(IReadConnectionString connectionString) :
-        IQueryHandler<GetAllChampionsQuery, GetAllChampionsResponse>
+    IQueryHandler<GetAllChampionsQuery, GetAllChampionsResponse>
     {
         const string sql =
             """
-            SELECT Id, Name, Role 
-            FROM Champions
+            SELECT
+                c.Id,
+                c.Name,
+                c.Role,
+                r.Id AS RestrictionId,
+                r.Target,
+                r.Reason
+            FROM
+                Champions c
+            LEFT JOIN
+                ChampionRestrictions r ON c.Id = r.ChampionId
             """;
 
-        public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken) =>
-            await Result
-                .Try(() => new SqlConnection(connectionString.Value))
-                .Bind(connection => connection.QueryAsync<ChampionDto>(new CommandDefinition(sql, cancellationToken: cancellationToken)))
+        public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken)
+         => await Result.Try(() => new SqlConnection(connectionString.Value))
+                .Bind(async connection => await connection.QueryAsync<ChampionDto, ChampionRestrictionDto, ChampionDto>(
+                    sql, (champion, restriction) =>
+                    {
+                        if (!IsRestrictionNullOrEmpty(restriction)) champion.Restrictions.Add(restriction);
+                        return champion;
+                    },
+                    splitOn: "RestrictionId"))
+                .Map(champions =>
+                    champions.GroupBy(champion => champion.Id)
+                    .Select(group =>
+                    {
+                        ChampionDto result = group.First();
+                        result.Restrictions = group.SelectMany(c => c.Restrictions)
+                            .DistinctBy(r => r.RestrictionId)
+                            .ToList();
+
+                        return result;
+                    }))
                 .Map(dtos => new GetAllChampionsResponse(dtos));
+
+        private static bool IsRestrictionNullOrEmpty(ChampionRestrictionDto restriction) => restriction is null || restriction.RestrictionId is null;
     }
 }

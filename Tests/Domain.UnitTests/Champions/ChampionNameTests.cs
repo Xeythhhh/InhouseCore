@@ -2,7 +2,6 @@
 
 using Domain.Champions.ValueObjects;
 using Domain.Errors;
-using Domain.Primitives;
 
 using FluentAssertions;
 

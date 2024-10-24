@@ -6,7 +6,6 @@ using FluentAssertions;
 using SharedKernel.Primitives.Result;
 
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Primitives.Reasons;
 
 namespace Infrastructure.Repositories;
 
@@ -16,8 +15,7 @@ namespace Infrastructure.Repositories;
 public partial class ChampionRepository(ApplicationDbContext dbContext) :
     IChampionRepository
 {
-    /// <summary>Adds a new Champion to the repository<para/>
-    /// - <see cref="ErrorMessages.Add"/> when exception is thrown.</summary>
+    /// <summary>Adds a new Champion to the repository</summary>
     /// <param name="champion">The Champion to add</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the added Champion</returns>
     public async Task<Result<Champion>> Add(Champion champion, CancellationToken cancellationToken = default)
@@ -25,6 +23,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         try
         {
             await dbContext.Champions.AddAsync(champion, cancellationToken);
+
             return Result.Ok(champion);
         }
         catch (Exception ex)
@@ -87,8 +86,8 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         try
         {
             Champion? champion = await dbContext.Champions
-                .Include(champion => champion.Restrictions)
-                .FirstAsync(champion => champion.Id == id, cancellationToken);
+            .Include(champion => champion.Restrictions)
+            .FirstOrDefaultAsync(c => long.Equals(c.Id, id), cancellationToken);
 
             return champion is not null
                 ? Result.Ok(champion)
@@ -129,12 +128,12 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     /// - <see cref="ErrorMessages.Update"/> when exception is thrown.</summary>
     /// <param name="champion">The Champion to update</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the updated Champion</returns>
-    public Result<Champion> Update(Champion champion)
+    public Result Update(Champion champion)
     {
         try
         {
             dbContext.Champions.Update(champion);
-            return Result.Ok(champion);
+            return Result.Ok();
         }
         catch (Exception ex)
         {
@@ -167,10 +166,35 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    public bool CheckIsNameUnique(Champion champion) => CheckIsNameUnique(champion.Name);
-    public bool CheckIsNameUnique(ChampionName championName) => CheckIsNameUnique(championName.Value);
-    public bool CheckIsNameUnique(string championName) => !IsNameInUse(championName);
+    public bool IsNameUnique(Champion champion) => CheckIsNameUnique(champion.Name);
+    public bool CheckIsNameUnique(ChampionName championName) => IsNameUnique(championName.Value);
+    public bool IsNameUnique(string championName) => !IsNameInUse(championName);
 
     private bool IsNameInUse(string championName) =>
             dbContext.Champions.AsEnumerable().Any(champion => champion.Name.Value == championName);
+
+    public Result RemoveChampionRestriction(
+        Champion.ChampionId championId,
+        ChampionRestriction.RestrictionId restrictionId,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            ChampionRestriction? restriction = dbContext.ChampionRestrictions.Find(restrictionId, cancellationToken);
+            if (restriction is null) return Result.Fail(new RemoveRestrictionError("Restriction not found."));
+
+            Champion? champion = dbContext.Champions.Find(championId, cancellationToken);
+            if (champion is null) return Result.Fail(new RemoveRestrictionError("Champion not found."));
+
+            champion.Restrictions.Remove(restriction);
+            dbContext.ChampionRestrictions.Remove(restriction);
+
+            return Result.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new DeleteRestrictionError()
+                .CausedBy(ex));
+        }
+    }
 }

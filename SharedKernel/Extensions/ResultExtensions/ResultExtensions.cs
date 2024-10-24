@@ -1,6 +1,4 @@
-﻿using FluentAssertions.Execution;
-
-using SharedKernel.Primitives.Reasons;
+﻿using SharedKernel.Primitives.Reasons;
 using SharedKernel.Primitives.Result;
 
 namespace SharedKernel.Extensions.ResultExtensions;

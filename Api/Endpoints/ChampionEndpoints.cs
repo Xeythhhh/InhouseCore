@@ -26,9 +26,19 @@ public class ChampionEndpoints : ICarterModule
                 : Results.BadRequest(result.Errors);
         }).WithOpenApi();
 
-        app.MapPut("api/champions", async (UpdateChampionRequest request, ISender sender) =>
+        app.MapPut("api/champions/restrict", async (AddRestrictionRequest request, ISender sender) =>
         {
-            Result<Champion.ChampionId> result = await UpdateChampionCommand.FromRequest(request)
+            Result<ChampionDto> result = await AddRestrictionCommand.FromRequest(request)
+                .Bind(command => sender.Send(command));
+
+            return result.IsSuccess
+                ? Results.Ok(result.Value)
+                : Results.BadRequest(result.Errors);
+        }).WithOpenApi();
+
+        app.MapPut("api/champions/un-restrict", async (RemoveRestrictionRequest request, ISender sender) =>
+        {
+            Result<ChampionDto> result = await RemoveRestrictionCommand.FromRequest(request)
                 .Bind(command => sender.Send(command));
 
             return result.IsSuccess

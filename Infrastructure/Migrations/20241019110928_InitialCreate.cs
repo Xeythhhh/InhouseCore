@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -22,10 +21,7 @@ namespace Infrastructure.Migrations
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_AspNetRoles", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
@@ -49,10 +45,7 @@ namespace Infrastructure.Migrations
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_AspNetUsers", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "Champions",
@@ -64,10 +57,7 @@ namespace Infrastructure.Migrations
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Champions", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Champions", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -176,12 +166,11 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChampionRestriction",
+                name: "ChampionRestrictions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    DefaultKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Target = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChampionId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -189,9 +178,9 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ChampionRestriction", x => x.Id);
+                    table.PrimaryKey("PK_ChampionRestrictions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ChampionRestriction_Champions_ChampionId",
+                        name: "FK_ChampionRestrictions_Champions_ChampionId",
                         column: x => x.ChampionId,
                         principalTable: "Champions",
                         principalColumn: "Id");
@@ -237,8 +226,8 @@ namespace Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChampionRestriction_ChampionId",
-                table: "ChampionRestriction",
+                name: "IX_ChampionRestrictions_ChampionId",
+                table: "ChampionRestrictions",
                 column: "ChampionId");
         }
 
@@ -261,7 +250,7 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ChampionRestriction");
+                name: "ChampionRestrictions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

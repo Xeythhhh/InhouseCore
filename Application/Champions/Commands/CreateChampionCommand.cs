@@ -11,8 +11,7 @@ namespace Application.Champions.Commands;
 
 public sealed record class CreateChampionCommand(
     string Name,
-    string Role,
-    IEnumerable<ChampionRestrictionDto>? Restrictions = null) :
+    string Role) :
     ICommand<Champion.ChampionId>
 {
     internal sealed class Handler(
@@ -20,14 +19,14 @@ public sealed record class CreateChampionCommand(
         IUnitOfWork unitOfWork) :
         ICommandHandler<CreateChampionCommand, Champion.ChampionId>
     {
-        public async Task<Result<Champion.ChampionId>> Handle(CreateChampionCommand request, CancellationToken cancellationToken) =>
-            await Champion.Create(request.Name, request.Role, request.Restrictions)
-                .Ensure(repository.CheckIsNameUnique, new ChampionName.NameIsNotUniqueError(request.Name))
+        public async Task<Result<Champion.ChampionId>> Handle(CreateChampionCommand command, CancellationToken cancellationToken) =>
+            await Champion.Create(command.Name, command.Role)
+                .Ensure(repository.IsNameUnique, new ChampionName.IsNotUniqueError(command.Name))
                 .Bind(champion => repository.Add(champion, cancellationToken)
                     .Map(champion => champion.Id))
                 .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
 
     public static Result<CreateChampionCommand> FromRequest(CreateChampionRequest dto) =>
-        new CreateChampionCommand(dto.Name, dto.Role, dto.Restrictions);
+        new CreateChampionCommand(dto.Name, dto.Role);
 }

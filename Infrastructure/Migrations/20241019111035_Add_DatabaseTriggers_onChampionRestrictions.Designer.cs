@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240703174126_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241019111035_Add_DatabaseTriggers_onChampionRestrictions")]
+    partial class Add_DatabaseTriggers_onChampionRestrictions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -60,18 +60,14 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DefaultKey")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("LastUpdatedAtUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Reason")
+                    b.Property<string>("Target")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -79,7 +75,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ChampionId");
 
-                    b.ToTable("ChampionRestriction");
+                    b.ToTable("ChampionRestrictions");
                 });
 
             modelBuilder.Entity("Domain.Users.ApplicationRole", b =>

@@ -19,9 +19,5 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(InfrastructureAssembly.Reference);
-
-        //builder.Entity<ChampionName>().HasNoKey();
-        //builder.Entity<ChampionRole>().HasNoKey();
-
     }
 }

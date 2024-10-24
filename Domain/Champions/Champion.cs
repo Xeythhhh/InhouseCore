@@ -1,7 +1,6 @@
 ﻿using Domain.Champions.ValueObjects;
 using Domain.Primitives;
 
-using SharedKernel.Contracts.v1.Champions;
 using SharedKernel.Primitives.Reasons;
 using SharedKernel.Primitives.Result;
 
@@ -9,7 +8,7 @@ using SharedKernel.Primitives.Result;
 namespace Domain.Champions;
 
 /// <summary>Represents a champion entity.</summary>
-public sealed class Champion :
+public sealed partial class Champion :
     AggregateRoot<Champion.ChampionId>
 {
     /// <summary>Strongly-typed Id for <see cref="Champion"/>.</summary>
@@ -21,7 +20,7 @@ public sealed class Champion :
     /// <summary>Gets the role of the champion.</summary>
     public ChampionRole Role { get; private set; }
     /// <summary>Gets the restrictions of the champion.</summary>
-    public List<ChampionRestriction> Restrictions { get; set; }
+    public List<ChampionRestriction> Restrictions { get; set; } = new List<ChampionRestriction>();
     public bool HasRestrictions => Restrictions.Count != 0;
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
@@ -31,8 +30,10 @@ public sealed class Champion :
     /// <param name="name">The name of the champion.</param>
     /// <param name="role">The role of the champion.</param>
     /// <returns>A result containing the created <see cref="Champion"/> instance if successful, otherwise a failure result.</returns>
-    public static Result<Champion> Create(string name, string role, IEnumerable<ChampionRestrictionDto>? restrictions = null)
+    public static Result<Champion> Create(string name, string role, List<ChampionRestriction>? restrictions = null)
     {
+        Result.Try(() => CreateInternal((ChampionName)name, (ChampionRole)role, restrictions),
+            ex => new CreateChampionError().CausedBy(ex));
         try
         {
             return CreateInternal((ChampionName)name, (ChampionRole)role, restrictions);
@@ -43,18 +44,13 @@ public sealed class Champion :
         }
     }
 
-    private static Result<Champion> CreateInternal(ChampionName name, ChampionRole role, IEnumerable<ChampionRestrictionDto>? restrictions)
+    private static Result<Champion> CreateInternal(ChampionName name, ChampionRole role, List<ChampionRestriction>? restrictions = null)
     {
         Champion instance = new()
         {
             Name = name,
             Role = role,
-            Restrictions = restrictions?.Select(r => new ChampionRestriction()
-            {
-                DefaultKey = r.DefaultKey,
-                Name = r.Name,
-                Reason = r.Reason
-            }).ToList() ?? new List<ChampionRestriction>()
+            Restrictions = restrictions ?? new List<ChampionRestriction>()
         };
 
         return Result.Ok(instance);

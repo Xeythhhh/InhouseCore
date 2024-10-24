@@ -42,5 +42,5 @@ public sealed record ChampionName : ValueObject<string>
     public static explicit operator string(ChampionName name) => name.Value;
 
     public class GreaterThan101CharactersError() : Error("Champion Name cannot exceed 101 characters.");
-    public class NameIsNotUniqueError(string? name) : Error($"Champion Name is not unique. '{name}'");
+    public class IsNotUniqueError(string? name) : Error($"Champion Name is not unique. '{name}'");
 }

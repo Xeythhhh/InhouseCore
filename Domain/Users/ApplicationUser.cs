@@ -2,8 +2,6 @@ using Domain.Primitives;
 
 using Microsoft.AspNetCore.Identity;
 
-using SharedKernel.Primitives.Result;
-
 namespace Domain.Users;
 
 /// <summary>Represents an application user with a strongly-typed identifier and domain event handling capabilities.</summary>
