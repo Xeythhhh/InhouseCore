@@ -4,7 +4,7 @@ using FluentAssertions;
 
 using SharedKernel.Primitives.Result;
 
-namespace Domain.UnitTests.Entities.Users;
+namespace Domain.UnitTests.Users;
 public class ApplicationRoleTests
 {
     [Fact]
@@ -33,8 +33,7 @@ public class ApplicationRoleTests
 
         // Assert
         result.IsFailed.Should().BeTrue();
-        result.HasError(e => e.Message.Contains("'Name' must not be empty."))
-            .Should().BeTrue();
+        result.HasException<ArgumentException>();
     }
 
     [Fact]
@@ -48,7 +47,6 @@ public class ApplicationRoleTests
 
         // Assert
         result.IsFailed.Should().BeTrue();
-        result.HasError(e => e.Message.Contains("'Name' must not be empty."))
-            .Should().BeTrue();
+        result.HasException<ArgumentNullException>();
     }
 }

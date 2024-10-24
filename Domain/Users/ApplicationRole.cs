@@ -23,8 +23,10 @@ public sealed class ApplicationRole :
     /// <param name="name">The name of the role.</param>
     /// <returns>A result containing the new <see cref="ApplicationRole"/> or an error.</returns>
     public static Result<ApplicationRole> Create(string name) =>
-        Result
-            .Try(() => ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name)))
-            .ToResult(name.Trim())
+        Result.Try(() =>
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
+                return name.Trim();
+            })
             .Map(trimmedName => new ApplicationRole() { Name = trimmedName });
 }

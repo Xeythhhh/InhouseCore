@@ -19,14 +19,12 @@ public abstract class EntityBase<TEntityId> :
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
     protected EntityBase() { }
 
-    /// <inheritdoc />
     public override bool Equals(object? obj) =>
         obj is not null &&
         obj.GetType() == GetType() &&
         obj is EntityBase<TEntityId> entity &&
         entity.Id.Value == Id.Value;
 
-    /// <inheritdoc />
     public bool Equals(EntityBase<TEntityId>? other) =>
         other is not null &&
         other.GetType() == GetType() &&
@@ -40,7 +38,6 @@ public abstract class EntityBase<TEntityId> :
     public static bool operator !=(EntityBase<TEntityId>? first, EntityBase<TEntityId>? second) =>
         !(first == second);
 
-    /// <inheritdoc />
     public override int GetHashCode() =>
         Id.GetHashCode() * 41;
 }

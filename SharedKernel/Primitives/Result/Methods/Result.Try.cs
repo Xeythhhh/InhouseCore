@@ -3,10 +3,6 @@
 namespace SharedKernel.Primitives.Result;
 public partial class Result
 {
-    /// <summary>Attempts to execute the supplied action. Returns a Result indicating whether the action executed successfully.</summary>
-    public static Result Try(Action action) =>
-        Try(action);
-
     /// <summary>Executes the action. If an exception is thrown within the action then this exception is transformed via the catchHandler to an Error object</summary>
     public static Result Try(Action action, Func<Exception, IError> exceptionHandler = null!)
     {

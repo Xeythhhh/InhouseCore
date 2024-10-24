@@ -9,6 +9,7 @@ using Application.Abstractions;
 
 using Carter;
 
+using Domain;
 using Domain.Users;
 
 using Infrastructure;
@@ -94,6 +95,7 @@ public static class ApiAssembly
 
         builder
             .AddIdentityServices()
+            .AddDomainServices()
             .AddDatabaseServices()
             .AddApplicationServices()
             .AddDiscordApplication()
@@ -132,7 +134,7 @@ public static class ApiAssembly
         [ConsoleThemeStyle.LevelFatal] = "\x1b[37;41m"
     });
 
-    private static WebApplicationBuilder AddDatabaseServices(this WebApplicationBuilder builder)
+    private static IHostApplicationBuilder AddDatabaseServices(this IHostApplicationBuilder builder)
     {
         builder.AddInfrastructureServices();
 

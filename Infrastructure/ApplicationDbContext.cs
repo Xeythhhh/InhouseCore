@@ -12,7 +12,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     IUnitOfWork
 {
     public DbSet<Champion> Champions { get; set; }
-    public DbSet<ChampionRestriction> ChampionRestrictions { get; set; }
+    public DbSet<Champion.Restriction> ChampionRestrictions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

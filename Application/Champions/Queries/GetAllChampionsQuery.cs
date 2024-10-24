@@ -21,8 +21,11 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
                 c.Id,
                 c.Name,
                 c.Role,
+                c.HasRestrictions,
                 r.Id AS RestrictionId,
-                r.Target,
+                r.AbilityName,
+                r.Identifier,
+                r.ColorHex,
                 r.Reason
             FROM
                 Champions c

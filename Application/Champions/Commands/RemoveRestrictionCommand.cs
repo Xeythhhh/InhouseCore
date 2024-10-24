@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-
+using Domain.Abstractions;
 using Domain.Champions;
 
 using SharedKernel.Contracts.v1.Champions;
@@ -18,9 +18,9 @@ public sealed record class RemoveRestrictionCommand(
         ICommandHandler<RemoveRestrictionCommand>
     {
         public async Task<Result> Handle(RemoveRestrictionCommand command, CancellationToken cancellationToken) =>
-            await repository.RemoveChampionRestriction(
+            await (await repository.RemoveChampionRestriction(
                     (Champion.ChampionId)command.ChampionId,
-                    (ChampionRestriction.RestrictionId)command.RestrictionId, cancellationToken)
+                    (Champion.Restriction.RestrictionId)command.RestrictionId, cancellationToken))
                 .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
     public static Result<RemoveRestrictionCommand> FromRequest(RemoveRestrictionRequest dto) =>

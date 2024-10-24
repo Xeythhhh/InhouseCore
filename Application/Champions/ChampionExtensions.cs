@@ -10,17 +10,17 @@ public static class ChampionExtensions
         {
             Id = champion.Id.Value.ToString(),
             Name = champion.Name.Value,
-            Role = champion.Name.Value,
+            Role = champion.Role.Value,
             Restrictions = champion.Restrictions.ConvertAll(r => r.ToChampionRestrictionDto())
         };
 
-    public static ChampionRestrictionDto ToChampionRestrictionDto(this ChampionRestriction restriction)
+    public static ChampionRestrictionDto ToChampionRestrictionDto(this Champion.Restriction restriction)
         => new()
         {
             RestrictionId = restriction.Id.Value.ToString(),
-            Target = restriction.Target.Value,
-            Reason = restriction.Reason.Value,
-            Name = restriction.Target.Name.Value,
-            Identifier = restriction.Target.Name.Value
+            Reason = restriction.Reason ?? string.Empty,
+            Identifier = restriction.Identifier.Value,
+            ColorHex = restriction.ColorHex.Value,
+            AbilityName = restriction.AbilityName
         };
 }

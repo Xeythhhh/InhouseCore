@@ -1,5 +1,4 @@
 ﻿using Domain.Champions;
-using Domain.Champions.ValueObjects;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,12 +16,12 @@ public sealed class ChampionEntityConfiguration :
         builder.Property(champion => champion.Name)
             .HasConversion(
                 name => name.Value,
-                name => ChampionName.Create(name).Value);
+                name => Champion.ChampionName.Create(name).Value);
 
         builder.Property(champion => champion.Role)
             .HasConversion(
                 role => role.Value,
-                role => ChampionRole.Create(role).Value);
+                role => Champion.ChampionRole.Create(role).Value);
 
         builder.HasMany(champion => champion.Restrictions);
     }

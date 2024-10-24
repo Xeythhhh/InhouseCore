@@ -6,17 +6,14 @@ public abstract record ValueObject<T> : IEquatable<T>
 {
     public T Value { get; protected set; }
 
-    /// <inheritdoc />
     public virtual bool Equals(ValueObject<T>? other) =>
         other is not null &&
         GetAtomicValues().SequenceEqual(other.GetAtomicValues());
 
-    /// <inheritdoc />
     public bool Equals(T? other) =>
         other is not null &&
         GetAtomicValues().SequenceEqual([other]);
 
-    /// <inheritdoc />
     public override int GetHashCode()
     {
         HashCode hashCode = default;

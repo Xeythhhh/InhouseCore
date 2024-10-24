@@ -1,10 +1,8 @@
-﻿using Domain.Champions.ValueObjects;
-using Domain.Primitives;
+﻿using Domain.Primitives;
 
 using SharedKernel.Primitives.Reasons;
 using SharedKernel.Primitives.Result;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 namespace Domain.Champions;
 
 /// <summary>Represents a champion entity.</summary>
@@ -20,43 +18,28 @@ public sealed partial class Champion :
     /// <summary>Gets the role of the champion.</summary>
     public ChampionRole Role { get; private set; }
     /// <summary>Gets the restrictions of the champion.</summary>
-    public List<ChampionRestriction> Restrictions { get; set; } = new List<ChampionRestriction>();
-    public bool HasRestrictions => Restrictions.Count != 0;
+    public List<Restriction> Restrictions { get; set; } = new List<Restriction>();
+    /// <summary>Gets the HasRestrictions flag of the champion.</summary>
+    /// <remarks>It is used to optimize queries in the read model.</remarks>
+    public bool HasRestrictions { get; set; }
 
     /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
     private Champion() { }
 
-    /// <summary>Creates a new instance of the <see cref="Champion"/> class.</summary>
+    /// <summary>Creates a new instance of a <see cref="Champion"/> with the specified name and role.</summary>
     /// <param name="name">The name of the champion.</param>
-    /// <param name="role">The role of the champion.</param>
-    /// <returns>A result containing the created <see cref="Champion"/> instance if successful, otherwise a failure result.</returns>
-    public static Result<Champion> Create(string name, string role, List<ChampionRestriction>? restrictions = null)
-    {
-        Result.Try(() => CreateInternal((ChampionName)name, (ChampionRole)role, restrictions),
+    /// <param name="role">The role assigned to the champion.</param>
+    /// <returns>A <see cref="Result{Champion}"/> containing the created champion instance if successful, otherwise a failure result.</returns>
+    public static Result<Champion> Create(string name, string role) =>
+        Result.Try(() => CreateInternal((ChampionName)name, (ChampionRole)role),
             ex => new CreateChampionError().CausedBy(ex));
-        try
-        {
-            return CreateInternal((ChampionName)name, (ChampionRole)role, restrictions);
-        }
-        catch (Exception exception)
-        {
-            return Result.Fail(new CreateChampionError().CausedBy(exception));
-        }
-    }
 
-    private static Result<Champion> CreateInternal(ChampionName name, ChampionRole role, List<ChampionRestriction>? restrictions = null)
+    private static Champion CreateInternal(ChampionName name, ChampionRole role) => new()
     {
-        Champion instance = new()
-        {
-            Name = name,
-            Role = role,
-            Restrictions = restrictions ?? new List<ChampionRestriction>()
-        };
-
-        return Result.Ok(instance);
-    }
+        Name = name,
+        Role = role
+    };
 
     /// <summary>Provides error messages for <see cref="Champion"/>.</summary>
     public class CreateChampionError() : Error("An error occurred creating a champion instance.");
 }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

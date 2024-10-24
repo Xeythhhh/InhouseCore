@@ -12,8 +12,9 @@
         @foreach (var restriction in Restrictions ?? new List<ChampionRestrictionDto>())
         {
             <MudCard>
-                <MudTextField @bind-Value="restriction.Name" Label="Name" Variant="Variant.Filled"></MudTextField>
+                <MudTextField @bind-Value="restriction.AbilityName" Label="Name" Variant="Variant.Filled"></MudTextField>
                 <MudTextField @bind-Value="restriction.Identifier" Label="Identifier" Variant="Variant.Filled"></MudTextField>
+                @* <MudColorPicker @bind-Value="restriction.ColorHex" Label="Color"></MudColorPicker> *@
                 <MudTextField @bind-Value="restriction.Reason" Label="Reason" Variant="Variant.Filled"></MudTextField>
                 <MudIconButton @ref="SaveButton" OnClick="(e) => SaveRestriction(restriction)" Disabled>Save</MudIconButton>
                 <MudIconButton OnClick="(e) => RemoveRestriction(restriction)">Remove</MudIconButton>

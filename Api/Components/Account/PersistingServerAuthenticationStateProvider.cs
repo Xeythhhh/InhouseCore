@@ -44,13 +44,13 @@ internal sealed class PersistingServerAuthenticationStateProvider : ServerAuthen
             throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
         }
 
-        var authenticationState = await authenticationStateTask;
-        var principal = authenticationState.User;
+        AuthenticationState authenticationState = await authenticationStateTask;
+        System.Security.Claims.ClaimsPrincipal principal = authenticationState.User;
 
         if (principal.Identity?.IsAuthenticated == true)
         {
-            var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
-            var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
+            string? userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
+            string? email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
 
             if (userId != null && email != null)
             {

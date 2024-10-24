@@ -15,11 +15,7 @@ public partial class Result<TValue> : ResultBase<Result<TValue>>, IResult<TValue
             ThrowIfFailed();
             return _value;
         }
-        private set
-        {
-            ThrowIfFailed();
-            _value = value;
-        }
+        private set => _value = value;
     }
 
     /// <summary>Set value</summary>

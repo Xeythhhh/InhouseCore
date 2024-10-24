@@ -29,7 +29,7 @@ public sealed record GetChampionQuery(long ChampionId) : IQuery<ChampionDto>
         private static async Task<Result<ChampionDto>> AddRestrictions(ConnectionAndChampion result, CancellationToken cancellationToken)
          => !result.Champion.HasRestrictions ? result.Champion : await Result
                 .Try(async () => await result.Connection.QueryAsync<ChampionRestrictionDto>(
-                    new CommandDefinition($"SELECT Id, Target, Reason FROM ChampionRestrictions WHERE ChampionId = {result.Champion.Id};", cancellationToken: cancellationToken)))
+                    new CommandDefinition($"SELECT Id, AbilityName, Identifier, ColorHex, Reason FROM ChampionRestrictions WHERE ChampionId = {result.Champion.Id};", cancellationToken: cancellationToken)))
                 .Map(restrictions => restrictions.ToList())
                 .TapIf(restrictions => restrictions.Count > 0, restrictions => result.Champion.Restrictions = restrictions)
                 .Map(_ => result.Champion);

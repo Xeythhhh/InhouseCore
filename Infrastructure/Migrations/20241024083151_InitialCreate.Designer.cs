@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241019111035_Add_DatabaseTriggers_onChampionRestrictions")]
-    partial class Add_DatabaseTriggers_onChampionRestrictions
+    [Migration("20241024083151_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("HasRestrictions")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastUpdatedAtUtc")
                         .HasColumnType("datetime2");
 
@@ -49,26 +52,33 @@ namespace Infrastructure.Migrations
                     b.ToTable("Champions");
                 });
 
-            modelBuilder.Entity("Domain.Champions.ChampionRestriction", b =>
+            modelBuilder.Entity("Domain.Champions.Champion+Restriction", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("AbilityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("ChampionId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("ColorHex")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastUpdatedAtUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Target")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -285,7 +295,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Champions.ChampionRestriction", b =>
+            modelBuilder.Entity("Domain.Champions.Champion+Restriction", b =>
                 {
                     b.HasOne("Domain.Champions.Champion", null)
                         .WithMany("Restrictions")

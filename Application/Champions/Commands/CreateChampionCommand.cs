@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions;
 
+using Domain.Abstractions;
 using Domain.Champions;
-using Domain.Champions.ValueObjects;
 
 using SharedKernel.Contracts.v1.Champions;
 using SharedKernel.Extensions.ResultExtensions;
@@ -21,7 +21,7 @@ public sealed record class CreateChampionCommand(
     {
         public async Task<Result<Champion.ChampionId>> Handle(CreateChampionCommand command, CancellationToken cancellationToken) =>
             await Champion.Create(command.Name, command.Role)
-                .Ensure(repository.IsNameUnique, new ChampionName.IsNotUniqueError(command.Name))
+                .Ensure(repository.IsNameUnique, new Champion.ChampionName.IsNotUniqueError(command.Name))
                 .Bind(champion => repository.Add(champion, cancellationToken)
                     .Map(champion => champion.Id))
                 .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));

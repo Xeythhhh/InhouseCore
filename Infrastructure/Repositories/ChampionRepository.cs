@@ -1,11 +1,11 @@
 ﻿using Domain.Champions;
-using Domain.Champions.ValueObjects;
 
 using FluentAssertions;
 
 using SharedKernel.Primitives.Result;
 
 using Microsoft.EntityFrameworkCore;
+using Domain.Abstractions;
 
 namespace Infrastructure.Repositories;
 
@@ -15,9 +15,6 @@ namespace Infrastructure.Repositories;
 public partial class ChampionRepository(ApplicationDbContext dbContext) :
     IChampionRepository
 {
-    /// <summary>Adds a new Champion to the repository</summary>
-    /// <param name="champion">The Champion to add</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the added Champion</returns>
     public async Task<Result<Champion>> Add(Champion champion, CancellationToken cancellationToken = default)
     {
         try
@@ -33,10 +30,6 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Gets all Champions from the repository<para/>
-    /// - <see cref="ErrorMessages.NotFound"/> when the id is not found.<para/>
-    /// - <see cref="ErrorMessages.GetAll"/> when exception is thrown.</summary>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the list of Champions</returns>
     public async Task<Result<List<Champion>>> GetAll(CancellationToken cancellationToken = default)
     {
         try
@@ -54,10 +47,6 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Gets all Champions from the repository<para/>
-    /// - <see cref="ErrorMessages.NotFound"/> when the id is not found.<para/>
-    /// - <see cref="ErrorMessages.GetAll"/> when exception is thrown.</summary>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the list of TOut</returns>
     public async Task<Result<List<TOut>>> GetAll<TOut>(Func<Champion, TOut> converter, CancellationToken cancellationToken = default)
     {
         try
@@ -76,18 +65,13 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Gets a Champion by its identifier<para/>
-    /// - <see cref="ErrorMessages.NotFound"/> when the id is not found.<para/>
-    /// - <see cref="ErrorMessages.Get"/> when exception is thrown.</summary>
-    /// <param name="id">The Champion identifier</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the Champion</returns>
     public async Task<Result<Champion>> GetById(Champion.ChampionId id, CancellationToken cancellationToken = default)
     {
         try
         {
             Champion? champion = await dbContext.Champions
             .Include(champion => champion.Restrictions)
-            .FirstOrDefaultAsync(c => long.Equals(c.Id, id), cancellationToken);
+            .FirstOrDefaultAsync(c => Equals(c.Id, id), cancellationToken);
 
             return champion is not null
                 ? Result.Ok(champion)
@@ -100,11 +84,6 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Gets a Champion by a predicate<para/>
-    /// - <see cref="ErrorMessages.NotFound"/> when the champion is not found.<para/>
-    /// - <see cref="ErrorMessages.Get"/> when exception is thrown.</summary>
-    /// <param name="predicate">The search query</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the Champions that match the predicate</returns>
     public Result<List<Champion>> GetBy(Func<Champion, bool> predicate)
     {
         try
@@ -124,10 +103,6 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Updates an existing Champion in the repository.<para/>
-    /// - <see cref="ErrorMessages.Update"/> when exception is thrown.</summary>
-    /// <param name="champion">The Champion to update</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the updated Champion</returns>
     public Result Update(Champion champion)
     {
         try
@@ -142,17 +117,13 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    /// <summary>Deletes an existing Champion from the repository<para/>
-    /// - <see cref="ErrorMessages.Delete"/> when exception is thrown.</summary>
-    /// <param name="champion">The Champion to delete</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the operation result with the deleted Champion</returns>
     public Result<Champion> Delete(Champion champion)
     {
         try
         {
             if (champion.Restrictions.Count != 0)
             {
-                foreach (ChampionRestriction restriction in champion.Restrictions)
+                foreach (Champion.Restriction restriction in champion.Restrictions)
                     dbContext.ChampionRestrictions.Remove(restriction);
             }
 
@@ -166,28 +137,33 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    public bool IsNameUnique(Champion champion) => CheckIsNameUnique(champion.Name);
-    public bool CheckIsNameUnique(ChampionName championName) => IsNameUnique(championName.Value);
+    public bool IsNameUnique(Champion champion) => IsNameUnique(champion.Name);
+    public bool IsNameUnique(Champion.ChampionName championName) => IsNameUnique(championName.Value);
     public bool IsNameUnique(string championName) => !IsNameInUse(championName);
 
     private bool IsNameInUse(string championName) =>
-            dbContext.Champions.AsEnumerable().Any(champion => champion.Name.Value == championName);
+            dbContext.Champions.AsEnumerable().Any(champion => champion.Name == championName);
 
-    public Result RemoveChampionRestriction(
+    public async Task<Result> RemoveChampionRestriction(
         Champion.ChampionId championId,
-        ChampionRestriction.RestrictionId restrictionId,
+        Champion.Restriction.RestrictionId restrictionId,
         CancellationToken cancellationToken)
     {
         try
         {
-            ChampionRestriction? restriction = dbContext.ChampionRestrictions.Find(restrictionId, cancellationToken);
+            Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId, cancellationToken }, cancellationToken: cancellationToken);
             if (restriction is null) return Result.Fail(new RemoveRestrictionError("Restriction not found."));
 
-            Champion? champion = dbContext.Champions.Find(championId, cancellationToken);
+            Champion? champion = await dbContext.Champions
+                .Include(c => c.Restrictions)
+                .FirstOrDefaultAsync(c => c.Id == championId, cancellationToken);
             if (champion is null) return Result.Fail(new RemoveRestrictionError("Champion not found."));
 
             champion.Restrictions.Remove(restriction);
             dbContext.ChampionRestrictions.Remove(restriction);
+
+            if (champion.Restrictions.Count == 0) champion.HasRestrictions = false;
+            dbContext.Champions.Update(champion);
 
             return Result.Ok();
         }

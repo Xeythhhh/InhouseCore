@@ -2,5 +2,7 @@
 
 public sealed record AddRestrictionRequest(
     string ChampionId,
-    string Target,
+    string AbilityName,
+    string AbilityIdentifier,
+    string Color,
     string Reason);
