@@ -15,7 +15,7 @@ namespace Domain.UnitTests.Champions
             // Arrange
             const string name = "Fireball";
             const string identifier = "q";
-            const string color = "#FF5733"; // Hex
+            const string color = "#FF5733";
             const string reason = "High damage ability";
 
             // Act
