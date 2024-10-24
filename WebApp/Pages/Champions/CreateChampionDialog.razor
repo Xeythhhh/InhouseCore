@@ -1,0 +1,25 @@
+﻿@using SharedKernel.Contracts.v1.Champions
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6" GutterBottom="true">Create Champion</MudText>
+
+    </TitleContent>
+
+    <DialogContent>
+        <MudGrid>
+            <MudItem>
+                <MudCard Outlined>
+                    <MudTextField @bind-Value="Name" Label="Champion Name" Variant="Variant.Filled"></MudTextField>
+                    <MudTextField @bind-Value="Role" Label="Champion Role" Variant="Variant.Filled"></MudTextField>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButtonGroup Color="Color.Primary" Variant="Variant.Text">
+            <MudButton OnClick="(e) => CreateChampion()">Save</MudButton> 
+            <MudButton OnClick="() => MudDialog.Close()" Color="Color.Error">Cancel</MudButton>
+        </MudButtonGroup>
+    </DialogActions>
+</MudDialog>

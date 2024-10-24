@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+
 using Domain.Abstractions;
 using Domain.Champions;
 
@@ -29,7 +30,7 @@ public sealed record class AddRestrictionCommand(
                     command.Color,
                     command.Reason))
                 .Bind(repository.Update)
-                .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
+                .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
 
     public static Result<AddRestrictionCommand> FromRequest(AddRestrictionRequest dto) =>

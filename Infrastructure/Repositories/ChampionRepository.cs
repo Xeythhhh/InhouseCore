@@ -117,7 +117,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
-    public Result<Champion> Delete(Champion champion)
+    public Result Delete(Champion champion)
     {
         try
         {
@@ -128,7 +128,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
             }
 
             dbContext.Champions.Remove(champion);
-            return Result.Ok(champion);
+            return Result.Ok();
         }
         catch (Exception ex)
         {
@@ -151,7 +151,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
     {
         try
         {
-            Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId, cancellationToken }, cancellationToken: cancellationToken);
+            Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId }, cancellationToken: cancellationToken);
             if (restriction is null) return Result.Fail(new RemoveRestrictionError("Restriction not found."));
 
             Champion? champion = await dbContext.Champions
@@ -163,9 +163,26 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
             dbContext.ChampionRestrictions.Remove(restriction);
 
             if (champion.Restrictions.Count == 0) champion.HasRestrictions = false;
-            dbContext.Champions.Update(champion);
 
             return Result.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new DeleteRestrictionError()
+                .CausedBy(ex));
+        }
+    }
+
+    public async Task<Result<Champion.Restriction>> GetRestrictionById(Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId }, cancellationToken: cancellationToken);
+#pragma warning disable RCS1084 // Use coalesce expression instead of conditional expression
+            return restriction is null
+                ? Result.Fail(new EditRestrictionError("Restriction not found."))
+                : restriction;
+#pragma warning restore RCS1084 // Use coalesce expression instead of conditional expression
         }
         catch (Exception ex)
         {

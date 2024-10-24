@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+
 using Domain.Abstractions;
 using Domain.Champions;
 
@@ -15,9 +16,8 @@ public sealed record class DeleteChampionCommand(long Id) : ICommand
         ICommandHandler<DeleteChampionCommand>
     {
         public async Task<Result> Handle(DeleteChampionCommand request, CancellationToken cancellationToken) =>
-            (await repository.GetById((Champion.ChampionId)request.Id, cancellationToken)
+            await repository.GetById((Champion.ChampionId)request.Id, cancellationToken)
                 .Bind(repository.Delete)
-                .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken)))
-                .ToResult();
+                .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
 }

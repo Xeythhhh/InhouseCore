@@ -1,7 +1,7 @@
 ﻿namespace SharedKernel.Contracts.v1.Champions;
 
-public sealed record AddRestrictionRequest(
-    string ChampionId,
+public sealed record UpdateRestrictionRequest(
+    string RestrictionId,
     string AbilityName,
     string AbilityIdentifier,
     string Color,

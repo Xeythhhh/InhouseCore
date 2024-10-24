@@ -34,4 +34,10 @@ public interface IChampionRepository : IRepository<Champion, Champion.ChampionId
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the removal operation.</returns>
     Task<Result> RemoveChampionRestriction(Champion.ChampionId championId, Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken);
+
+    /// <summary>Retrieves an entity of type <see cref="Champion.Restriction"/> by its identifier.</summary>
+    /// <param name="restrictionId">The unique identifier of the entity.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>A <see cref="Result"/> containing the entity of type <typeparamref name="T"/> if found; otherwise, an error.</returns>
+    Task<Result<Champion.Restriction>> GetRestrictionById(Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken);
 }

@@ -45,5 +45,5 @@ public interface IRepository<T, TId> : IRepository
     /// <summary>Deletes the specified entity of type <typeparamref name="T"/> from the repository.</summary>
     /// <param name="Aggregate">The aggregate to delete.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the deletion operation.</returns>
-    Result<T> Delete(T Aggregate);
+    Result Delete(T Aggregate);
 }

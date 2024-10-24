@@ -1,9 +1,11 @@
 ﻿using Application.Abstractions;
+
 using Domain.Abstractions;
 using Domain.Champions;
 
 using SharedKernel.Contracts.v1.Champions;
 using SharedKernel.Primitives.Result;
+using SharedKernel.Extensions.ResultExtensions;
 
 namespace Application.Champions.Commands;
 
@@ -18,10 +20,10 @@ public sealed record class RemoveRestrictionCommand(
         ICommandHandler<RemoveRestrictionCommand>
     {
         public async Task<Result> Handle(RemoveRestrictionCommand command, CancellationToken cancellationToken) =>
-            await (await repository.RemoveChampionRestriction(
+           await repository.RemoveChampionRestriction(
                     (Champion.ChampionId)command.ChampionId,
-                    (Champion.Restriction.RestrictionId)command.RestrictionId, cancellationToken))
-                .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
+                    (Champion.Restriction.RestrictionId)command.RestrictionId, cancellationToken)
+                .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
     public static Result<RemoveRestrictionCommand> FromRequest(RemoveRestrictionRequest dto) =>
         new RemoveRestrictionCommand(long.Parse(dto.ChampionId), long.Parse(dto.RestrictionId));

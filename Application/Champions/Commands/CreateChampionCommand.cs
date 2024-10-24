@@ -24,7 +24,7 @@ public sealed record class CreateChampionCommand(
                 .Ensure(repository.IsNameUnique, new Champion.ChampionName.IsNotUniqueError(command.Name))
                 .Bind(champion => repository.Add(champion, cancellationToken)
                     .Map(champion => champion.Id))
-                .OnSuccessTry(() => unitOfWork.SaveChangesAsync(cancellationToken));
+                .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
 
     public static Result<CreateChampionCommand> FromRequest(CreateChampionRequest dto) =>

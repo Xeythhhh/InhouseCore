@@ -25,7 +25,7 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
                 r.Id AS RestrictionId,
                 r.AbilityName,
                 r.Identifier,
-                r.ColorHex,
+                r.ColorHex AS Color,
                 r.Reason
             FROM
                 Champions c
@@ -33,8 +33,8 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
                 ChampionRestrictions r ON c.Id = r.ChampionId
             """;
 
-        public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken)
-         => await Result.Try(() => new SqlConnection(connectionString.Value))
+        public async Task<Result<GetAllChampionsResponse>> Handle(GetAllChampionsQuery query, CancellationToken cancellationToken) =>
+            await Result.Try(() => new SqlConnection(connectionString.Value))
                 .Bind(async connection => await connection.QueryAsync<ChampionDto, ChampionRestrictionDto, ChampionDto>(
                     sql, (champion, restriction) =>
                     {
@@ -42,18 +42,17 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
                         return champion;
                     },
                     splitOn: "RestrictionId"))
-                .Map(champions =>
+                .Map(champions => new GetAllChampionsResponse(
                     champions.GroupBy(champion => champion.Id)
-                    .Select(group =>
-                    {
-                        ChampionDto result = group.First();
-                        result.Restrictions = group.SelectMany(c => c.Restrictions)
-                            .DistinctBy(r => r.RestrictionId)
-                            .ToList();
+                        .Select(group =>
+                        {
+                            ChampionDto result = group.First();
+                            result.Restrictions = group.SelectMany(c => c.Restrictions)
+                                .DistinctBy(r => r.RestrictionId)
+                                .ToList();
 
-                        return result;
-                    }))
-                .Map(dtos => new GetAllChampionsResponse(dtos));
+                            return result;
+                        })));
 
         private static bool IsRestrictionNullOrEmpty(ChampionRestrictionDto restriction) => restriction is null || restriction.RestrictionId is null;
     }

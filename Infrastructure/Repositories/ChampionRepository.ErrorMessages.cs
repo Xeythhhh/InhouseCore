@@ -12,4 +12,5 @@ public partial class ChampionRepository
     public sealed class DeleteRestrictionError() : Error("An error occurred while deleting Champion Restriction.");
     public sealed class NotFoundError() : Error("Champion not found.");
     public sealed class RemoveRestrictionError(string reason = "") : Error($"An error occurred while removing the Champion Restriction. {reason}");
+    public sealed class EditRestrictionError(string reason = "") : Error($"An error occurred while editing the Champion Restriction. {reason}");
 }

@@ -16,4 +16,11 @@ public static partial class ResultExtensions
         if (result.IsSuccess) await func();
         return result;
     }
+
+    /// <summary>Executes the given action if the calling result is a success. Returns the calling result.</summary>
+    public static async Task<Result> Tap(this Result result, Func<Task> func)
+    {
+        if (result.IsSuccess) await func();
+        return result;
+    }
 }

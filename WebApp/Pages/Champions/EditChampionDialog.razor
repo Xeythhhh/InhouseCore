@@ -1,67 +1,51 @@
 ﻿@using SharedKernel.Contracts.v1.Champions
-@inject HttpClient HttpClient
-@inject ISnackbar Snackbar
 
 <MudDialog>
     <TitleContent>
-        Edit
+        <MudText Typo="Typo.h5" GutterBottom="true">Editing Champion: @Name (@Role)</MudText>
     </TitleContent>
+
     <DialogContent>
-        <MudTextField @bind-Value="Name" Label="Name" Variant="Variant.Filled" Disabled></MudTextField>
-        <MudTextField @bind-Value="Role" Label="Role" Variant="Variant.Filled" Disabled></MudTextField>
-        @foreach (var restriction in Restrictions ?? new List<ChampionRestrictionDto>())
-        {
-            <MudCard>
-                <MudTextField @bind-Value="restriction.AbilityName" Label="Name" Variant="Variant.Filled"></MudTextField>
-                <MudTextField @bind-Value="restriction.Identifier" Label="Identifier" Variant="Variant.Filled"></MudTextField>
-                @* <MudColorPicker @bind-Value="restriction.ColorHex" Label="Color"></MudColorPicker> *@
-                <MudTextField @bind-Value="restriction.Reason" Label="Reason" Variant="Variant.Filled"></MudTextField>
-                <MudIconButton @ref="SaveButton" OnClick="(e) => SaveRestriction(restriction)" Disabled>Save</MudIconButton>
-                <MudIconButton OnClick="(e) => RemoveRestriction(restriction)">Remove</MudIconButton>
-            </MudCard>
-        }
-        <MudButton OnClick="AddRestriction">Add Restriction</MudButton>
+        @* TODO add champion splash art as background *@
+        <MudText GutterBottom="true">Restrictions:</MudText>
+        <MudGrid>
+            @if (isBusy)
+            {
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+                    <MudProgressCircular Indeterminate="true" Color="Color.Primary" Visible="@isBusy" />
+                </div>
+            }
+            else
+            {
+                @foreach (var restriction in Restrictions ?? new List<ChampionRestrictionDto>())
+                {
+                    <MudItem>
+                        <MudCard Outlined>
+                            <MudCardMedia Image="https://static.wikia.nocookie.net/battlerite_gamepedia_en/images/e/e2/Rain_Of_Arrows_icon_big.png" Height="200" />
+                            <MudCardContent>
+                                <MudTextField @bind-Value="restriction.AbilityName" Label="Ability Name" Variant="Variant.Filled"></MudTextField>
+                                <MudTextField @bind-Value="restriction.Identifier" Label="Identifier" Variant="Variant.Filled"></MudTextField>
+                                <MudColorPicker @bind-Text="restriction.Color" Label="Color" ShowToolbar="true" ColorPickerView="ColorPickerView.Palette" Palette="RestrictionColorPalette" ShowAlpha="false" />
+                                <MudTextField @bind-Value="restriction.Reason" Label="Reason" Variant="Variant.Filled"></MudTextField>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                                    <MudButton OnClick="(e) => UpdateRestriction(restriction)" Color="Color.Primary" Disabled="@isBusy">Save</MudButton>
+                                    <MudButton OnClick="(e) => RemoveRestriction(restriction)" Color="Color.Error" Disabled="@isBusy">Remove</MudButton>
+                                </MudButtonGroup>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+        </MudGrid>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="() => MudDialog.Close()">Close</MudButton>
+        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+            <MudButton OnClick="UploadBackground" Color="Color.Primary" Variant="Variant.Filled">Upload Background</MudButton>
+            <MudButton OnClick="AddAugment" Color="Color.Primary" Variant="Variant.Filled">Add Augment</MudButton>
+            <MudButton OnClick="AddRestriction" Color="Color.Primary" Variant="Variant.Filled">Add Restriction</MudButton>
+            <MudButton OnClick="() => MudDialog.Close()" Color="Color.Secondary" Variant="Variant.Text">Close</MudButton>
+        </MudButtonGroup>
     </DialogActions>
 </MudDialog>
-
-@code {
-    [CascadingParameter]
-    private MudDialogInstance MudDialog { get; set; }
-
-    private MudIconButton SaveButton { get; set; }
-
-    [Parameter]
-    public string Id { get; set; }
-
-    [Parameter]
-    public string Name { get; set; }
-
-    [Parameter]
-    public string Role { get; set; }
-
-    [Parameter]
-    public List<ChampionRestrictionDto>? Restrictions { get; set; }
-
-    private void AddRestriction()
-    {
-        Snackbar.Add("Not implemented", Severity.Error);
-    }
-
-    private void RemoveRestriction(ChampionRestrictionDto restriction)
-    {
-        Snackbar.Add("Not implemented", Severity.Error);
-    }
-
-    private void SaveRestriction(ChampionRestrictionDto restriction)
-    {
-        Snackbar.Add("Not implemented", Severity.Error);
-    }
-
-    private void EnableSaveButton()
-    {
-        Snackbar.Add("Not implemented", Severity.Error);
-    }
-}

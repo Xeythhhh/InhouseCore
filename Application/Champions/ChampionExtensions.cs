@@ -20,7 +20,7 @@ public static class ChampionExtensions
             RestrictionId = restriction.Id.Value.ToString(),
             Reason = restriction.Reason ?? string.Empty,
             Identifier = restriction.Identifier.Value,
-            ColorHex = restriction.ColorHex.Value,
+            Color = restriction.ColorHex.Value,
             AbilityName = restriction.AbilityName
         };
 }
