@@ -54,6 +54,9 @@ public sealed partial class Champion
         /// <param name="role">The <see cref="ChampionRole"/> to convert.</param>
         public static explicit operator string(ChampionRole role) => role.Value;
 
-        public sealed class ValueOutOfRangeError() : Error($"Value outside of supported range. (valid values: '{string.Join(", ", ValidValues)}'");
+        public sealed class ValueOutOfRangeError() : Error(MessageTemplate)
+        {
+            internal static string MessageTemplate = $"'Role' value outside of supported range. (valid values: '{string.Join(", ", ValidValues)}'";
+        };
     }
 }

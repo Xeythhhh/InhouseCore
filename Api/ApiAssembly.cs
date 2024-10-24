@@ -22,8 +22,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 using MudBlazor.Services;
 
-using Presentation.Discord;
-
 using Serilog.Sinks.SystemConsole.Themes;
 
 using WebApp;
@@ -71,7 +69,7 @@ public static class ApiAssembly
         app.MapHub<TestHub>("test-notifications");
         app.MapCarter();
 
-        app.UseDiscord();
+        //app.UseDiscord();
 
         app.UseCors(policy => policy //TODO
             .AllowAnyHeader()
@@ -98,7 +96,7 @@ public static class ApiAssembly
             .AddDomainServices()
             .AddDatabaseServices()
             .AddApplicationServices()
-            .AddDiscordApplication()
+            //.AddDiscordApplication()
             .Services
                 //.AddAntiforgery()
                 .AddCors()

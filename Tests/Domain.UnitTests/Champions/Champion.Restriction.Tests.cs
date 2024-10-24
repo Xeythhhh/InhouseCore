@@ -1,13 +1,9 @@
-﻿using System;
-
-using Domain.Champions;
-using Domain.Primitives;
+﻿using Domain.Champions;
 
 using FluentAssertions;
 
+using SharedKernel.Primitives.Reasons;
 using SharedKernel.Primitives.Result;
-
-using Xunit;
 
 namespace Domain.UnitTests.Champions
 {
@@ -98,6 +94,7 @@ namespace Domain.UnitTests.Champions
             // Assert
             result.IsFailed.Should().BeTrue();
             result.Errors.Should().ContainSingle()
+                .Which.Should().BeOfType<ExceptionalError>()
                 .Which.Message.Should().Be("Invalid color name / hex format (Parameter 'value')");
         }
 
@@ -126,8 +123,7 @@ namespace Domain.UnitTests.Champions
 
             // Assert
             result.IsFailed.Should().BeTrue();
-            result.Errors.Should().ContainSingle()
-                .Which.Message.Should().Be("Value outside of supported range. (valid values: 'q, e, r, d, f'");
+            result.HasError<Champion.Restriction.RestrictionIdentifier.ValueOutOfRangeError>().Should().BeTrue();
         }
 
         [Fact]
@@ -190,7 +186,8 @@ namespace Domain.UnitTests.Champions
             result.IsFailed.Should().BeTrue();
             result.HasError<Champion.Restriction.CreateChampionRestrictionError>().Should().BeTrue();
             result.Errors[0].Reasons.Should().ContainSingle()
-                .Which.Message.Should().Be("Value outside of supported range. (valid values: 'q, e, r, d, f'");
+                .Which.Should().BeOfType<ExceptionalError>()
+                .Which.Message.Should().Be(Champion.Restriction.RestrictionIdentifier.ValueOutOfRangeError.MessageTemplate);
         }
     }
 }

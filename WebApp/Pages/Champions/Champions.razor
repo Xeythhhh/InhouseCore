@@ -1,6 +1,6 @@
 @page "/champions"
 @using Microsoft.AspNetCore.Authorization
-@using System.Text.Json
+@using SharedKernel.Contracts.v1
 @using SharedKernel.Contracts.v1.Champions
 
 @inject HttpClient HttpClient
@@ -40,7 +40,7 @@ else
             <MudTd DataLabel="Name">@context.Name</MudTd>
             <MudTd DataLabel="Role">@context.Role</MudTd>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(e) => EditChampion(context.Id)">Edit</MudIconButton>
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(e) => DeleteChampion(context.Id)">Edit</MudIconButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(e) => DeleteChampion(context.Id)">Delete</MudIconButton>
         </RowTemplate>
         <PagerContent>
             <MudTablePager PageSizeOptions="new int[]{ 5, 10, 25, 50, 100 }" />
@@ -58,8 +58,23 @@ else
 
     private async Task FetchChampions()
     {
-        var apiResponse = await HttpClient.GetFromJsonAsync<GetAllChampionsResponse>("champions");
-        champions = apiResponse?.Champions ?? new List<ChampionDto>();
+        try
+        {
+            var apiResponse = await HttpClient.GetFromJsonAsync<GetAllChampionsResponse>("champions");
+            if (apiResponse != null)
+            {
+                champions = apiResponse.Champions;
+            }
+            else
+            {
+                champions = new List<ChampionDto>();
+                Snackbar.Add("Failed to fetch champions.", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"An error occurred while fetching champions: {ex.Message}", Severity.Error);
+        }
     }
 
     private async Task CreateTestChampion() => await CreateChampion("Ranged");
@@ -67,36 +82,137 @@ else
     private async Task CreateChampion(string role)
     {
         var request = new CreateChampionRequest($"TestChampion_{DateTime.UtcNow.Ticks}", role);
-
-        var response = await HttpClient.PostAsJsonAsync("champions", request);
-
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            Console.WriteLine(response);
-            Snackbar.Add("An error occurred /shrug", Severity.Error);
+            var response = await HttpClient.PostAsJsonAsync("champions", request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await FetchChampions();
+                Snackbar.Add("Champion created successfully!", Severity.Success);
+            }
+            else
+            {
+                // Read the response content and display errors in the snackbar
+                var errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                if (errorResponse?.Errors != null)
+                {
+                    foreach (var error in errorResponse.Errors)
+                    {
+                        Snackbar.Add(error, Severity.Error);
+                    }
+                }
+                else
+                {
+                    Snackbar.Add("An unexpected error occurred.", Severity.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
         }
     }
 
-    private void DeleteChampion(string id)
+
+    private async void DeleteChampion(string id)
     {
-        //todo 
+        bool? result = await DialogService.ShowMessageBox(
+            "Delete Champion",
+            $"Are you sure you want to delete this champion?",
+            yesText: "Delete", cancelText: "Cancel");
+
+        if (result == true)
+        {
+            try
+            {
+                var response = await HttpClient.DeleteAsync($"champions/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await FetchChampions();
+                    Snackbar.Add("Champion deleted successfully.", Severity.Success);
+                }
+                else
+                {
+                    // Handle the error response
+                    var errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                    if (errorResponse?.Errors != null)
+                    {
+                        foreach (var error in errorResponse.Errors)
+                        {
+                            Snackbar.Add(error, Severity.Error);
+                        }
+                    }
+                    else
+                    {
+                        Snackbar.Add("An unexpected error occurred.", Severity.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
+            }
+        }
     }
 
     private async void EditChampion(string id)
     {
-        ChampionDto? champion = await HttpClient.GetFromJsonAsync<ChampionDto>($"champions/{id}");
-        if(champion is null)
+        try
         {
-            Snackbar.Add("Champion not found", Severity.Error);
-            return;
+            // Fetch the champion data by ID
+            var champion = await HttpClient.GetFromJsonAsync<ChampionDto>($"champions/{id}");
+
+            if (champion is null)
+            {
+                Snackbar.Add("Champion not found", Severity.Error);
+                return;
+            }
+
+            // Pass the champion data to the dialog for editing
+            DialogParameters<EditChampionDialog> dialogParameters = new()
+            {
+                { x => x.Id, champion.Id },
+                { x => x.Restrictions, champion.Restrictions },
+            };
+
+            // Show the dialog and wait for the result
+            var dialog = DialogService.Show<EditChampionDialog>("Edit Champion", dialogParameters);
+            var result = await dialog.Result;
+
+            if (result is not null && !result.Canceled)
+            {
+                var updatedChampion = (ChampionDto)result.Data!;
+                var response = await HttpClient.PutAsJsonAsync($"champions/{id}", updatedChampion);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await FetchChampions();
+                    Snackbar.Add("Champion updated successfully!", Severity.Success);
+                }
+                else
+                {
+                    // Read and display errors from the response
+                    var errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                    if (errorResponse?.Errors != null)
+                    {
+                        foreach (var error in errorResponse.Errors)
+                        {
+                            Snackbar.Add(error, Severity.Error);
+                        }
+                    }
+                    else
+                    {
+                        Snackbar.Add("An unexpected error occurred while updating the champion.", Severity.Error);
+                    }
+                }
+            }
         }
-
-        DialogParameters<EditChampionDialog> dialogParameters = new()
+        catch (Exception ex)
         {
-            { x => x.Id, champion.Id },
-            { x => x.Restrictions, champion.Restrictions },
-        };
-
-        DialogService.Show<EditChampionDialog>();
+            Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
+        }
     }
+
 }

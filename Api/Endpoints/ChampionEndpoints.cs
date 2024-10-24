@@ -9,6 +9,7 @@ using SharedKernel.Primitives.Result;
 
 using MediatR;
 using SharedKernel.Contracts.v1.Champions;
+using SharedKernel.Contracts.v1;
 
 namespace Api.Endpoints;
 
@@ -23,7 +24,7 @@ public class ChampionEndpoints : ICarterModule
 
             return result.IsSuccess
                 ? Results.Ok(result.Value)
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
 
         app.MapPut("api/champions/restrict", async (AddRestrictionRequest request, ISender sender) =>
@@ -33,7 +34,7 @@ public class ChampionEndpoints : ICarterModule
 
             return result.IsSuccess
                 ? Results.Ok(result.Value)
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
 
         app.MapPut("api/champions/un-restrict", async (RemoveRestrictionRequest request, ISender sender) =>
@@ -43,17 +44,17 @@ public class ChampionEndpoints : ICarterModule
 
             return result.IsSuccess
                 ? Results.Ok(result.Value)
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
 
-        app.MapDelete("api/champions/{id}", async (long id, ISender sender) =>
+        app.MapDelete("api/champions/{id}", async (string id, ISender sender) =>
         {
-            Result result = await Result.Ok(new DeleteChampionCommand(id))
+            Result result = await Result.Ok(new DeleteChampionCommand(long.Parse(id)))
                 .Bind(command => sender.Send(command));
 
             return result.IsSuccess
                 ? Results.Ok()
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
 
         app.MapGet("api/champions", async (ISender sender) =>
@@ -63,7 +64,7 @@ public class ChampionEndpoints : ICarterModule
 
             return result.IsSuccess
                 ? Results.Ok(result.Value)
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
 
         app.MapGet("api/champions/{id}", async (long id, ISender sender) =>
@@ -73,7 +74,7 @@ public class ChampionEndpoints : ICarterModule
 
             return result.IsSuccess
                 ? Results.Ok(result.Value)
-                : Results.BadRequest(result.Errors);
+                : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
     }
 }
