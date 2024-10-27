@@ -80,9 +80,9 @@ public static class ApiAssembly
     }
 
     /// <summary>Configures services for the application</summary>
-    /// <param name="builder">The <see cref="WebApplicationBuilder"/> instance used to configure services.</param>
+    /// <param name="builder">The <see cref="IHostApplicationBuilder"/> instance used to configure services.</param>
     /// <returns>The configured <see cref="WebApplication"/> instance.</returns>
-    internal static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+    internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
     {
         // Add MudBlazor services
         builder.Services.AddMudServices();
@@ -106,7 +106,7 @@ public static class ApiAssembly
                 .AddHostedService<TestBackgroundService>()
                 .AddSignalR();
 
-        return builder.Build();
+        return ((WebApplicationBuilder)builder).Build();
     }
 
     // TODO
@@ -159,7 +159,7 @@ public static class ApiAssembly
         return builder;
     }
 
-    private static WebApplicationBuilder AddIdentityServices(this WebApplicationBuilder builder)
+    private static IHostApplicationBuilder AddIdentityServices(this IHostApplicationBuilder builder)
     {
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddScoped<IdentityUserAccessor>();

@@ -49,14 +49,10 @@ namespace Infrastructure.Migrations
                     b.ToTable("Champions");
                 });
 
-            modelBuilder.Entity("Domain.Champions.Champion+Restriction", b =>
+            modelBuilder.Entity("Domain.Champions.Champion+Augment", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("AbilityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ChampionId")
                         .HasColumnType("bigint");
@@ -68,9 +64,40 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Identifier")
+                    b.Property<DateTime>("LastUpdatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Target")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChampionId");
+
+                    b.ToTable("ChampionAugments");
+                });
+
+            modelBuilder.Entity("Domain.Champions.Champion+Restriction", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Augment2Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AugmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ChampionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LastUpdatedAtUtc")
                         .HasColumnType("datetime2");
@@ -79,6 +106,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Augment2Id");
+
+                    b.HasIndex("AugmentId");
 
                     b.HasIndex("ChampionId");
 
@@ -292,11 +323,32 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Champions.Champion+Augment", b =>
+                {
+                    b.HasOne("Domain.Champions.Champion", null)
+                        .WithMany("Augments")
+                        .HasForeignKey("ChampionId");
+                });
+
             modelBuilder.Entity("Domain.Champions.Champion+Restriction", b =>
                 {
+                    b.HasOne("Domain.Champions.Champion+Augment", "Augment2")
+                        .WithMany()
+                        .HasForeignKey("Augment2Id");
+
+                    b.HasOne("Domain.Champions.Champion+Augment", "Augment")
+                        .WithMany()
+                        .HasForeignKey("AugmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Champions.Champion", null)
                         .WithMany("Restrictions")
                         .HasForeignKey("ChampionId");
+
+                    b.Navigation("Augment");
+
+                    b.Navigation("Augment2");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<Domain.Users.AspNetIdentityId>", b =>
@@ -352,6 +404,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Champions.Champion", b =>
                 {
+                    b.Navigation("Augments");
+
                     b.Navigation("Restrictions");
                 });
 #pragma warning restore 612, 618

@@ -65,6 +65,9 @@ public partial class Result<TValue> : ResultBase<Result<TValue>>, IResult<TValue
         return $"{baseString}, {valueString}";
     }
 
+    public static implicit operator Result(Result<TValue> result) =>
+        result.IsSuccess ? Result.Ok() : Result.Fail(result.Errors);
+
     public static implicit operator Result<TValue>(Result result) =>
         result.ToResult<TValue>(default!);
 

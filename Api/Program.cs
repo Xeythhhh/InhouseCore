@@ -2,6 +2,8 @@
 
 using Api;
 
+using SharedKernel;
+
 using Serilog;
 
 //Logger used during bootstrap, this is replaced further down the pipeline
@@ -29,6 +31,7 @@ try
         .Enrich.FromLogContext());
 
     WebApplication app = builder
+        .AddSharedSettings()
         .ConfigureServices()
         .ConfigurePipeline();
 

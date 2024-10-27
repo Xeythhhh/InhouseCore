@@ -25,7 +25,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new AddError()
+            return Result.Fail(new AddChampionError()
                 .CausedBy(ex));
         }
     }
@@ -42,7 +42,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new GetAllError()
+            return Result.Fail(new GetAllChampionsError()
                 .CausedBy(ex));
         }
     }
@@ -60,7 +60,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new GetAllError()
+            return Result.Fail(new GetAllChampionsError()
                 .CausedBy(ex));
         }
     }
@@ -70,16 +70,17 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         try
         {
             Champion? champion = await dbContext.Champions
+            .Include(champion => champion.Augments)
             .Include(champion => champion.Restrictions)
             .FirstOrDefaultAsync(c => Equals(c.Id, id), cancellationToken);
 
             return champion is not null
                 ? Result.Ok(champion)
-                : Result.Fail(new NotFoundError());
+                : Result.Fail(new ChampionNotFoundError());
         }
         catch (Exception ex)
         {
-            return Result.Fail(new GetError()
+            return Result.Fail(new GetChampionError()
                 .CausedBy(ex));
         }
     }
@@ -94,11 +95,11 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
 
             return champions.Count != 0
                 ? Result.Ok(champions)
-                : Result.Fail(new NotFoundError());
+                : Result.Fail(new ChampionNotFoundError());
         }
         catch (Exception ex)
         {
-            return Result.Fail(new GetError()
+            return Result.Fail(new GetChampionError()
                 .CausedBy(ex));
         }
     }
@@ -112,7 +113,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new UpdateError()
+            return Result.Fail(new UpdateChampionError()
                 .CausedBy(ex));
         }
     }
@@ -132,7 +133,7 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new DeleteError()
+            return Result.Fail(new DeleteChampionError()
                 .CausedBy(ex));
         }
     }
@@ -168,7 +169,34 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
         catch (Exception ex)
         {
-            return Result.Fail(new DeleteRestrictionError()
+            return Result.Fail(new RemoveRestrictionError()
+                .CausedBy(ex));
+        }
+    }
+
+    public async Task<Result> RemoveChampionAugment(
+        Champion.ChampionId championId,
+        Champion.Augment.AugmentId augmentId,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            Champion.Augment? augment = await dbContext.ChampionAugments.FindAsync(new object?[] { augmentId }, cancellationToken: cancellationToken);
+            if (augment is null) return Result.Fail(new RemoveAugmentError("Augment not found."));
+
+            Champion? champion = await dbContext.Champions
+                .Include(c => c.Augments)
+                .FirstOrDefaultAsync(c => c.Id == championId, cancellationToken);
+            if (champion is null) return Result.Fail(new RemoveAugmentError("Champion not found."));
+
+            champion.Augments.Remove(augment);
+            dbContext.ChampionAugments.Remove(augment);
+
+            return Result.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new RemoveAugmentError()
                 .CausedBy(ex));
         }
     }
@@ -180,13 +208,31 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
             Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId }, cancellationToken: cancellationToken);
 #pragma warning disable RCS1084 // Use coalesce expression instead of conditional expression
             return restriction is null
-                ? Result.Fail(new EditRestrictionError("Restriction not found."))
+                ? Result.Fail(new GetRestrictionError("Restriction not found."))
                 : restriction;
 #pragma warning restore RCS1084 // Use coalesce expression instead of conditional expression
         }
         catch (Exception ex)
         {
-            return Result.Fail(new DeleteRestrictionError()
+            return Result.Fail(new GetRestrictionError()
+                .CausedBy(ex));
+        }
+    }
+
+    public async Task<Result<Champion.Augment>> GetAugmentById(Champion.Augment.AugmentId augmentId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            Champion.Augment? augment = await dbContext.ChampionAugments.FindAsync(new object?[] { augmentId }, cancellationToken: cancellationToken);
+#pragma warning disable RCS1084 // Use coalesce expression instead of conditional expression
+            return augment is null
+                ? Result.Fail(new GetAugmentError("Augment not found."))
+                : augment;
+#pragma warning restore RCS1084 // Use coalesce expression instead of conditional expression
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new GetAugmentError()
                 .CausedBy(ex));
         }
     }

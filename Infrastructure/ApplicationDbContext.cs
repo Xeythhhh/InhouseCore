@@ -14,6 +14,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<Champion> Champions { get; set; }
     public DbSet<Champion.Restriction> ChampionRestrictions { get; set; }
+    public DbSet<Champion.Augment> ChampionAugments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

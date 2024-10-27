@@ -8,38 +8,34 @@ namespace Domain.Champions;
 public sealed partial class Champion
 {
     /// <summary>Represents a restriction applied to a champion, which limits its behavior or abilities based on specific criteria.</summary>
-    public sealed partial class Restriction : EntityBase<Restriction.RestrictionId>
+    public sealed class Restriction : EntityBase<Restriction.RestrictionId>
     {
         /// <summary>Represents a strongly-typed identifier for <see cref="Restriction"/> instances.</summary>
         /// <param name="Value">The numeric value representing the restriction's unique identifier.</param>
         public sealed record RestrictionId(long Value) : EntityId<Restriction>(Value);
 
-        /// <summary>Gets or sets the name of the ability that this restriction applies to.</summary>
-        public string AbilityName { get; set; }
-
-        /// <summary>Gets or sets the identifier that specifies the type or category of the restriction.</summary>
-        public RestrictionIdentifier Identifier { get; set; }
-
-        /// <summary>Gets or sets the hex color code or known color name associated with this restriction.</summary>
-        public RestrictionColor ColorHex { get; set; }
-
+        /// <summary>TODO</summary>
+        public Augment Augment { get; set; }
+        /// <summary>TODO</summary>
+        public Augment? Augment2 { get; set; }
         /// <summary>Gets or sets an optional explanation or rationale for the restriction.</summary>
         public string? Reason { get; set; }
+        /// <summary>TODO</summary>
+        public bool IsCombo => Augment2 is not null;
 
         /// <summary>Private constructor for EF Core and internal initialization.</summary>
         private Restriction() { }
 
         /// <summary>Creates a new restriction with the specified ability name, identifier, color, and reason.</summary>
-        /// <param name="name">The name of the ability this restriction applies to.</param>
-        /// <param name="identifier">The identifier that specifies the type of restriction.</param>
-        /// <param name="hexOrColorName">A valid hex color code or known color name representing the restriction.</param>
         /// <param name="reason">Optional reason or explanation for the restriction.</param>
+        /// <param name="augment">TODO</param>
+        /// <param name="augment2">TODO</param>
         /// <returns> A <see cref="Result{T}"/> containing the created <see cref="Restriction"/> instance if successful, or an error if the creation process fails.</returns>
-        public static Result<Restriction> Create(string name, string identifier, string hexOrColorName, string reason)
+        public static Result<Restriction> Create(string reason, Augment augment, Augment? augment2 = null)
         {
             try
             {
-                return CreateInternal(name, identifier, hexOrColorName, reason);
+                return CreateInternal(reason, augment, augment2);
             }
             catch (Exception exception)
             {
@@ -48,17 +44,15 @@ public sealed partial class Champion
         }
 
         /// <summary>Internal helper method to create a <see cref="Restriction"/> instance.</summary>
-        /// <param name="name">The name of the ability this restriction applies to.</param>
-        /// <param name="identifier">The identifier that specifies the type of restriction.</param>
-        /// <param name="color">A valid hex color code or known color name representing the restriction.</param>
         /// <param name="reason">Optional reason or explanation for the restriction.</param>
+        /// <param name="augment">TODO</param>
+        /// <param name="augment2">TODO</param>
         /// <returns>A <see cref="Restriction"/> instance.</returns>
-        private static Restriction CreateInternal(string name, string identifier, string color, string reason)
+        private static Restriction CreateInternal(string reason, Augment augment, Augment? augment2 = null)
             => new()
             {
-                AbilityName = name,
-                Identifier = identifier,
-                ColorHex = color,
+                Augment = augment,
+                Augment2 = augment2,
                 Reason = reason
             };
 
@@ -67,14 +61,13 @@ public sealed partial class Champion
     }
 
     /// <summary> Adds a new restriction to the champion.</summary>
-    /// <param name="name">The name of the ability this restriction applies to.</param>
-    /// <param name="identifier">The identifier that specifies the type of restriction.</param>
-    /// <param name="color">A valid hex color code or known color name representing the restriction.</param>
     /// <param name="reason">Optional reason or explanation for the restriction.</param>
+    /// <param name="augment">TODO</param>
+    /// <param name="augment2">TODO</param>
     /// <returns> A <see cref="Result{Champion}"/> containing the updated <see cref="Champion"/> instance if the restriction is successfully added, or an error result if the addition fails.</returns>
-    public Result<Champion> AddRestriction(string name, string identifier, string color, string reason) =>
-        Restriction.Create(name, identifier, color, reason)
-            .OnSuccessTry(restriction =>
+    public Result<Champion> AddRestriction(string reason, Augment augment, Augment? augment2 = null) =>
+        Restriction.Create(reason, augment, augment2)
+            .Tap(restriction =>
             {
                 Restrictions.Add(restriction);
                 HasRestrictions = true;

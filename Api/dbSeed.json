@@ -1,0 +1,2379 @@
+[
+    {
+        "Name": "Bakko",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "HAMSTRING",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "HOWLING AXES",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "THE RED AXE",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "WARLORD'S AXE",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "ADRENALINE RUSH",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "BRAVERY",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "HEROIC LEAP",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "HOLD THE LINE",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "MOBILE DEFENCE",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "SHIELD BASH",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "ADRENALINE SLAM",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "DIZZYING DASH",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "RAGIN RAM",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "RAMPGAE",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "MAMMOTH STOMP",
+                "Target": "F",
+                "Color": "purple"
+            }
+        ]
+    },
+    {
+        "Name": "Croak",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "VICIOUS STRIKE",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "LETHAL TOXINS",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "MENDING TOXIN",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "SPIT SPIT SPIT",
+                "Target": "M1",
+                "Color": "blue"
+            },
+            {
+                "Name": "JUNGLE TOAD",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "MAIMING CUT",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "PUDDLE JUMPER",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "TRIPLE STRIKE",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "FROG SLICE",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "NOXIOUS REACTION",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "TRICKERY",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "FROG FRENZY",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "MOMENTUM",
+                "Target": "F",
+                "Color": "yellow"
+            },
+            {
+                "Name": "SLIPEERY SKIN",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "TIME TO STRIKE",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "VENOME STRIKE",
+                "Target": "Talent",
+                "Color": "red"
+            }
+ 
+        ]
+    },
+    {
+        "Name": "Freya",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "STATIC HAMMERS",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "TEMPEST",
+                "Target": "M1",
+                "Color": "yellow"
+            },
+            {
+                "Name": "THUNDERBOLT",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "TWIN HAMMERS",
+                "Target": "M1",
+                "Color": "white"
+            },
+            {
+                "Name": "ELECTRIC CONDUCTION",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "LIGHTNING SPEED",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "THUNDERING SPRING",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "HAMMER TIME",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "OVERCHARGE",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "LIGHTNING ROD",
+                "Target": "E",
+                "Color": "green"
+            },
+            {
+                "Name": "ROLLING THUNDER",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "TORRENT",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "SURGE",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "THUNDERSTRUCK",
+                "Target": "F",
+                "Color": "purple"
+            },
+            {
+                "Name": "POSITIVE CHARGE",
+                "Target": "Talent",
+                "Color": "red"
+            }
+        ]
+    },
+    {
+        "Name": "Jamila",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "DEADLY STAR",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "DEEP WOUNDS",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "TASTE OF BLOOD",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "CRIPPLE",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "PUSH OFF",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "QUICK STRIKE",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "CRIMSON BLUR",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "DRAWING BLOOD",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "PHANTOM BLADES",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "SHROUD OF SHADOWS",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "DECEPTIVE MOMENTUM",
+                "Target": "E",
+                "Color": "green"
+            },
+            {
+                "Name": "FIRING MECHANISM",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "MOMENTUM STRIKE",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "GO FOR THE THROAT",
+                "Target": "R",
+                "Color": "purple"
+            },
+            {
+                "Name": "SHADOW DOUBLE",
+                "Target": "F",
+                "Color": "blue"
+            }
+
+        ]
+    },
+    {
+        "Name": "Raigon",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "BLINDING LIGHT",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "HEADLONG RUSH",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "ACROBATICS",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "HAWK DIVE",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "OVERFLOWING POWER",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "ROYAL DESCENT",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "DUELIST",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "INVIGORATE",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "RIPOSTE",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "AERIAL STRIKE",
+                "Target": "E",
+                "Color": "white"
+            },
+            {
+                "Name": "PERILOUS HEIGHT",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "SEISMIC RETRIBUTION",
+                "Target": "E",
+                "Color": "green"
+            },
+            {
+                "Name": "DRAGON MASTERY",
+                "Target": "R",
+                "Color": "blue"
+            },
+            {
+                "Name": "THE TIGER AND THE DRAGON",
+                "Target": "F",
+                "Color": "white"
+            }
+        ]
+    },
+    {
+        "Name": "Rook",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "PUMMEL RUSH",
+                "Target": "M1",
+                "Color": "yellow"
+            },
+            {
+                "Name": "CRUSHING LEAP",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "ROOK SMASH",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "WEAPON BREAK",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "BELLY BOUNCE",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "ENDURANCE",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "FRENZY",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "RAGING BULL",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "GIANT",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "MADNESS",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "WAR CRY",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "CRAG",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "CRUMBLE",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "EARTHQUAKE",
+                "Target": "F",
+                "Color": "red"
+            }
+        ]
+    },
+    {
+        "Name": "Ruh Kaan",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "GRIM EDGE",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "LEECH BLADE",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "REAPER",
+                "Target": "M1",
+                "Color": "white"
+            },
+            {
+                "Name": "WICKED STRIKE",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "ACCUMULATE",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "AFFLICTION",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "AGONY",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "DEMONIC HUNT",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "NETHER CHAINS",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "GORGE",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "SHADOW FURRY",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "COLD EMBRACE",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "DEATH GRIP",
+                "Target": "E",
+                "Color": "white"
+            },
+            {
+                "Name": "TENACIOUS DEMON",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "NETHER BLADE",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "HUNGER",
+                "Target": "F",
+                "Color": "purple"
+            },
+            {
+                "Name": "SHADOW PROWL",
+                "Target": "F",
+                "Color": "yellow"
+            },
+            {
+                "Name": "NIGHT STALKER",
+                "Target": "Talent",
+                "Color": "yellow"
+            }
+            
+        ]
+    },
+    {
+        "Name": "Shifu",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "CEREMONIAL SPEAR",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "SKEWER",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "SPEAR LUNGE",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "THRUST",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "MEDITATION",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "READIED OFFENSE",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "THE SPEAR IS THE WAY",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "FEROCIOUS STANCE",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "MANTRA",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "POISED TO STRIKE",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "DIRTY TRICKS",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "JAVELIN MASTER",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "SPEAR SLINGER",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "READIED BLADE",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "WHIRLING BLADE",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "SPEAR DANCE",
+                "Target": "F",
+                "Color": "yellow"
+            }
+
+        ]
+    },
+    {
+        "Name": "Thorn",
+        "Role": "melee",
+        "Augments":
+        [ 
+            {
+                "Name": "BRANCH OUT",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "REGROWTH",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "HAMSTRING BRIARS",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "NEUROTOXIN",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "PARASITIC STEMS",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "DEEP BURROW",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "FEARSOME UPROOTAL",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "IMPALING ROOTS",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "LURKER",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "GROUNDING GRASP",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "WHIPLASH",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "CREEPING ROOTS",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "SINISTER SAP",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "CRITICAL BACKLASH",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "NO ESPACE",
+                "Target": "F",
+                "Color": "red"
+            }
+
+        ]
+    },
+    {
+        "Name": "Alysia",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "FROZEN MUSE",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "CRYOGENIC LANCE",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "ICE BREAKER",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "PEIRCING COLD",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "FROST NOVA",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "TWIRL",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "CRYSTALLINE LATTICE",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "FIGURE SKATING",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "WINTRY BLAST",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "ARCTIC CLOAK",
+                "Target": "E",
+                "Color": "cyan"
+            },
+            {
+                "Name": "BLIZZARD",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "SNOWSTORM",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "ICY CITADEL",
+                "Target": "R",
+                "Color": "green"
+            },
+            {
+                "Name": "VANDALISM",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "PERMAFROST",
+                "Target": "F",
+                "Color": "purple"
+            }
+        ]    
+    },
+    {
+        "Name": "Ashka",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "COMBUSTION",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "HEAT",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "WILDFIRE",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "BLAZE",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "BURNING FEET",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "FIRE WARD",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "EMBER FIRE",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "ERUPTION",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "INFERNO",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "KNOCKOUT",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "MACH PUNCH",
+                "Target": "E",
+                "Color": "white"
+            },
+            {
+                "Name": "MOLTEN CORE",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "CONFLAGRATION",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "RAGING FIRE",
+                "Target": "F",
+                "Color": "red"
+            },
+            {
+                "Name": "MAGMA",
+                "Target": "Talent",
+                "Color": "red"
+            }
+        ]
+    },
+    {
+        "Name": "championName",
+        "Role": "melee/ranged/support",
+        "Augments":
+        [ 
+            {
+                "Name": "PLASMA INFUSION",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "POWER ATTACHMENT",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "SYSTEM SHOCK",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "DISPATCH",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "GLOBETROTTER",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "VIOLENT REVOLUTION",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "BLAST PROCESSING",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "ENERGY CONVERSION",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "I/O THROTTLING",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "PLASMA ACCELERATOR",
+                "Target": "E",
+                "Color": "white"
+            },
+            {
+                "Name": "PLASMA BOOSTER",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "SIZZLE",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "EXPANSION PACK",
+                "Target": "R",
+                "Color": "purple"
+            },
+            {
+                "Name": "TRANSFORMER",
+                "Target": "F",
+                "Color": "yellow"
+            }
+        ]
+    },
+    {
+        "Name": "Ezmo",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "EXHAUST",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "COLLAPSE",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "DISRUPTION",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "KEEP AWAY!",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "WARLOCK'S GRIP",
+                "Target": "M2",
+                "Color": "blue"
+            },
+            {
+                "Name": "CHAOS BARRAGE",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "WHIZZ",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "WREAK HAVOC",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "FEEDBACK",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "IMP RUSH",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "SPELL EATER",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "BOLTED",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "FACE MELT",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "UNDERMINE",
+                "Target": "E",
+                "Color": "cyan"
+            },
+            {
+                "Name": "TOME OF RESORATION",
+                "Target": "R",
+                "Color": "cyan"
+            },
+            {
+                "Name": "GRIMOIRE OF DEATH",
+                "Target": "F",
+                "Color": "red"
+            }
+
+        ]
+    },
+    {
+        "Name": "championName",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "BOOM!",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "HEAVY ROCKET",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "STOCKPILE",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "OIL BLASTER",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "ROCKET BOOSTERS",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "U-TURN",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "BLAST SHIELD",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "DURABLE SHIELD",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "HYPERSPEED",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "CONDUCTOR",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "EMP",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "IGNITING SPARK",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "FLIP THE SWITCH",
+                "Target": "R",
+                "Color": "yellow"
+            },
+            {
+                "Name": "TRACOTR PULSE",
+                "Target": "R",
+                "Color": "purple"
+            },
+            {
+                "Name": "ALL SYSTEMS OPERATIONAL",
+                "Target": "F",
+                "Color": "red"
+            },
+            {
+                "Name": "GUNGE",
+                "Target": "Talent",
+                "Color": "purple"
+            }
+
+        ]
+    },
+    {
+        "Name": "Jade",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "GUNSLINGER",
+                "Target": "M1",
+                "Color": "blue"
+            },
+            {
+                "Name": "HIT AND RUN",
+                "Target": "M1",
+                "Color": "yellow"
+            },
+            {
+                "Name": "DEADLY FOCUS",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "SHADOW SHOT",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "SURPRISE SHOT",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "BLASTING PISTOLS",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "EVASIVE MEASURES",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "EXPLOSIVE JUMP",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "AMBUSH",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "FAREWELL PRESENT",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "THROUGH THE SHADOWS",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "DELIGHT",
+                "Target": "E",
+                "Color": "green"
+            },
+            {
+                "Name": "DESPERADO",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "MAGIC BULLET",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "BLACK POWDER",
+                "Target": "R",
+                "Color": "purple"
+            },
+            {
+                "Name": "SHRAPNEL",
+                "Target": "F",
+                "Color": "purple"
+            }
+            
+        ]
+    },
+    {
+        "Name": "Jumong",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "PERFECT SHOT",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "POWER SHOT",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "PREY DRIVE",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "MARKSMAN",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "PRECISION",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "VIPER",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "ARROW STORM",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "CRIPPLING HAIL",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "DEADLY TRAP",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "DISABLING TRAP",
+                "Target": "E",
+                "Color": "white"
+            },
+            {
+                "Name": "TRAPPER",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "PANTHER",
+                "Target": "R",
+                "Color": "yellow"
+            },
+            {
+                "Name": "DEADEYE",
+                "Target": "F",
+                "Color": "red"
+            },
+            {
+                "Name": "DEATH MARK",
+                "Target": "Talent",
+                "Color": "red"
+            }
+        ]
+    },
+    {
+        "Name": "Shen Rao",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "DRAGON FORCE",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "ENTERAINMENT",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "EYEWALL",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "PUPPETEER",
+                "Target": "M2",
+                "Color": "blue"
+            },
+            {
+                "Name": "DRAGON DESCENT",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "HEAVENLY GRACE",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "SUBDUE",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "EFFORTLESS DEFENSE",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "OVERRULE",
+                "Target": "Q",
+                "Color": "blue"
+            },
+            {
+                "Name": "STORM DRAIN",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "REGAL AURA",
+                "Target": "E",
+                "Color": "green"
+            },
+            {
+                "Name": "ROAR OF THE HEAVENS",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "SHOCK AND AWE",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "SPHERE OF INFLUENCE",
+                "Target": "R",
+                "Color": "yellow"
+            },
+            {
+                "Name": "MANDATE OF HEAVEN",
+                "Target": "F",
+                "Color": "red"
+            }
+        ]
+    },
+    {
+        "Name": "Taya",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "BREATH OF AIR",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "COLD WIND",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "CROSS CUT",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "HEAVY BOOMERANGS",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "SURPISE ATTACK",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "THROWING TECHNIQUE",
+                "Target": "M2",
+                "Color": "blue"
+            },
+            {
+                "Name": "GALE",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "TAILWIND",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "CYCLONE",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "TURBULENCE",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "WIND FURY",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "VORTEX",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "WIND STREAM",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "TORNADO BOOMERANG",
+                "Target": "R",
+                "Color": "purple"
+            },
+            {
+                "Name": "WIND SHIELD",
+                "Target": "R",
+                "Color": "cyan"
+            },
+            {
+                "Name": "TRACKING",
+                "Target": "F",
+                "Color": "red"
+            }
+        ]    
+    },
+    {
+        "Name": "Varesh",
+        "Role": "ranged",
+        "Augments":
+        [ 
+            {
+                "Name": "FERVOR",
+                "Target": "M1",
+                "Color": "yellow"
+            },
+            {
+                "Name": "PERPETUITY",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "DEVASTATION",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "MUTE",
+                "Target": "M2",
+                "Color": "purple"
+            },
+            {
+                "Name": "CELERITY",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "WONDER",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "ZEAL",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "RETURN",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "RUIN",
+                "Target": "Q",
+                "Color": "blue"
+            },
+            {
+                "Name": "FRACTURE",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "INHIBITOR",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "LAW BENDER",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "KINETIC CORRUPTION",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "ABSOLUTE POWER",
+                "Target": "F",
+                "Color": "red"
+            },
+            {
+                "Name": "SYNERGY",
+                "Target": "Talent",
+                "Color": "white"
+            }
+
+        ]
+    },
+    {
+        "Name": "Blossom",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "NATURE'S CYCLE",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "WEAKENING PITCH",
+                "Target": "M1",
+                "Color": "cyan"
+            },
+            {
+                "Name": "FLUTTERING GRACE",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "KINDHEARTED",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "CAUTIOUS",
+                "Target": "Space",
+                "Color": "green"
+            },
+            {
+                "Name": "GIFT OF NATURE",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "HOP AND SKIP!",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "NATURE'S PRESENCE",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "BOUNTIFUL TREE",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "HEALTHFUL BARK",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "REFRESHING SEED",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "BLOOM BURST",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "POLLEN",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "SPRING GROWTH",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "PUFF",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "GROWING POWER",
+                "Target": "F",
+                "Color": "red"
+            }
+
+        ]
+    },
+    {
+        "Name": "Lucie",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "VAMPIRIC TOXIN",
+                "Target": "M1",
+                "Color": "green"
+            },
+            {
+                "Name": "WEAKENING TOXIN",
+                "Target": "M1",
+                "Color": "white"
+            },
+            {
+                "Name": "COMPANION POTION",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "STIMULANT",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "ALACRITY",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "BLAST SHIELD",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "SIEG BARRIER",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "ADHESIVE COMPONENT",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "DYNAMIC SOLUTION",
+                "Target": "Q",
+                "Color": "blue"
+            },
+            {
+                "Name": "FULLY STOCKED",
+                "Target": "Q",
+                "Color": "blue"
+            },
+            {
+                "Name": "POTENCY",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "CHAOS",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "DEADLY BREW",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "HYSTERIA",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "SWIFT ROLL",
+                "Target": "R",
+                "Color": "yellow"
+            },
+            {
+                "Name": "STICKY GOO",
+                "Target": "F",
+                "Color": "purple"
+            }
+
+        ]
+    },
+    {
+        "Name": "Oldur",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "DEHYDRATION",
+                "Target": "M1",
+                "Color": "white"
+            },
+            {
+                "Name": "SHARED FATE",
+                "Target": "M1",
+                "Color": "blue"
+            },
+            {
+                "Name": "TIME BURST",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "RENEW",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "REWIND",
+                "Target": "M2",
+                "Color": "white"
+            },
+            {
+                "Name": "CHRONO SHIFT",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "RECREATE",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "SAND STORM",
+                "Target": "Space",
+                "Color": "red"
+            },
+            {
+                "Name": "DRAIN",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "STOLEN POWER",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "TIME WALKER",
+                "Target": "Q",
+                "Color": "yellow"
+            },
+            {
+                "Name": "ETERNAL DUNES",
+                "Target": "E",
+                "Color": "cyan"
+            },
+            {
+                "Name": "REPETITION",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "SAND TOMB",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "TEMPORAL STRIKE",
+                "Target": "R",
+                "Color": "red"
+            },
+            {
+                "Name": "REVERSAL",
+                "Target": "F",
+                "Color": "cyan"
+            }
+
+        ]
+    },
+    {
+        "Name": "Pearl",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "RIPPLING WATERS",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "SOAKING WET",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "SPLASH DAMAGE",
+                "Target": "M1",
+                "Color": "purple"
+            },
+            {
+                "Name": "FOUNTAIN",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "OCEAN TIDE",
+                "Target": "Space",
+                "Color": "yellow"
+            },
+            {
+                "Name": "RIPTIDE",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "SPRING WATER",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "GUSH",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "SEA BUBBLE",
+                "Target": "Q",
+                "Color": "green"
+            },
+            {
+                "Name": "TSUNAMI",
+                "Target": "Q",
+                "Color": "red"
+            },
+            {
+                "Name": "OCEAN SAGE",
+                "Target": "E",
+                "Color": "blue"
+            },
+            {
+                "Name": "TASTY FISH",
+                "Target": "E",
+                "Color": "cyan"
+            },
+            {
+                "Name": "WATER WALK",
+                "Target": "E",
+                "Color": "yellow"
+            },
+            {
+                "Name": "TERROR FROM THE DEEP",
+                "Target": "F",
+                "Color": "purple"
+            }
+        ]
+    },
+    {
+        "Name": "Pestilus",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "OVERLORD",
+                "Target": "M1",
+                "Color": "yellow"
+            },
+            {
+                "Name": "BLOOD LEECHER",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "COLONY",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "INSECTIVORE",
+                "Target": "M2",
+                "Color": "red"
+            },
+            {
+                "Name": "PROLIFERATE",
+                "Target": "M2",
+                "Color": "blue"
+            },
+            {
+                "Name": "DELIFER",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "DISPERSE",
+                "Target": "Space",
+                "Color": "purple"
+            },
+            {
+                "Name": "SCOURGE",
+                "Target": "Space",
+                "Color": "blue"
+            },
+            {
+                "Name": "SPORES",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "BROODMOTHER",
+                "Target": "Q",
+                "Color": "white"
+            },
+            {
+                "Name": "GIVE MIND",
+                "Target": "Q",
+                "Color": "blue"
+            },
+            {
+                "Name": "SACRIFICE",
+                "Target": "Q",
+                "Color": "purple"
+            },
+            {
+                "Name": "SWARM QUEEN",
+                "Target": "Q",
+                "Color": "cyan"
+            },
+            {
+                "Name": "EGG CARRIER",
+                "Target": "E",
+                "Color": "purple"
+            },
+            {
+                "Name": "SPIDERLING VENOM",
+                "Target": "E",
+                "Color": "red"
+            },
+            {
+                "Name": "HEART OF THE SWARM",
+                "Target": "R",
+                "Color": "white"
+            },
+            {
+                "Name": "LORD OF THE FLIES",
+                "Target": "F",
+                "Color": "purple"
+            }
+        ]    
+    },
+    {
+        "Name": "Poloma",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "DARK SOULS",
+                "Target": "M1",
+                "Color": "red"
+            },
+            {
+                "Name": "SHIMMERING BOND",
+                "Target": "M1",
+                "Color": "cyan"
+            },
+            {
+                "Name": "INTO THE REALM",
+                "Target": "M2",
+                "Color": "green"
+            },
+            {
+                "Name": "SOUL THEFT",
+                "Target": "M2",
+                "Color": "white"
+            },
+            {
+                "Name": "SPECTER",
+                "Target": "M2",
+                "Color": "cyan"
+            },
+            {
+                "Name": "SPIRIT WALKER",
+                "Target": "M2",
+                "Color": "yellow"
+            },
+            {
+                "Name": "GHOSTLY STRIKE",
+                "Target": "Space",
+                "Color": "white"
+            },
+            {
+                "Name": "PHANTASM",
+                "Target": "Space",
+                "Color": "cyan"
+            },
+            {
+                "Name": "VENGEFUL SPIRIT",
+                "Target": "Space",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            }
+
+        ]
+    },
+    {
+        "Name": "Sirius",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            }
+
+        ]
+    },
+    {
+        "Name": "Ulric",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            }
+
+        ]
+    },
+    {
+        "Name": "Zander",
+        "Role": "support",
+        "Augments":
+        [ 
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            },
+            {
+                "Name": "",
+                "Target": "",
+                "Color": ""
+            }
+
+        ]
+    }
+]

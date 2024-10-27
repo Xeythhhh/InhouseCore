@@ -3,7 +3,8 @@
 namespace SharedKernel.Primitives.Result;
 
 public partial class Result<TValue>
-{ /// <summary>Returns a new failure result if the predicate is false. Otherwise returns the starting result.</summary>
+{
+    /// <summary>Returns a new failure result if the predicate is false. Otherwise returns the starting result.</summary>
     public Result<TValue> Ensure<TError>(Func<TValue, bool> predicate, Func<TValue, TError> errorPredicate)
         where TError : IError => IsFailed ? this
             : predicate(Value) ? this

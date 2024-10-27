@@ -1,128 +1,73 @@
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
 
-using SharedKernel.Contracts.v1;
-using SharedKernel.Contracts.v1.Champions;
+using SharedKernel.Contracts.v1.Champions.Dtos;
+using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
+
+using WebApp.Pages.Champions.Dialogs;
+using WebApp.Services;
+using WebApp.Extensions;
 
 namespace WebApp.Pages.Champions;
+
 public partial class Champions
 {
-    private IEnumerable<ChampionDto>? champions;
+    [Inject] private IChampionService ChampionService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
+
+    private List<ChampionDto> champions = new();
 
     protected override async Task OnInitializedAsync() => await FetchChampions();
 
-    private async Task FetchChampions()
-    {
-        try
-        {
-            GetAllChampionsResponse? apiResponse = await HttpClient.GetFromJsonAsync<GetAllChampionsResponse>("champions");
-            if (apiResponse != null)
+    private async Task FetchChampions() =>
+        await ChampionService.GetChampionsAsync()
+            .Tap(response =>
             {
-                champions = apiResponse.Champions;
-            }
-            else
-            {
-                champions = new List<ChampionDto>();
-                Snackbar.Add("Failed to fetch champions.", Severity.Error);
-            }
+                champions = response.Champions.ToList();
+                StateHasChanged();
+            });
 
-            StateHasChanged();
-        }
-        catch (Exception ex)
-        {
-            Snackbar.Add($"An error occurred while fetching champions: {ex.Message}", Severity.Error);
-        }
-    }
+    private async Task CreateChampion() =>
+        await CreateChampionDialog.Show(DialogService)
+            .Tap(FetchChampions);
 
-    private async Task CreateChampion()
-    {
-        DialogResult? dialogResult = await DialogService.Show<CreateChampionDialog>("Create Champion").Result;
+    private async Task DeleteChampion(string id) =>
+        await Result.OkIfAsync(DialogService.ShowMessageBox(
+                "Delete Champion",
+                "Are you sure you want to delete this champion?",
+                yesText: "Delete",
+                cancelText: "Cancel"), new Error("Prompt declined"))
+            .Bind(async () => await ChampionService.DeleteChampionAsync(id))
+            .Tap(FetchChampions);
 
-#pragma warning disable RCS1146 // Use conditional access
-        if (dialogResult is not null && !dialogResult.Canceled)
-        {
-            await FetchChampions();
-        }
-#pragma warning restore RCS1146 // Use conditional access
-    }
-
-    private async void DeleteChampion(string id)
-    {
-        if (await DialogService.ShowMessageBox(
-            "Delete Champion",
-            "Are you sure you want to delete this champion?",
-            yesText: "Delete", cancelText: "Cancel") == true)
-        {
-            try
-            {
-                HttpResponseMessage response = await HttpClient.DeleteAsync($"champions/{id}");
-
-                if (response.IsSuccessStatusCode)
+    private async Task EditChampion(string id) =>
+        await ChampionService.GetChampionByIdAsync(id)
+            .Bind(champion => DialogService.Show<EditChampionDialog>(
+                "Edit Champion",
+                new DialogParameters<EditChampionDialog>()
                 {
-                    await FetchChampions();
-                    Snackbar.Add("Champion deleted successfully.", Severity.Success);
-                }
-                else
-                {
-                    ErrorResponse? errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                    if (errorResponse?.Errors != null)
-                    {
-                        foreach (string error in errorResponse.Errors)
-                        {
-                            Snackbar.Add(error, Severity.Error);
-                        }
-                    }
-                    else
-                    {
-                        Snackbar.Add("An unexpected error occurred.", Severity.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
-            }
-        }
-    }
+                    { x => x.Id, champion.Id },
+                    { x => x.Name, champion.Name },
+                    { x => x.Role, champion.Role },
+                    { x => x.Restrictions, champion.Restrictions }
+                },
+                new DialogOptions() { FullScreen = true })
+                .DialogToResult())
+            .Tap(FetchChampions);
 
-    private async void EditChampion(string id)
-    {
-        try
-        {
-            ChampionDto? champion = await HttpClient.GetFromJsonAsync<ChampionDto>($"champions/{id}");
+    private static string GetChampionStyle(ChampionDto champion) => $@"
+background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)), url('{GetChampionImageUrl(champion)}');
+background-size: cover;
+background-position: center;
+padding: 1rem;";
 
-            if (champion is null)
-            {
-                Snackbar.Add("Champion not found", Severity.Error);
-                return;
-            }
-
-            DialogParameters<EditChampionDialog> dialogParameters = new()
-            {
-                { x => x.Id, champion.Id },
-                { x => x.Name, champion.Name },
-                { x => x.Role, champion.Role },
-                { x => x.Restrictions, champion.Restrictions }
-            };
-
-            DialogOptions dialogOptions = new()
-            {
-                FullScreen = true
-            };
-
-            DialogResult? dialogResult = await DialogService.Show<EditChampionDialog>("Edit Champion", dialogParameters, dialogOptions).Result;
-
-            if (dialogResult is not null) await FetchChampions();
-        }
-        catch (Exception ex)
-        {
-            Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
-        }
-    }
-
-    private static string GetRestrictionLabel(ChampionDto context) =>
-        context.Restrictions.Count == 0
-            ? string.Empty
-            : context.Restrictions.Count.ToString();
+#pragma warning disable RCS1163 // Unused parameter
+#pragma warning disable IDE0060 // Remove unused parameter
+    private static string GetChampionImageUrl(ChampionDto champion) =>
+        "https://storge.pic2.me/c/1360x800/655/61d9f40521ab03.12776299.jpg";
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore RCS1163 // Unused parameter
 }

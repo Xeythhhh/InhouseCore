@@ -35,7 +35,7 @@ public sealed partial class Champion
 
         /// <summary>Gets the valid values for a champion role.</summary>
         private static HashSet<string> ValidValues = ["tank", "dps", "healer"];
-        internal static void Initialize(string[]? values)
+        internal static void ConfigureValidValues(string[]? values)
         {
             if (values is not null)
                 ValidValues = values.ToHashSet();

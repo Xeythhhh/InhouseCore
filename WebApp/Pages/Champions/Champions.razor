@@ -1,12 +1,9 @@
 @page "/champions"
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.Contracts.v1
-@using SharedKernel.Contracts.v1.Champions
+@using SharedKernel.Contracts.v1.Champions.Dtos
 @using System.Text.Json
 
-@inject HttpClient HttpClient
-@inject ISnackbar Snackbar
-@inject IDialogService DialogService
 @attribute [AllowAnonymous]
 
 <PageTitle>Champions</PageTitle>
@@ -26,18 +23,18 @@ else
         <HeaderContent>
             <MudTh><MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.Role)">Role</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.Restrictions.Count())">Restrictions</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<ChampionDto, object>(x=>x.HasRestrictions)">Restrictions</MudTableSortLabel></MudTh>
         </HeaderContent>
         <RowTemplate>
             @* TODO add champion splash art as background *@
-            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Name" Style="@GetChampionStyle(context)">@context.Name</MudTd>
             <MudTd DataLabel="Role">@context.Role</MudTd>
-            <MudTd DataLabel="Restrictions">@GetRestrictionLabel(context)</MudTd>
+            <MudTd DataLabel="Restrictions"><MudCheckBox @bind-Value="context.HasRestrictions" Disabled></MudCheckBox></MudTd>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(e) => EditChampion(context.Id)">Edit</MudIconButton>
             <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(e) => DeleteChampion(context.Id)">Delete</MudIconButton>
         </RowTemplate>
         <PagerContent>
-            <MudTablePager PageSizeOptions="new int[]{ 5, 10, 25, 50, 100 }" />
+            <MudTablePager PageSizeOptions="new int[]{ 10, 25, 50, 100, 200 }" />
         </PagerContent>
     </MudTable>
 }

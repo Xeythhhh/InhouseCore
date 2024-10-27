@@ -17,7 +17,9 @@ public sealed partial class Champion :
     public ChampionName Name { get; private set; }
     /// <summary>Gets the role of the champion.</summary>
     public ChampionRole Role { get; private set; }
-    /// <summary>Gets the restrictions of the champion.</summary>
+    /// <summary>Gets the champion's augments.</summary>
+    public List<Augment> Augments { get; set; } = new List<Augment>();
+    /// <summary>Gets the champion's restrictions.</summary>
     public List<Restriction> Restrictions { get; set; } = new List<Restriction>();
     /// <summary>Gets the HasRestrictions flag of the champion.</summary>
     /// <remarks>It is used to optimize queries in the read model.</remarks>

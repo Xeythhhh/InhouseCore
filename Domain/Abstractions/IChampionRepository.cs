@@ -35,9 +35,22 @@ public interface IChampionRepository : IRepository<Champion, Champion.ChampionId
     /// <returns>A <see cref="Result"/> indicating the success or failure of the removal operation.</returns>
     Task<Result> RemoveChampionRestriction(Champion.ChampionId championId, Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken);
 
+    /// <summary>Removes a specific augment from a champion.</summary>
+    /// <param name="championId">The unique identifier of the champion.</param>
+    /// <param name="augmentId">The unique identifier of the augment to remove.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>A <see cref="Result"/> indicating the success or failure of the removal operation.</returns>
+    Task<Result> RemoveChampionAugment(Champion.ChampionId championId, Champion.Augment.AugmentId augmentId, CancellationToken cancellationToken);
+
     /// <summary>Retrieves an entity of type <see cref="Champion.Restriction"/> by its identifier.</summary>
     /// <param name="restrictionId">The unique identifier of the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>A <see cref="Result"/> containing the entity of type <typeparamref name="T"/> if found; otherwise, an error.</returns>
+    /// <returns>A <see cref="Result"/> containing the entity of type <see cref="Champion.Restriction"/> if found; otherwise, an error.</returns>
     Task<Result<Champion.Restriction>> GetRestrictionById(Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken);
+
+    /// <summary>Retrieves an entity of type <see cref="Champion.Augment"/> by its identifier.</summary>
+    /// <param name="augmentId">The unique identifier of the entity.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>A <see cref="Result"/> containing the entity of type <see cref="Champion.Augment"/> if found; otherwise, an error.</returns>
+    Task<Result<Champion.Augment>> GetAugmentById(Champion.Augment.AugmentId augmentId, CancellationToken cancellationToken);
 }

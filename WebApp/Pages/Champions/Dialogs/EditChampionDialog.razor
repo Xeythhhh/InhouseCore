@@ -1,0 +1,134 @@
+﻿@using SharedKernel.Contracts.v1.Champions.Dtos
+<MudDialog Style="@GetChampionStyle()">
+    <TitleContent>
+        <MudCard Style="background: rgba(0, 0, 0, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+            <MudCardContent>
+                <MudText Typo="Typo.h5" 
+                         GutterBottom="true" 
+                         Style="@($"color: {Colors.Cyan.Lighten2}")">
+                    Editing Champion: @Name (@Role)
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+            <MudItem xs="4" 
+                     sm="4" 
+                     md="4" 
+                     lg="4">
+                <MudText Typo="Typo.h6" 
+                         GutterBottom="true">
+                    Augments
+                </MudText>
+                @if (Augments.Any())
+                {
+                    @foreach (ChampionAugmentDto augment in Augments)
+                    {
+                        <MudCard Style="background: rgba(0, 0, 0, 0.5); margin: 0.1rem;">
+                            <MudCardContent Style="@GetAugmentStyle()">
+                                <MudGrid>
+                                    <MudItem xs="10" 
+                                             Style="display: flex; justify-content: center;">
+                                        <MudText Typo="Typo.subtitle1" 
+                                                 Style="@($"color: {Colors.Cyan.Lighten2}")">
+                                            @augment.AugmentName
+                                        </MudText>
+                                    </MudItem>
+                                    <MudItem xs="2" Style="display: flex; justify-content: flex-end;">
+                                        <MudButtonGroup>
+                                            <MudIconButton OnClick="() => UpdateAugment(augment)" 
+                                                           Icon="@Icons.Material.Filled.Edit" 
+                                                           Style="@($"color: {Colors.Cyan.Lighten2};")" 
+                                                           aria-label="edit" />
+                                            <MudIconButton OnClick="() => RemoveAugment(augment)" 
+                                                           Icon="@Icons.Material.Filled.Delete" 
+                                                           Style="@($"color: {Colors.Red.Accent2};")" 
+                                                           aria-label="delete" />
+                                        </MudButtonGroup>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudCardContent>
+                        </MudCard>
+                    }
+                }
+                else
+                {
+                    <MudText>
+                        No augments found.
+                    </MudText>
+                }
+            </MudItem>
+            <MudItem xs="8" 
+                     sm="8" 
+                     md="8" 
+                     lg="8">
+                <MudText Typo="Typo.h6" GutterBottom="true">
+                    Restrictions
+                </MudText>
+                @if (Restrictions.Any())
+                {
+                    <MudGrid>
+                        @foreach (ChampionRestrictionDto restriction in Restrictions)
+                        {
+                            <MudItem xs="12" 
+                                     sm="6" 
+                                     md="6" 
+                                     lg="4">
+                                <MudCard Outlined>
+                                    <MudCardMedia Image="https://static.wikia.nocookie.net/battlerite_gamepedia_en/images/e/e2/Rain_Of_Arrows_icon_big.png" Height="100" />
+                                    <MudCardContent>
+                                        <MudText>
+                                            Target: @(Augments.FirstOrDefault(a => a.AugmentId == restriction.RestrictedAugmentId)?.SelectItemDisplayText ?? "None")
+                                        </MudText>
+                                        <MudText Label="Combo Augment" Variant="Variant.Filled">
+                                            Combo: @(Augments.FirstOrDefault(a => a.AugmentId == restriction.RestrictedComboAugmentId)?.SelectItemDisplayText ?? "None")
+                                        </MudText>
+                                        <MudText>
+                                            Reason: @restriction.Reason
+                                        </MudText>
+                                    </MudCardContent>
+                                    <MudCardActions>
+                                        <MudButtonGroup>
+                                            <MudIconButton OnClick="() => UpdateRestriction(restriction)" 
+                                                           Icon="@Icons.Material.Filled.Edit" 
+                                                           Style="@($"color: {Colors.Cyan.Lighten2};")" 
+                                                           aria-label="edit" />
+                                            <MudIconButton OnClick="() => RemoveRestriction(restriction)" 
+                                                           Icon="@Icons.Material.Filled.Delete" 
+                                                           Style="@($"color: {Colors.Red.Accent2};")" 
+                                                           aria-label="delete" />
+                                        </MudButtonGroup>
+                                    </MudCardActions>
+                                </MudCard>
+                            </MudItem>
+                    }
+                    </MudGrid>
+                }
+                else
+                {
+                    <MudText>
+                        No restrictions found.
+                    </MudText>
+                }
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButtonGroup Color="Color.Primary" 
+                        Variant="Variant.Filled">
+            <MudButton OnClick="UpdateSplashArt">
+                Edit Splash Art
+            </MudButton>
+            <MudButton OnClick="AddAugment">
+                Add Augment
+            </MudButton>
+            <MudButton OnClick="AddRestriction">
+                Add Restriction
+            </MudButton>
+            <MudButton OnClick="() => MudDialog.Close()">
+                Close
+            </MudButton>
+        </MudButtonGroup>
+    </DialogActions>
+</MudDialog>

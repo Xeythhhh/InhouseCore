@@ -39,6 +39,14 @@ public static partial class ResultExtensions
     }
 
     /// <summary>Executes the given action if the calling result is a failure. Returns the calling result.</summary>
+    public static async Task<Result<TValue>> TapError<TValue>(this Task<Result<TValue>> resultTask, Func<TValue, Task> action)
+    {
+        Result<TValue> result = await resultTask;
+        if (result.IsFailed) await action(result.Value);
+        return result;
+    }
+
+    /// <summary>Executes the given action if the calling result is a failure. Returns the calling result.</summary>
     public static async Task<Result<TValue>> TapError<TValue>(this Task<Result<TValue>> resultTask,
         Func<IEnumerable<IError>, Task> action)
     {
