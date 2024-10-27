@@ -59,7 +59,7 @@ public static class InfrastructureAssembly
     public static void UseDatabase(this IHost app)
     {
         app.Services.EnsureDatabaseMigrated();
-        app.Services.UseDatabaseSeed();
+        //app.Services.UseDatabaseSeed();
     }
 
     private record AugmentSeedData(string Name, string Target, string Color);

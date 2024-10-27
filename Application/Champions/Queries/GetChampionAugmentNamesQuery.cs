@@ -4,7 +4,6 @@ using Application.Abstractions;
 
 using Dapper;
 
-using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Contracts.v1.Champions.Responses;
 using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Result;

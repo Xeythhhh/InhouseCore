@@ -3,7 +3,6 @@
 using MudBlazor;
 
 using SharedKernel.Contracts.v1.Champions.Dtos;
-using SharedKernel.Contracts.v1.Champions.Requests;
 using SharedKernel.Contracts.v1.Champions.Responses;
 using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Reasons;

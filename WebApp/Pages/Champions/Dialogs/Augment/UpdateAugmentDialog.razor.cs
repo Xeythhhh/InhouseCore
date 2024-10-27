@@ -1,7 +1,6 @@
 ﻿using MudBlazor;
 
 using SharedKernel.Contracts.v1.Champions.Dtos;
-using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Result;
 
 using WebApp.Extensions;

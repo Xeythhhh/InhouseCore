@@ -1,15 +1,17 @@
-﻿using System.Net.Http.Json;
+﻿using System.Text.RegularExpressions;
 
 using FluentValidation;
 using FluentValidation.Results;
 
 using MudBlazor;
 
-using SharedKernel.Contracts.v1.Champions.Responses;
+using SharedKernel.Extensions.ResultExtensions;
+
+using WebApp.Services;
 
 namespace WebApp.Pages.Champions.Dialogs.Augment.Abstract;
 
-public abstract record AugmentModelBase
+public abstract partial record AugmentModelBase
 {
     public string ChampionId { get; set; }
 
@@ -36,46 +38,50 @@ public abstract record AugmentModelBase
 
     public abstract object ToRequest();
 
-    public class Validator : AbstractValidator<AugmentModelBase>
+    public partial class Validator : AbstractValidator<AugmentModelBase>
     {
-        private const string IsHexColorWithoutAlphaChannelRegex = "^#([0-9A-Fa-f]{6})$";
-        private readonly HttpClient _httpClient;
+        private readonly IChampionService _championService;
         private readonly HashSet<string> _validTargets;
 
-        public Validator(HttpClient httpClient, IConfiguration configuration)
+        public Validator(IChampionService championService, IConfiguration configuration)
         {
-            _httpClient = httpClient;
+            _championService = championService;
             _validTargets = configuration.GetSection("Domain:AugmentTargets").Get<string[]>()?.ToHashSet()
                 ?? new HashSet<string> { "q", "e", "r" };
 
+            ConfigureRules();
+        }
+
+        private void ConfigureRules()
+        {
             RuleFor(x => x.AugmentName)
                 .NotEmpty()
                 .Length(1, 100)
-                .MustAsync((model, name, cancellationToken) =>
-                    BeUniqueName(model.ChampionId, name, cancellationToken))
+                .MustAsync(BeUniqueName)
                 .WithMessage("Augment name must be unique.");
 
             RuleFor(x => x.AugmentTarget)
                 .NotEmpty()
                 .Length(1, 100)
-                .Must(target => _validTargets.Contains(target))
+                .Must(BeValidTarget)
                 .WithMessage($"Augment target must be one of the valid options. ({string.Join(", ", _validTargets)})");
 
             RuleFor(x => x.AugmentColor)
                 .NotEmpty()
-                .Matches(IsHexColorWithoutAlphaChannelRegex)
+                .Matches(HexColorWithoutAlphaRegex())
                 .WithMessage("Color must be a valid hex code (e.g., #FFFFFF).");
         }
 
-        private async Task<bool> BeUniqueName(string championId, string name, CancellationToken cancellationToken)
-        {
-            GetChampionAugmentNamesResponse result = await _httpClient.GetFromJsonAsync<GetChampionAugmentNamesResponse>(
-                $"champions/augment-names/{championId}", cancellationToken: cancellationToken)
-                ?? throw new HttpRequestException($"Failed to retrieve augment names for ChampionId: {championId}");
+        private async Task<bool> BeUniqueName(AugmentModelBase model, string name, CancellationToken cancellationToken) =>
+            (await _championService.GetAugmentNamesAsync(model.ChampionId, cancellationToken)
+                .Map(response => response.AugmentNames.Any(augmentName =>
+                    augmentName.Equals(name, StringComparison.CurrentCultureIgnoreCase))))
+            .Value;
 
-            return !result.AugmentNames.Any(augmentName =>
-                augmentName.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-        }
+        private bool BeValidTarget(string target) => _validTargets.Contains(target);
+
+        [GeneratedRegex("^#([0-9A-Fa-f]{6})$")]
+        private static partial Regex HexColorWithoutAlphaRegex();
 
         public Func<AugmentModelBase, string, Task<IEnumerable<string>>> ValidateValue =>
             async (model, propertyName) =>

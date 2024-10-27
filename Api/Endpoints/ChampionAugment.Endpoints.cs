@@ -9,7 +9,6 @@ using SharedKernel.Contracts.v1.Champions;
 using SharedKernel.Contracts.v1;
 using SharedKernel.Contracts.v1.Champions.Requests;
 using Application.Champions.Queries;
-using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Contracts.v1.Champions.Responses;
 
 namespace Api.Endpoints;
