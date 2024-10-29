@@ -15,7 +15,7 @@ public class ChampionRestrictionEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("api/champions/add-restriction", async (AddRestrictionRequest request, ISender sender) =>
+        app.MapPost("api/champions/add-restriction", async (AddRestrictionRequest request, ISender sender) =>
         {
             Result result = await AddRestrictionCommand.FromRequest(request)
                 .Bind(command => sender.Send(command));

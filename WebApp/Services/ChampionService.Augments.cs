@@ -3,8 +3,7 @@ using SharedKernel.Contracts.v1.Champions.Responses;
 using SharedKernel.Primitives.Result;
 
 using System.Net.Http.Json;
-
-using WebApp.Pages.Champions.Dialogs;
+using WebApp.Champions.Augments.Models;
 
 namespace WebApp.Services;
 

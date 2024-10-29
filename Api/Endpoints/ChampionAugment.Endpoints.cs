@@ -17,7 +17,7 @@ public class ChampionAugmentEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut("api/champions/add-augment", async (AddAugmentRequest request, ISender sender) =>
+        app.MapPost("api/champions/add-augment", async (AddAugmentRequest request, ISender sender) =>
         {
             Result result = await AddAugmentCommand.FromRequest(request)
                 .Bind(command => sender.Send(command));

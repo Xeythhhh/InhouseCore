@@ -1,0 +1,71 @@
+﻿@using SharedKernel.Contracts.v1.Champions.Dtos
+@typeparam TModel where TModel : RestrictionModelBase
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h5" Align="Align.Center"
+                 GutterBottom="true">
+            @Title
+        </MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudForm Model="@Model" @ref="@Form"
+                 Validation="@(RestrictionValidator.ValidateValue)"
+                 ValidationDelay="200">
+            <MudTextField @bind-Value="Model.Reason"
+                          For="@(() => Model.Reason)"
+                          Label="Reason"
+                          Variant="Variant.Text"/>
+            <MudSelect @bind-Value="@Model.Augment"
+                       T="ChampionAugmentDto"
+                       ToStringFunc="augment => augment.AugmentName"
+                       Variant="Variant.Text"
+                       Label="Augment">
+                @foreach (var augment in Model.Augments)
+                {
+                    <MudSelectItem T="ChampionAugmentDto"
+                                   Value="@augment">
+                        <MudText>
+                            @augment.AugmentName
+                        </MudText>
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect @bind-Value="@Model.Combo"
+                       T="ChampionAugmentDto"
+                       ToStringFunc="augment => augment.AugmentName"
+                       Variant="Variant.Text"
+                       Label="Combo">
+                @foreach (var augment in Model.Augments)
+                {
+                    <MudSelectItem T="ChampionAugmentDto"
+                                   Value="@augment">
+                        <MudText>
+                            @augment.AugmentName
+                        </MudText>
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButtonGroup Color="Color.Primary"
+                        Variant="Variant.Text">
+            <MudButton OnClick="() => UploadIcon()"
+                       Color="Color.Primary">
+                Upload Icon
+            </MudButton>
+            <MudButton OnClick="() => Save()"
+                       Color="Color.Secondary"
+                       Disabled="@(Model.Augment is null)">
+                @SaveButtonLabel
+            </MudButton>
+            <MudIconButton OnClick="() => MudDialog.Cancel()"
+                           Icon="@Icons.Material.Filled.Close">
+                Cancel
+            </MudIconButton>
+        </MudButtonGroup>
+    </DialogActions>
+</MudDialog>

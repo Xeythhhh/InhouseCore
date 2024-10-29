@@ -1,0 +1,101 @@
+﻿@page "/edit-champion/{id}"
+@using SharedKernel.Contracts.v1.Champions.Dtos
+@using WebApp.Champions.Augments
+@using WebApp.Champions.Restrictions
+@using WebApp.Components
+@using WebApp.Extensions
+
+<PageTitle>Editing Champion</PageTitle>
+
+@if(Model is null)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else
+{
+@* TODO <MudImage Src="@ChampionImageUrl" 
+                  Alt="@($"An image of {Model.Name}")"
+                  ObjectFit="ObjectFit.Cover"
+                  Style="position:absolute"/> *@
+
+    <LabelledText Label="Editing" 
+                  Text="@Model.Name"
+                  Typo="Typo.h3" />
+
+    <MudButtonGroup Color="Color.Primary"
+                    Variant="Variant.Text"
+                    Style="background: linear-gradient(to right, rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.07));
+                           padding: 8px;
+                           box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+                           border-radius: 8px">
+        <MudButton OnClick="AddAugment">
+            Add augment
+        </MudButton>
+        <MudButton OnClick="AddRestriction">
+            Add restriction
+        </MudButton>
+        <MudButton OnClick="UpdateSplashArt">
+            Upload splash art
+        </MudButton>
+        <MudButton OnClick="() => NavigateToChampionList()">
+            Return to champion list
+        </MudButton>
+    </MudButtonGroup>
+
+    <MudGrid>
+        <MudItem xs="12" sm="12" md="12" lg="9">
+            <MudText Typo="Typo.h6"
+                     GutterBottom="true"
+                     Style="@($"color: {Color.Primary}")">
+                Restrictions
+            </MudText>
+            <MudPaper Class="pa-2"
+                      Style="@($@"background: rgba(0, 0, 0, {paperOpacity});
+                              box-shadow: 0 4px 10px rgba(0, 0, 0, {paperOpacity})")">
+
+                @if (Model.Restrictions.Any())
+                {
+                    <MudGrid>
+                        @foreach (ChampionRestrictionDto restriction in Model.Restrictions)
+                        {
+                            <MudItem xs="12"
+                                     sm="6"
+                                     md="6"
+                                     lg="4">
+
+                                <Restriction Model="@restriction"
+                                             Update="@(() => UpdateRestriction(restriction))"
+                                             Remove="@(() => RemoveRestriction(restriction))" />
+
+                            </MudItem>
+                        }
+                    </MudGrid>
+                }
+                else
+                {
+                    <MudText>No restrictions found.</MudText>
+                }
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" 
+                 sm="12" 
+                 md="12" 
+                 lg="3">
+            <MudText Typo="Typo.h6"
+                     GutterBottom="true"
+                     Style="@($"color: {Color.Primary}")">
+                Augments
+            </MudText>
+            <MudList T="ChampionAugmentDto">
+                @Model.Augments.MapIfAny(augment => 
+                    @<Augment Model="@augment"
+                              Update="@(() => UpdateAugment(augment))"
+                              Remove="@(() => RemoveAugment(augment))"
+                              Class="mb-1 d-flex" />,
+                    fallback: @<MudText>No augments found.</MudText>)
+            </MudList>
+        </MudItem>
+
+    </MudGrid>
+}

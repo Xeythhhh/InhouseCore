@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
     <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
-    <CodeAnalysisRuleSet>Pages\.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Champions\.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,11 +21,19 @@
 
   <ItemGroup>
     <Content Update="wwwroot\appsettings.Development.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
+  <Target Name="CopySharedSettingsToWwwRoot" AfterTargets="Build;Publish">
+    <Message Text="Copying sharedsettings.json to wwwroot..." Importance="high" />
+    <Copy SourceFiles="..\SharedKernel\sharedsettings.json" DestinationFolder="$(OutputPath)wwwroot" Condition="Exists('..\SharedKernel\sharedsettings.json')" />
+    <Message Text="Copying sharedsettings.Development.json to wwwroot..." Importance="high" />
+    <Copy SourceFiles="..\SharedKernel\sharedsettings.Development.json" DestinationFolder="$(OutputPath)wwwroot" Condition="Exists('..\SharedKernel\sharedsettings.Development.json')" />
+  </Target>
+
 </Project>
+

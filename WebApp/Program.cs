@@ -5,17 +5,19 @@ using MudBlazor.Services;
 
 using SharedKernel;
 
-using WebApp;
-using WebApp.Pages.Champions.Dialogs.Augment.Abstract;
-using WebApp.Pages.Champions.Dialogs.Restrictions.Abstract;
+using WebApp.Champions.Augments.Abstract;
+using WebApp.Champions.Restrictions.Abstract;
+using WebApp.Configuration;
+using WebApp.Infrastructure;
+using WebApp.Services;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Services.AddMudServices();
 
-builder.AddSharedSettings();
+builder.Configuration.AddJsonFile("./appsettings.Development.json", false, true);
+await builder.AddSharedSettings();
 
-builder.Configuration.AddJsonFile("./appsettings.Development.json");
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
@@ -25,6 +27,9 @@ builder.Services.AddScoped(_ => new HttpClient
                     ?? throw new InvalidOperationException("Invalid Configuration"))
 });
 
+builder.Services.Configure<ThemeConfiguration>(builder.Configuration.GetSection("ThemeConfiguration"));
+
+builder.Services.AddScoped<IChampionService, ChampionService>();
 builder.Services.AddScoped<AugmentModelBase.Validator>();
 builder.Services.AddScoped<RestrictionModelBase.Validator>();
 

@@ -21,5 +21,5 @@ public sealed class ChampionAugmentDto
         AugmentColor = augmentColor;
     }
 
-    public string SelectItemDisplayText => $"{AugmentName} ({AugmentTarget})";
+    public override string ToString() => $"{AugmentName} ({AugmentTarget})";
 }

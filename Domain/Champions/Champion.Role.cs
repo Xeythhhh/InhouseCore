@@ -18,9 +18,13 @@ public sealed partial class Champion
         public static Result<ChampionRole> Create(string? value) =>
             Result.Try(() =>
             {
-                string? trimmed = value?.Trim()?.ToLower();
-                ArgumentException.ThrowIfNullOrWhiteSpace(value);
-                return trimmed!;
+                string? trimmed = value?.Trim();
+                string? formatted = !string.IsNullOrEmpty(trimmed)
+                    ? char.ToUpper(trimmed[0]) + trimmed[1..].ToLower()
+                    : trimmed;
+
+                ArgumentException.ThrowIfNullOrWhiteSpace(formatted);
+                return formatted!;
             })
             .Ensure(ValidValues.Contains, new ValueOutOfRangeError())
             .Map(role => new ChampionRole(role));
@@ -31,7 +35,6 @@ public sealed partial class Champion
         {
             yield return Value;
         }
-
 
         /// <summary>Gets the valid values for a champion role.</summary>
         private static HashSet<string> ValidValues = ["tank", "dps", "healer"];

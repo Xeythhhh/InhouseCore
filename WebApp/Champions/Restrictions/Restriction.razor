@@ -1,0 +1,36 @@
+﻿@using WebApp.Components
+@using WebApp.Extensions
+
+<MudButton Class="@Class"
+           OnClick="Update"
+           aria-label="edit"
+           Style="@($@"box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5)")">
+
+    <MudCard Style="background: rgba(0, 0, 0, 0.5);">
+    
+        <MudCardMedia Image="@_augmentIconUrl"
+                      Height="100"
+                      Class="border-solid border-4 pa-2"
+                      Style="@Model.GetBorderColor()" />
+    
+        <MudCardContent>
+            <LabelledText Label="Target">
+                @(Model.Augment?.ToString() ?? "None")
+            </LabelledText>
+            <LabelledText Label="Combo">
+                @(Model.Combo?.ToString() ?? "None")
+            </LabelledText>
+            <LabelledText Label="Reason">
+                @Model.Reason
+            </LabelledText>
+        </MudCardContent>
+    
+        <MudCardActions>
+            <MudIconButton OnClick="Remove"
+                           Icon="@Icons.Material.Filled.Delete"
+                           Style="@($"color: {Colors.Red.Accent2};")"
+                           aria-label="delete" />
+        </MudCardActions>
+    
+    </MudCard>
+</MudButton>

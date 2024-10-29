@@ -1,0 +1,42 @@
+﻿@using WebApp.Extensions.Css
+
+<MudBadge Content="@Model.AugmentTarget"
+          Overlap="true"
+          Color="Color.Secondary"
+          Elevation="1"
+          Origin="Origin.TopRight"
+          Class="@Class"
+          BadgeClass="my-n2"
+          Style="@($@"box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                      background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), {new Rgba(Model.AugmentColor, 0.7)}")">
+
+    <MudButton FullWidth
+               OnClick="Update"
+               aria-label="edit">
+
+        <MudAvatar Class="custom-avatar"
+                   Variant="Variant.Filled"
+                   Style="@($@"border: 3px solid {Model.AugmentColor};
+                               width: 50px;
+                               height: 50px")">
+
+            @* TODO Src="@Model.AugmentIconUrl" *@
+            <MudImage Src="@_iconUrl"
+                      Alt="@($"Icon for {Model.AugmentName}")" />
+        </MudAvatar>
+
+        <MudText Typo="Typo.h5"
+                 Class="ma-2 overflow-hidden "
+                 Style="white-space: nowrap; text-overflow: ellipsis">
+            @Model.AugmentName
+        </MudText>
+
+        <MudIconButton OnClick="Remove"
+                       Icon="@Icons.Material.Filled.Delete"
+                       Variant="Variant.Filled"
+                       Class="ml-auto "
+                       Style="@($@"color: {Color.Error}")"
+                       aria-label="delete" />
+
+    </MudButton>
+</MudBadge>

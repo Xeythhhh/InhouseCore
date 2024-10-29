@@ -6,6 +6,8 @@
         public string RestrictedAugmentId { get; set; }
         public string? RestrictedComboAugmentId { get; set; }
         public string Reason { get; set; }
+        public string? AugmentName { get; set; }
+        public string? ComboName { get; set; }
 
         public ChampionRestrictionDto() { }
 
@@ -20,5 +22,8 @@
             RestrictedComboAugmentId = restrictedComboAugmentId;
             Reason = reason;
         }
+
+        public ChampionAugmentDto? Augment { get; set; }
+        public ChampionAugmentDto? Combo { get; set; }
     }
 }

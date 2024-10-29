@@ -3,6 +3,7 @@
 using Application.Abstractions;
 
 using Dapper;
+
 using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Result;
@@ -26,18 +27,20 @@ public sealed record GetChampionQuery(long ChampionId) : IQuery<ChampionDto>
                 .Map(champion => new ConnectionAndChampion(connection, champion));
 
         private static Task<Result<ConnectionAndChampion>> AddAugments(ConnectionAndChampion result, CancellationToken cancellationToken) =>
-           Result
-               .Try(async () => await GetAugments(result, cancellationToken))
-               .Map(augments => augments.ToList())
-               .TapIf(augments => augments.Count > 0, augments => result.Champion.Augments = augments)
-               .Map(_ => result);
+           Result.Try(async () => await GetAugments(result, cancellationToken))
+                .Map(augments => augments.ToList())
+                .TapIf(augments => augments.Count > 0,
+                    augments => result.Champion.Augments = augments)
+                .Map(_ => result);
 
         private static Task<Result<ConnectionAndChampion>> AddRestrictions(ConnectionAndChampion result, CancellationToken cancellationToken) =>
            !result.Champion.HasRestrictions ? Task.FromResult(Result.Ok(result)) : Result
-               .Try(async () => await GetRestrictions(result, cancellationToken))
-               .Map(restrictions => restrictions.ToList())
-               .TapIf(restrictions => restrictions.Count > 0, restrictions => result.Champion.Restrictions = restrictions)
-               .Map(_ => result);
+                .Try(async () => await GetRestrictions(result, cancellationToken))
+                .Map(restrictions => restrictions.ToList())
+                .Tap(restrictions => MapAugments(result, restrictions))
+                .TapIf(restrictions => restrictions.Count > 0,
+                    restrictions => result.Champion.Restrictions = restrictions)
+                .Map(_ => result);
 
         private record ConnectionAndChampion(SqlConnection Connection, ChampionDto Champion);
 
@@ -69,5 +72,23 @@ public sealed record GetChampionQuery(long ChampionId) : IQuery<ChampionDto>
                             FROM ChampionRestrictions 
                             WHERE ChampionId = {result.Champion.Id};
                             """, cancellationToken: cancellationToken));
+
+        private static void MapAugments(ConnectionAndChampion result, List<ChampionRestrictionDto> restrictions)
+        {
+            foreach (ChampionRestrictionDto? restriction in restrictions)
+            {
+                if (restriction is null) continue;
+                if (!string.IsNullOrWhiteSpace(restriction.RestrictedAugmentId))
+                {
+                    restriction.Augment = result.Champion.Augments.Find(a =>
+                        a.AugmentId == restriction.RestrictedAugmentId);
+                }
+                if (!string.IsNullOrWhiteSpace(restriction.RestrictedComboAugmentId))
+                {
+                    restriction.Combo = result.Champion.Augments.Find(a =>
+                        a.AugmentId == restriction.RestrictedComboAugmentId);
+                }
+            }
+        }
     }
 }

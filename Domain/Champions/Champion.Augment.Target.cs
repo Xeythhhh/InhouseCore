@@ -20,9 +20,13 @@ public sealed partial class Champion
             public static Result<AugmentTarget> Create(string? value) =>
                 Result.Try(() =>
                 {
-                    string? trimmed = value?.Trim()?.ToLower();
-                    ArgumentException.ThrowIfNullOrWhiteSpace(value);
-                    return trimmed!;
+                    string? trimmed = value?.Trim();
+                    string? formatted = !string.IsNullOrEmpty(trimmed)
+                        ? char.ToUpper(trimmed[0]) + trimmed[1..].ToLower()
+                        : trimmed;
+
+                    ArgumentException.ThrowIfNullOrWhiteSpace(formatted);
+                    return formatted!;
                 })
                 .Ensure(ValidValues.Contains, new ValueOutOfRangeError())
                 .Map(Target => new AugmentTarget(Target));

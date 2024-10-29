@@ -1,0 +1,68 @@
+@page "/champions"
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.Contracts.v1
+@using SharedKernel.Contracts.v1.Champions.Dtos
+@using System.Text.Json
+
+@attribute [AllowAnonymous]
+
+<PageTitle>Champions</PageTitle>
+
+<MudText Typo="Typo.h3" 
+         GutterBottom="true">
+    Champions
+</MudText>
+
+<MudButton Color="Color.Success" 
+           Variant="Variant.Outlined" 
+           OnClick="Create">
+    Create
+</MudButton>
+
+@if (champions == null)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else
+{
+    <MudTable Items="champions"
+              Hover="true" 
+              SortLabel="Sort By" 
+              Elevation="0" 
+              AllowUnsorted="false">
+        <HeaderContent>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<ChampionDto, object>(x => x.Name)">
+                    Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<ChampionDto, object>(x => x.Role)">
+                    Role
+                </MudTableSortLabel>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name" 
+                   Style="@GetChampionStyle(context)">
+                @context.Name
+            </MudTd>
+            <MudTd DataLabel="Role">
+                @context.Role
+            </MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" 
+                           OnClick="(e) => Edit(context.Id)">
+                Edit
+            </MudIconButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                           OnClick="(e) => Delete(context.Id)">
+                Delete
+            </MudIconButton>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{ 10, 25, 50, 100, 200 }" />
+        </PagerContent>
+    </MudTable>
+}
+
+

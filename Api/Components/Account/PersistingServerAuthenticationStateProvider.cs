@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-using WebApp;
+using WebApp.Infrastructure;
 
 namespace Api.Components.Account;
 // This is a server-side AuthenticationStateProvider that uses PersistentComponentState to flow the

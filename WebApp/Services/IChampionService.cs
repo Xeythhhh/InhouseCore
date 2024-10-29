@@ -1,9 +1,8 @@
 ﻿using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Contracts.v1.Champions.Responses;
 using SharedKernel.Primitives.Result;
-
-using WebApp.Pages.Champions.Dialogs;
-using WebApp.Pages.Champions.Dialogs.Restrictions;
+using WebApp.Champions.Augments.Models;
+using WebApp.Champions.Restrictions.Models;
 
 namespace WebApp.Services
 {

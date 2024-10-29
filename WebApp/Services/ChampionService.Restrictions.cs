@@ -2,8 +2,7 @@
 using SharedKernel.Primitives.Result;
 
 using System.Net.Http.Json;
-
-using WebApp.Pages.Champions.Dialogs.Restrictions;
+using WebApp.Champions.Restrictions.Models;
 
 namespace WebApp.Services;
 
