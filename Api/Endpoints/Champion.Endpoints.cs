@@ -43,6 +43,9 @@ public class ChampionEndpoints : ICarterModule
             Result<GetAllChampionsResponse> result = await Result.Ok(new GetAllChampionsQuery())
                 .Bind(query => sender.Send(query));
 
+            //Todo extension method or implicit conversion or something to Http Result
+            //to remove this ugly conditional duplication from all endpoints
+            //result.ToHttpResponse() and result.ToHttpResponse(value) MAYBE LOOKS PRETTY GOOD ? :D
             return result.IsSuccess
                 ? Results.Ok(result.Value)
                 : Results.BadRequest(ErrorResponse.FromResult(result));
