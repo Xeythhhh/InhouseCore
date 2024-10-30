@@ -18,9 +18,13 @@ else
                   ObjectFit="ObjectFit.Cover"
                   Style="position:absolute"/> *@
 
+
     <LabelledText Label="Editing" 
                   Text="@Model.Name"
                   Typo="Typo.h3" />
+
+    <MudDivider DividerType="DividerType.Middle" 
+                Class="ma-3 "/>
 
     <MudButtonGroup Color="Color.Primary"
                     Variant="Variant.Text"
@@ -43,39 +47,22 @@ else
     </MudButtonGroup>
 
     <MudGrid>
-        <MudItem xs="12" sm="12" md="12" lg="9">
+        <MudItem xs="12" 
+                 sm="12" 
+                 md="12" 
+                 lg="9">
             <MudText Typo="Typo.h6"
                      GutterBottom="true"
                      Style="@($"color: {Color.Primary}")">
                 Restrictions
             </MudText>
-            <MudPaper Class="pa-2"
-                      Style="@($@"background: rgba(0, 0, 0, {paperOpacity});
-                              box-shadow: 0 4px 10px rgba(0, 0, 0, {paperOpacity})")">
-
-                @if (Model.Restrictions.Any())
-                {
-                    <MudGrid>
-                        @foreach (ChampionRestrictionDto restriction in Model.Restrictions)
-                        {
-                            <MudItem xs="12"
-                                     sm="6"
-                                     md="6"
-                                     lg="4">
-
-                                <Restriction Model="@restriction"
-                                             Update="@(() => UpdateRestriction(restriction))"
-                                             Remove="@(() => RemoveRestriction(restriction))" />
-
-                            </MudItem>
-                        }
-                    </MudGrid>
-                }
-                else
-                {
-                    <MudText>No restrictions found.</MudText>
-                }
-            </MudPaper>
+            <MudGrid Class="ma-3">
+                @Model.Restrictions.MapIfAny(restriction =>
+                    @<Restriction Model="@restriction"
+                                  Update="@(() => UpdateRestriction(restriction))"
+                                  Remove="@(() => RemoveRestriction(restriction))" />,
+                    fallback: @<MudText>No restrictions found.</MudText>)
+            </MudGrid>
         </MudItem>
 
         <MudItem xs="12" 

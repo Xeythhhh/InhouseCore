@@ -14,15 +14,12 @@
                       Style="@Model.GetBorderColor()" />
     
         <MudCardContent>
-            <LabelledText Label="Target">
-                @(Model.Augment?.ToString() ?? "None")
-            </LabelledText>
-            <LabelledText Label="Combo">
-                @(Model.Combo?.ToString() ?? "None")
-            </LabelledText>
-            <LabelledText Label="Reason">
-                @Model.Reason
-            </LabelledText>
+            <LabelledText Label="Target"
+                          Text="@(Model.Augment?.ToString() ?? "None")" />
+            <LabelledText Label="Combo"
+                          Text="@(Model.Combo?.ToString() ?? "None")" />
+            <LabelledText Label="Reason"
+                          Text="@Model.Reason" />
         </MudCardContent>
     
         <MudCardActions>
