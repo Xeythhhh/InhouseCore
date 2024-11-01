@@ -11,7 +11,7 @@ internal record Rgba
     {
         if (string.IsNullOrWhiteSpace(hex) ||
             hex[0] != '#' ||
-            hex.Length != 7 && hex.Length != 4)
+            (hex.Length != 7 && hex.Length != 4))
         {
             throw new ArgumentException("Invalid hex color format");
         }

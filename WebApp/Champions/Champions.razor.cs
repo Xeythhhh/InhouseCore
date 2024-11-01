@@ -16,7 +16,7 @@ public partial class Champions
     private const string Address = "champions";
     public static string Location() => Address;
 
-    [Inject] private IChampionService ChampionService { get; set; }
+    [Inject] private ChampionService ChampionService { get; set; }
     [Inject] private IDialogService DialogService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
 

@@ -15,13 +15,11 @@ public partial class EditChampion
     private const string Address = "edit-champion";
     public static string Location(string id) => $"{Address}/{id}";
 
-    private const string paperOpacity = "0.5";
-
     public ChampionDto Model { get; set; }
 
     [Inject] private ISnackbar Snackbar { get; set; }
     [Inject] private IDialogService DialogService { get; set; }
-    [Inject] private IChampionService ChampionService { get; set; }
+    [Inject] private ChampionService ChampionService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
 
     protected override async void OnInitialized() => await FetchChampion();

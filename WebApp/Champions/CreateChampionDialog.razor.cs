@@ -4,6 +4,7 @@ using MudBlazor;
 
 using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Result;
+
 using WebApp.Extensions;
 using WebApp.Services;
 
@@ -16,7 +17,7 @@ public partial class CreateChampionDialog
     [Parameter] public string Role { get; set; }
 
     [Inject] private ISnackbar Snackbar { get; set; }
-    [Inject] private IChampionService ChampionService { get; set; }
+    [Inject] private ChampionService ChampionService { get; set; }
 
     private async Task CreateChampion() =>
         await ChampionService.CreateChampionAsync(Name, Role)

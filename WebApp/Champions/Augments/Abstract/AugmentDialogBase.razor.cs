@@ -16,7 +16,7 @@ namespace WebApp.Champions.Augments.Abstract;
 public abstract partial class AugmentDialogBase<TModel> : ComponentBase
     where TModel : AugmentModelBase
 {
-    [Inject] protected IChampionService ChampionService { get; set; }
+    [Inject] protected ChampionService ChampionService { get; set; }
     [Inject] protected IConfiguration Configuration { get; set; }
     [Inject] protected ISnackbar Snackbar { get; set; }
     [Inject] protected HttpClient HttpClient { get; set; }

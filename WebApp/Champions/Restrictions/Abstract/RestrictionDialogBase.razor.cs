@@ -14,7 +14,7 @@ public abstract partial class RestrictionDialogBase<TModel> : ComponentBase
     where TModel : RestrictionModelBase
 {
     [Inject] protected ISnackbar Snackbar { get; set; }
-    [Inject] protected IChampionService ChampionService { get; set; }
+    [Inject] protected ChampionService ChampionService { get; set; }
     [Inject] protected HttpClient HttpClient { get; set; }
     [Inject] protected RestrictionModelBase.Validator RestrictionValidator { get; set; }
 

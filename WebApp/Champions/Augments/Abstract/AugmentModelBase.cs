@@ -40,10 +40,10 @@ public abstract partial record AugmentModelBase
 
     public partial class Validator : AbstractValidator<AugmentModelBase>
     {
-        private readonly IChampionService _championService;
+        private readonly ChampionService _championService;
         private readonly HashSet<string> _validTargets;
 
-        public Validator(IChampionService championService, IConfiguration configuration)
+        public Validator(ChampionService championService, IConfiguration configuration)
         {
             _championService = championService;
             _validTargets = configuration.GetSection("Domain:AugmentTargets").Get<string[]>()?.ToHashSet()
