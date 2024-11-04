@@ -23,4 +23,6 @@ public abstract record EntityId<TEntity>(long Value = default) :
         return (EntityId<TEntity>)(Activator.CreateInstance(IdType, new object[] { id })
             ?? throw new InvalidCastException($"Can not convert {id} to {IdType.Name}"));
     }
+
+    public override string ToString() => Value.ToString();
 }

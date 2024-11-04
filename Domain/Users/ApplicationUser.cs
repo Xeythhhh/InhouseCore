@@ -14,6 +14,6 @@ public sealed class ApplicationUser :
     /// <summary>Gets or sets the timestamp of when the user was last updated.</summary>
     public DateTime LastUpdatedAtUtc { get; set; }
 
-    /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
-    private ApplicationUser() { }
+    /// <summary>Parameterless constructor required by EF Core, Identity services and auto-mappings.</summary>
+    public ApplicationUser() { }
 }

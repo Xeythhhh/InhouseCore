@@ -23,7 +23,7 @@ namespace Domain.UnitTests.Champions
             // Assert
             result.IsSuccess.Should().BeTrue();
             result.Value.Name.Should().Be(name);
-            result.Value.Target.Value.Should().Be(target);
+            result.Value.Target.Value.Should().Be("Q"); // the domain logic capitalizes augment target
             result.Value.ColorHex.Value.Should().Be(color);
         }
 
@@ -32,7 +32,7 @@ namespace Domain.UnitTests.Champions
         {
             // Arrange
             const string name = "Fireball";
-            const string target = "q";
+            const string target = "Q";
             const string color = "red"; // Known color name resolves to #FF0000
 
             // Act
@@ -50,7 +50,7 @@ namespace Domain.UnitTests.Champions
         {
             // Arrange
             const string name = "Fireball";
-            const string target = "q";
+            const string target = "Q";
             const string invalidColor = "not-a-color";
 
             // Act
@@ -97,7 +97,7 @@ namespace Domain.UnitTests.Champions
         public void AugmentTarget_Create_ValidTarget_ShouldReturnSuccess()
         {
             // Arrange
-            const string validTarget = "q";
+            const string validTarget = "Q";
 
             // Act
             Result<Champion.Augment.AugmentTarget> result = Champion.Augment.AugmentTarget.Create(validTarget);
@@ -127,7 +127,7 @@ namespace Domain.UnitTests.Champions
             // Arrange
             Champion champion = Champion.Create("Ezreal", "dps").Value;
             const string augmentName = "Mystic Shot";
-            const string target = "q";
+            const string target = "Q";
             const string color = "#FF5733";
 
             // Act
@@ -147,7 +147,7 @@ namespace Domain.UnitTests.Champions
             // Arrange
             Champion champion = Champion.Create("Ezreal", "dps").Value;
             const string augmentName = "Mystic Shot";
-            const string target = "q";
+            const string target = "Q";
             const string invalidColor = "invalidColor"; // Invalid color format
 
             // Act

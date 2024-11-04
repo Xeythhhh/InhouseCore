@@ -23,7 +23,7 @@ public class ChampionTests
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Name.Value.Should().Be(name);
-        result.Value.Role.Value.Should().Be(role);
+        result.Value.Role.Value.Should().Be("Tank"); // the domain logic capitalizes role name
     }
 
     [Fact]
@@ -114,7 +114,7 @@ public class ChampionTests
     public void CreateChampionRole_WithValidValue_ReturnsSuccessResult()
     {
         // Arrange
-        const string validValue = "dps";
+        const string validValue = "Dps";
 
         // Act
         Result<Champion.ChampionRole> result = Champion.ChampionRole.Create(validValue);
@@ -142,7 +142,7 @@ public class ChampionTests
     public void ChampionRoleImplicitConversion_WithValidValue_ReturnsChampionRole()
     {
         // Arrange
-        const string validValue = "healer";
+        const string validValue = "Healer";
 
         // Act
         Champion.ChampionRole role = validValue;

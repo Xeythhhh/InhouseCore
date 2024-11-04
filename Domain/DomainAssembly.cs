@@ -21,7 +21,7 @@ public static class DomainAssembly
     /// <returns>The <see cref="IHostApplicationBuilder"/> for chained invocation.</returns>
     private static IHostApplicationBuilder InitializeDomainObjects(this IHostApplicationBuilder builder)
     {
-        Champion.ChampionRole.ConfigureValidValues(builder.Configuration.GetSection("Domain:Roles").Get<string[]>());
+        Champion.ChampionRole.ConfigureValidValues(builder.Configuration.GetSection("Domain:ChampionRoles").Get<string[]>());
         Champion.Augment.AugmentTarget.ConfigureValidValues(builder.Configuration.GetSection("Domain:AugmentTargets").Get<string[]>());
 
         return builder;

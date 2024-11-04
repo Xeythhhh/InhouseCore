@@ -26,7 +26,9 @@ public sealed partial class Champion
                 ArgumentException.ThrowIfNullOrWhiteSpace(formatted);
                 return formatted!;
             })
-            .Ensure(ValidValues.Contains, new ValueOutOfRangeError())
+            .Ensure(role => ValidValues.Any(
+                    r => r.Equals(role, StringComparison.CurrentCultureIgnoreCase)),
+                new ValueOutOfRangeError())
             .Map(role => new ChampionRole(role));
 
         /// <summary>Gets the atomic values used for equality comparison.</summary>

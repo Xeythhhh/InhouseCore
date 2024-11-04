@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -36,13 +38,10 @@ internal sealed class PersistingServerAuthenticationStateProvider : ServerAuthen
 
     private async Task OnPersistingAsync()
     {
-        if (authenticationStateTask is null)
-        {
-            throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
-        }
+        if (authenticationStateTask is null) throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
 
         AuthenticationState authenticationState = await authenticationStateTask;
-        System.Security.Claims.ClaimsPrincipal principal = authenticationState.User;
+        ClaimsPrincipal principal = authenticationState.User;
 
         if (principal.Identity?.IsAuthenticated == true)
         {

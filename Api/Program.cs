@@ -31,7 +31,6 @@ try
         .Enrich.FromLogContext());
 
     WebApplication app = builder
-        .AddSharedSettings()
         .ConfigureServices()
         .ConfigurePipeline();
 

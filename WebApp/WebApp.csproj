@@ -30,13 +30,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-  <Target Name="CopySharedSettingsToWwwRoot" AfterTargets="Build;Publish">
-    <Message Text="Copying sharedsettings.json to wwwroot..." Importance="high" />
-    <Copy SourceFiles="..\SharedKernel\sharedsettings.json" DestinationFolder="$(OutputPath)wwwroot" Condition="Exists('..\SharedKernel\sharedsettings.json')" />
-    <Message Text="Copying sharedsettings.Development.json to wwwroot..." Importance="high" />
-    <Copy SourceFiles="..\SharedKernel\sharedsettings.Development.json" DestinationFolder="$(OutputPath)wwwroot" Condition="Exists('..\SharedKernel\sharedsettings.Development.json')" />
-  </Target>
-
 </Project>
 

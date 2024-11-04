@@ -19,7 +19,6 @@ WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddMudServices();
 
 builder.Configuration.AddJsonFile("./appsettings.Development.json", false, true);
-await builder.AddSharedSettings();
 
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
@@ -34,14 +33,11 @@ builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticat
 //builder.Services.AddHttpClient<MainLayout>(client =>
 //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
-builder.Services.AddHttpClient(
-        "Api",
-        client => client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiAddress")
-                    ?? throw new ConfigurationErrorsException("Invalid Configuration")));
+builder.Services.AddHttpClient("Api",
+    client => client.BaseAddress = new Uri(builder.Configuration["ApiAddress"]!));
 //.AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddHttpClient(
-    "Content",
+builder.Services.AddHttpClient("Content",
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
 builder.Services.AddScoped(sp =>

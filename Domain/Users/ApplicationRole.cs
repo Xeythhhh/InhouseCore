@@ -16,8 +16,8 @@ public sealed class ApplicationRole :
     /// <summary>Gets or sets the last updated date of the role.</summary>
     public DateTime LastUpdatedAtUtc { get; set; }
 
-    /// <summary>Private constructor required by EF Core and auto-mappings.</summary>
-    private ApplicationRole() { }
+    /// <summary>Parameterless constructor required by EF Core, Identity services and auto-mappings.</summary>
+    public ApplicationRole() { }
 
     /// <summary>Creates a new instance of <see cref="ApplicationRole"/> with the specified name.</summary>
     /// <param name="name">The name of the role.</param>

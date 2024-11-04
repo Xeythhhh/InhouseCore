@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Configuration;
+using System.Globalization;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using Api.Components;
@@ -15,6 +17,7 @@ using Domain.Users;
 using Infrastructure;
 using Infrastructure.Interceptors;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -84,6 +87,13 @@ public static class ApiAssembly
     /// <returns>The configured <see cref="WebApplication"/> instance.</returns>
     internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
     {
+        // TODO
+        builder.Services.AddHttpClient("Api",
+            client => client.BaseAddress = new Uri(builder.Configuration["ApiAddress"]!));
+
+        builder.Services.AddScoped(sp =>
+            sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api"));
+
         // Add MudBlazor services
         builder.Services.AddMudServices();
 
@@ -103,7 +113,7 @@ public static class ApiAssembly
                 .AddCarter()
                 .AddSwaggerGen()
                 .AddEndpointsApiExplorer()
-                .AddHostedService<TestBackgroundService>()
+                .AddHostedService<DemoBackgroundService>()
                 .AddSignalR();
 
         return ((WebApplicationBuilder)builder).Build();
@@ -136,8 +146,7 @@ public static class ApiAssembly
     {
         builder.AddInfrastructureServices();
 
-        string connectionString = builder.Configuration.GetConnectionString("ApplicationSqlServer")
-            ?? throw new InvalidOperationException("Connection string 'ApplicationSqlServer' not found.");
+        string connectionString = builder.Configuration["ConnectionStrings:ApplicationSqlServer"]!;
 
         builder.Services.AddSingleton<IReadConnectionString>(new ReadConnectionString(connectionString)); // Dapper reads in queries
         builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) => // Ef writes in commands
@@ -171,7 +180,24 @@ public static class ApiAssembly
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            }).AddIdentityCookies();
+            })
+            .AddDiscord(options =>
+            {
+                options.ClientId = builder.Configuration["Discord:AppId"]!;
+                options.ClientSecret = builder.Configuration["Discord:AppSecret"]!;
+                options.SignInScheme = IdentityConstants.ExternalScheme;
+
+                options.ClaimActions.MapCustomJson("urn:discord:avatar:url", json =>
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "https://cdn.discordapp.com/avatars/{0}/{1}.{2}",
+                        json.GetString("id"),
+                        json.GetString("avatar"),
+                        json.GetString("avatar")!.StartsWith("a_") ? "gif" : "png"));
+
+                options.CallbackPath = "/oauth/discord/callback";
+            })
+            .AddIdentityCookies();
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>()

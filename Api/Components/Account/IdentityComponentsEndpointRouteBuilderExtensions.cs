@@ -11,8 +11,11 @@ using Microsoft.Extensions.Primitives;
 using Api.Components.Account.Pages;
 using Api.Components.Account.Pages.Manage;
 using Domain.Users;
+using System.Reflection;
 
 namespace Api.Components.Account;
+
+// TODO Turn template endpoint builder into carter module
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {
     // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.
@@ -41,10 +44,9 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             return TypedResults.Challenge(properties, [provider]);
         });
 
-        accountGroup.MapPost("/Logout", async (
-            ClaimsPrincipal user,
+        accountGroup.MapGet("/Logout", async (
             SignInManager<ApplicationUser> signInManager,
-            [FromForm] string returnUrl) =>
+            [FromQuery] string returnUrl) =>
         {
             await signInManager.SignOutAsync();
             return TypedResults.LocalRedirect($"~/{returnUrl}");
@@ -75,7 +77,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         manageGroup.MapPost("/DownloadPersonalData", async (
             HttpContext context,
             [FromServices] UserManager<ApplicationUser> userManager,
-            [FromServices] AuthenticationStateProvider authenticationStateProvider) =>
+            [FromServices] AuthenticationStateProvider _) =>
         {
             ApplicationUser? user = await userManager.GetUserAsync(context.User);
             if (user is null)
@@ -87,10 +89,10 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             downloadLogger.LogInformation("User with ID '{UserId}' asked for their personal data.", userId);
 
             // Only include personal data for download
-            Dictionary<string, string> personalData = new Dictionary<string, string>();
-            IEnumerable<System.Reflection.PropertyInfo> personalDataProps = typeof(ApplicationUser).GetProperties().Where(
+            Dictionary<string, string> personalData = new();
+            IEnumerable<PropertyInfo> personalDataProps = typeof(ApplicationUser).GetProperties().Where(
                 prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
-            foreach (System.Reflection.PropertyInfo? p in personalDataProps)
+            foreach (PropertyInfo? p in personalDataProps)
             {
                 personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
             }
