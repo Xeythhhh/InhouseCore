@@ -7,11 +7,10 @@ using SharedKernel;
 using Serilog;
 
 //Logger used during bootstrap, this is replaced further down the pipeline
-const string logFormat = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console(
-        outputTemplate: logFormat,
+        outputTemplate: AppConstants.LogFormat,
         formatProvider: CultureInfo.InvariantCulture,
         theme: ApiAssembly.GetConsoleTheme())
     .CreateBootstrapLogger();
@@ -25,16 +24,15 @@ try
     builder.Host.UseSerilog((builderContext, loggerConfig) => loggerConfig
         .ReadFrom.Configuration(builderContext.Configuration)
         .WriteTo.Console(
-                outputTemplate: logFormat,
+                outputTemplate: AppConstants.LogFormat,
                 formatProvider: CultureInfo.InvariantCulture,
                 theme: ApiAssembly.GetConsoleTheme())
         .Enrich.FromLogContext());
 
-    WebApplication app = builder
+    builder
         .ConfigureServices()
-        .ConfigurePipeline();
-
-    app.Run();
+        .ConfigurePipeline()
+        .Run();
 }
 catch (Exception exception) when (exception is not HostAbortedException)
 {

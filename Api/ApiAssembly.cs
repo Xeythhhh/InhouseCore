@@ -1,10 +1,10 @@
-﻿using System.Configuration;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using Api.Components;
 using Api.Components.Account;
+using Api.Extensions;
 
 using Application;
 using Application.Abstractions;
@@ -26,6 +26,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using MudBlazor.Services;
 
 using Serilog.Sinks.SystemConsole.Themes;
+
+using SharedKernel;
 
 using WebApp;
 
@@ -55,7 +57,7 @@ public static class ApiAssembly
         }
         else
         {
-            app.UseExceptionHandler("/Error", createScopeForErrors: true);
+            app.UseExceptionHandler(AppConstants.ErrorHandlingPath, createScopeForErrors: true);
             app.UseHsts();
         }
 
@@ -88,11 +90,11 @@ public static class ApiAssembly
     internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
     {
         // TODO
-        builder.Services.AddHttpClient("Api",
-            client => client.BaseAddress = new Uri(builder.Configuration["ApiAddress"]!));
+        builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
+            client.BaseAddress = new Uri(builder.Configuration[AppConstants.HttpClients.ApiAddress]!));
 
         builder.Services.AddScoped(sp =>
-            sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api"));
+            sp.GetRequiredService<IHttpClientFactory>().CreateClient(AppConstants.HttpClients.Api));
 
         // Add MudBlazor services
         builder.Services.AddMudServices();
@@ -146,7 +148,7 @@ public static class ApiAssembly
     {
         builder.AddInfrastructureServices();
 
-        string connectionString = builder.Configuration["ConnectionStrings:ApplicationSqlServer"]!;
+        string connectionString = builder.Configuration[AppConstants.Configuration.ConnectionStrings.ApplicationSqlServer]!;
 
         builder.Services.AddSingleton<IReadConnectionString>(new ReadConnectionString(connectionString)); // Dapper reads in queries
         builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) => // Ef writes in commands
@@ -183,19 +185,34 @@ public static class ApiAssembly
             })
             .AddDiscord(options =>
             {
-                options.ClientId = builder.Configuration["Discord:AppId"]!;
-                options.ClientSecret = builder.Configuration["Discord:AppSecret"]!;
+                options.ClientId = builder.Configuration[AppConstants.Configuration.Discord.ClientId]!;
+                options.ClientSecret = builder.Configuration[AppConstants.Configuration.Discord.ClientSecret]!;
                 options.SignInScheme = IdentityConstants.ExternalScheme;
+                options.SaveTokens = true;
 
-                options.ClaimActions.MapCustomJson("urn:discord:avatar:url", json =>
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "https://cdn.discordapp.com/avatars/{0}/{1}.{2}",
-                        json.GetString("id"),
-                        json.GetString("avatar"),
-                        json.GetString("avatar")!.StartsWith("a_") ? "gif" : "png"));
+                options.AddScopes(AppConstants.Discord.Scopes.Email,
+                    AppConstants.Discord.Scopes.GroupDmJoin,
+                    AppConstants.Discord.Scopes.Guilds);
 
-                options.CallbackPath = "/oauth/discord/callback";
+                options.MapClaims(
+                    (AppConstants.Discord.Claims.Id, json =>
+                        json.GetString(AppConstants.Discord.Claims.Keys.Id)),
+
+                    (AppConstants.Discord.Claims.UserName, json =>
+                        json.GetString(AppConstants.Discord.Claims.Keys.UserName)),
+
+                    (AppConstants.Discord.Claims.Verified, json =>
+                        json.GetString(AppConstants.Discord.Claims.Keys.Verified)),
+
+                    (AppConstants.Discord.Claims.AvatarUrl, json =>
+                        string.Format(CultureInfo.InvariantCulture,
+                            "https://cdn.discordapp.com/avatars/{0}/{1}.{2}",
+                            json.GetString(AppConstants.Discord.Claims.Keys.Id),
+                            json.GetString(AppConstants.Discord.Claims.Keys.AvatarUrl),
+                            json.GetString(AppConstants.Discord.Claims.Keys.AvatarUrl)!
+                                .StartsWith("a_") ? "gif" : "png")));
+
+                options.CallbackPath = AppConstants.Discord.OAuthCallback;
             })
             .AddIdentityCookies();
 

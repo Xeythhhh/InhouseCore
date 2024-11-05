@@ -33,15 +33,15 @@ builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticat
 //builder.Services.AddHttpClient<MainLayout>(client =>
 //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
-builder.Services.AddHttpClient("Api",
-    client => client.BaseAddress = new Uri(builder.Configuration["ApiAddress"]!));
+builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
+    client.BaseAddress = new Uri(builder.Configuration[AppConstants.HttpClients.ApiAddress]!));
 //.AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddHttpClient("Content",
+builder.Services.AddHttpClient(AppConstants.HttpClients.Content,
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 
 builder.Services.AddScoped(sp =>
-    sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api"));
+    sp.GetRequiredService<IHttpClientFactory>().CreateClient(AppConstants.HttpClients.Api));
 
 builder.Services.AddScoped<ChampionService>();
 builder.Services.AddScoped<AugmentModelBase.Validator>();

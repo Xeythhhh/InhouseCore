@@ -1,6 +1,6 @@
-﻿namespace SharedKernel.Constants;
+﻿namespace SharedKernel;
 
-public static class ApplicationConstants
+public static partial class AppConstants
 {
     public static class SignalR
     {

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Domain.Champions;
 using System.Text.Json;
 using SharedKernel.Primitives.Reasons;
+using SharedKernel;
 
 [assembly: InternalsVisibleTo("Infrastructure.UnitTests")]
 namespace Infrastructure;
@@ -33,7 +34,7 @@ public static class InfrastructureAssembly
         Result registerConvertersResult = Id.RegisterConverters();
         if (registerConvertersResult.IsFailed) throw new ConfigurationErrorsException(registerConvertersResult.Errors[0].Message); //todo
 
-        Id.RegisterGeneratorId(builder.Configuration.GetValue<int>("IdGen:EfCore"));
+        Id.RegisterGeneratorId(builder.Configuration.GetValue<int>(AppConstants.Configuration.EfCoreIdGenId));
 
         return builder;
     }

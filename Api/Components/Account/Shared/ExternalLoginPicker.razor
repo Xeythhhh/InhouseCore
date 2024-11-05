@@ -9,8 +9,12 @@
 
 @if (externalLogins.Length == 0)
 {
-    <MudAlert Variant="Variant.Text" Severity="Severity.Warning">There are no external authentication services configured.</MudAlert>
-    <MudText Typo="Typo.body1" Class="pt-4">
+    <MudAlert Variant="Variant.Text" 
+              Severity="Severity.Warning">
+              There are no external authentication services configured.
+    </MudAlert>
+    <MudText Typo="Typo.body1" 
+             Class="pt-4">
         See <MudLink Target="_blank" Href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</MudLink>
         about setting up this ASP.NET application to support logging in via external services
     </MudText>
@@ -22,13 +26,26 @@ else
             <AntiforgeryToken />
             <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
             <p>
-                @foreach (var provider in externalLogins)
+                @foreach (AuthenticationScheme provider in externalLogins)
                 {
-                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    <input type="hidden" name="provider" value="@provider.Name" />
+                    <MudButton ButtonType="ButtonType.Submit"
+                               Variant="@Variant.Text"
+                               Style="@($@"color: {Color.Secondary}")"
+                               FullWidth="true">
+                        <MudIcon Icon="@Icons.Custom.Brands.Discord"
+                                 Color="@Color.Secondary"
+                                 Class="mr-auto" />
+                        @provider.DisplayName
+                        <MudIcon Icon="@Icons.Material.Filled.Login"
+                                 Color="@Color.Secondary"
+                                 Class="ml-auto" />
+                    </MudButton>
                 }
             </p>
         </div>
     </form>
+    <MudDivider />
 }
 
 @code {
@@ -39,6 +56,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        externalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
+        externalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync())
+            .ToArray();
     }
 }

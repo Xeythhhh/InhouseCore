@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Presentation.Discord.Configuration;
 using Presentation.Discord.Exceptions;
 
+using SharedKernel;
+
 [assembly: InternalsVisibleTo("Presentation.Discord.UnitTests")]
 namespace Presentation.Discord;
 
@@ -54,9 +56,9 @@ public static class PresentationDiscordAssembly
     /// <exception cref="DiscordConfigurationException">Thrown when the Discord token is missing.</exception>
     private static string GetDiscordGatewayToken(this IConfiguration configuration)
     {
-        string? token = configuration.GetValue<string>("Discord:Token");
+        string? token = configuration.GetValue<string>(AppConstants.Configuration.Discord.BotToken);
         return string.IsNullOrEmpty(token)
-            ? throw new MissingDiscordGatewayTokenException()
+            ? throw new MissingDiscordBotTokenException()
             : token;
     }
 }

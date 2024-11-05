@@ -7,6 +7,8 @@ using Domain.Champions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
+using SharedKernel;
+
 [assembly: InternalsVisibleTo("Domain.UnitTests")]
 namespace Domain;
 /// <summary>Class to reference the Domain <see cref="Assembly"/></summary>
@@ -21,8 +23,8 @@ public static class DomainAssembly
     /// <returns>The <see cref="IHostApplicationBuilder"/> for chained invocation.</returns>
     private static IHostApplicationBuilder InitializeDomainObjects(this IHostApplicationBuilder builder)
     {
-        Champion.ChampionRole.ConfigureValidValues(builder.Configuration.GetSection("Domain:ChampionRoles").Get<string[]>());
-        Champion.Augment.AugmentTarget.ConfigureValidValues(builder.Configuration.GetSection("Domain:AugmentTargets").Get<string[]>());
+        Champion.ChampionRole.ConfigureValidValues(builder.Configuration.GetSection(AppConstants.Configuration.ChampionRoles).Get<string[]>());
+        Champion.Augment.AugmentTarget.ConfigureValidValues(builder.Configuration.GetSection(AppConstants.Configuration.AugmentTargets).Get<string[]>());
 
         return builder;
     }

@@ -21,14 +21,14 @@ public partial class Home
         AuthenticationState? authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         User = authState.User;
 
-        Console.Write(User.Claims.Count());
+        Console.WriteLine($"Claim count: {User.Claims.Count()}");
 
-        foreach (var claim in User?.Claims ?? Array.Empty<Claim>())
+        foreach (Claim claim in User.Claims ?? Array.Empty<Claim>())
         {
             Console.WriteLine($"{claim.Value}|{claim.Type}|{claim.Issuer}");
         }
 
         // Extract username from claims
-        Username = User?.FindFirst(ClaimTypes.Name)?.Value;
+        Username = User.FindFirst(ClaimTypes.Name)?.Value;
     }
 }

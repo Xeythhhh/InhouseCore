@@ -6,7 +6,6 @@ using System.Text.Encodings.Web;
 using Domain.Users;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -96,8 +95,6 @@ public partial class ExternalLogin
 
     private async Task OnValidSubmitAsync()
     {
-        Logger.LogInformation("OnRegisterAsync");
-
         IUserEmailStore<ApplicationUser> emailStore = GetEmailStore();
         ApplicationUser user = CreateUser();
 
@@ -110,13 +107,11 @@ public partial class ExternalLogin
             result = await UserManager.AddLoginAsync(user, externalLoginInfo);
             if (result.Succeeded)
             {
-                // Add the display name claim
-                string? displayName = externalLoginInfo.Principal.FindFirstValue(ClaimTypes.Name);
-                if (!string.IsNullOrEmpty(displayName))
-                {
-                    Console.WriteLine(displayName);
-                    await UserManager.AddClaimAsync(user, new Claim(ClaimTypes.Name, displayName));
-                }
+                if (externalLoginInfo.Principal.FindFirst("id") is { } idClaim)
+                    await UserManager.AddClaimAsync(user, idClaim);
+
+                if (externalLoginInfo.Principal.FindFirst("username") is { } displayNameClaim)
+                    await UserManager.AddClaimAsync(user, displayNameClaim);
 
                 Logger.LogInformation("User created an account using {Name} provider.", externalLoginInfo.LoginProvider);
 

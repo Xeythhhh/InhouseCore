@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
 
+using SharedKernel;
+
 using WebApp.Configuration;
 
 namespace WebApp.Layout;
@@ -12,13 +14,13 @@ public partial class MainLayout
     [Inject] private IHttpClientFactory HttpClientFactory { get; set; }
 
     public static MudTheme Theme { get; set; }
-    private bool _isDarkMode;
+    private MudThemeProvider ThemeProvider { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            using HttpClient httpClient = HttpClientFactory.CreateClient("Content");
+            using HttpClient httpClient = HttpClientFactory.CreateClient(AppConstants.HttpClients.Content);
             using HttpResponseMessage response = await httpClient.GetAsync("theme.json");
             response.EnsureSuccessStatusCode();
 
@@ -38,6 +40,16 @@ public partial class MainLayout
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading theme: {ex.Message}");
+        }
+    }
+
+    private bool _isDarkMode;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await ThemeProvider.GetSystemPreference();
+            StateHasChanged();
         }
     }
 
