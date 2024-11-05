@@ -204,22 +204,22 @@ public static class ApiAssembly
                     (AppConstants.Discord.Claims.Verified, json =>
                         json.GetString(AppConstants.Discord.Claims.Keys.Verified)),
 
-                    (AppConstants.Discord.Claims.AvatarUrl, json =>
+                    (AppConstants.Discord.Claims.Avatar, json =>
                         string.Format(CultureInfo.InvariantCulture,
                             "https://cdn.discordapp.com/avatars/{0}/{1}.{2}",
-                            json.GetString(AppConstants.Discord.Claims.Keys.Id),
-                            json.GetString(AppConstants.Discord.Claims.Keys.AvatarUrl),
-                            json.GetString(AppConstants.Discord.Claims.Keys.AvatarUrl)!
-                                .StartsWith("a_") ? "gif" : "png")));
+                                  json.GetString(AppConstants.Discord.Claims.Keys.Id),
+                                  json.GetString(AppConstants.Discord.Claims.Keys.Avatar),
+                                  json.GetString(AppConstants.Discord.Claims.Keys.Avatar)!
+                              .StartsWith("a_") ? "gif" : "png")));
 
                 options.CallbackPath = AppConstants.Discord.OAuthCallback;
             })
             .AddIdentityCookies();
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddSignInManager()
-            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager()
+                .AddDefaultTokenProviders();
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
