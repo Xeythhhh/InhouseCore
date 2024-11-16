@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 
-using MudBlazor;
+using SharedKernel;
 
 namespace Api.Components.Account.Pages;
 public partial class ExternalLogin
@@ -38,15 +38,12 @@ public partial class ExternalLogin
     protected override async Task OnInitializedAsync()
     {
         if (RemoteError is not null)
-        {
             RedirectManager.RedirectToWithStatus("Account/Login", $"Error from external provider: {RemoteError}", HttpContext);
-        }
 
         ExternalLoginInfo? info = await SignInManager.GetExternalLoginInfoAsync();
+
         if (info is null)
-        {
             RedirectManager.RedirectToWithStatus("Account/Login", "Error loading external login information.", HttpContext);
-        }
 
         externalLoginInfo = info;
 
@@ -79,6 +76,7 @@ public partial class ExternalLogin
                 "{Name} logged in with {LoginProvider} provider.",
                 externalLoginInfo.Principal.Identity?.Name,
                 externalLoginInfo.LoginProvider);
+
             RedirectManager.RedirectTo(ReturnUrl);
         }
         else if (result.IsLockedOut)
@@ -107,11 +105,17 @@ public partial class ExternalLogin
             result = await UserManager.AddLoginAsync(user, externalLoginInfo);
             if (result.Succeeded)
             {
-                if (externalLoginInfo.Principal.FindFirst("id") is { } idClaim)
+                if (externalLoginInfo.Principal.FindFirst(AppConstants.Discord.Claims.Id) is { } idClaim)
                     await UserManager.AddClaimAsync(user, idClaim);
 
-                if (externalLoginInfo.Principal.FindFirst("username") is { } displayNameClaim)
+                if (externalLoginInfo.Principal.FindFirst(AppConstants.Discord.Claims.Username) is { } displayNameClaim)
                     await UserManager.AddClaimAsync(user, displayNameClaim);
+
+                if (externalLoginInfo.Principal.FindFirst(AppConstants.Discord.Claims.Verified) is { } verifiedClaim)
+                    await UserManager.AddClaimAsync(user, verifiedClaim);
+
+                if (externalLoginInfo.Principal.FindFirst(AppConstants.Discord.Claims.Avatar) is { } avatarClaim)
+                    await UserManager.AddClaimAsync(user, avatarClaim);
 
                 Logger.LogInformation("User created an account using {Name} provider.", externalLoginInfo.LoginProvider);
 
@@ -122,13 +126,12 @@ public partial class ExternalLogin
                 string callbackUrl = NavigationManager.GetUriWithQueryParameters(
                     NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
                     new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code });
+
                 await EmailSender.SendConfirmationLinkAsync(user, Model.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
                 // If account confirmation is required, we need to show the link if we don't have a real email sender
                 if (UserManager.Options.SignIn.RequireConfirmedAccount)
-                {
                     RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Model.Email });
-                }
 
                 await SignInManager.SignInAsync(user, isPersistent: false, externalLoginInfo.LoginProvider);
                 RedirectManager.RedirectTo(ReturnUrl);

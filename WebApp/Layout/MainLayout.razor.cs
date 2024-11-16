@@ -1,58 +1,75 @@
+using System.Security.Claims;
 using System.Text.Json;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 using MudBlazor;
 
 using SharedKernel;
+using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
 
 using WebApp.Configuration;
+using WebApp.Extensions;
 
 namespace WebApp.Layout;
 public partial class MainLayout
 {
-    [Inject] private IHttpClientFactory HttpClientFactory { get; set; }
-
     public static MudTheme Theme { get; set; }
     private MudThemeProvider ThemeProvider { get; set; }
 
+    [Inject] private IHttpClientFactory HttpClientFactory { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] private ISnackbar Snackbar { get; set; }
+
+    public ClaimsPrincipal? User { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            using HttpClient httpClient = HttpClientFactory.CreateClient(AppConstants.HttpClients.Content);
-            using HttpResponseMessage response = await httpClient.GetAsync("theme.json");
-            response.EnsureSuccessStatusCode();
+        await AuthenticationStateProvider.InitializeUser(user => User = user, Snackbar);
+        await InitializeTheme();
+    }
 
-            await using Stream stream = await response.Content.ReadAsStreamAsync();
+    private Task<Result> InitializeTheme() =>
+        GetThemeStreamAsync()
+            .OnSuccessTry(async stream => Theme = await DeserializeThemeAsync(stream))
+            .Tap(async stream => await stream.DisposeAsync())
+            .TapError(Snackbar.NotifyErrors)
+            .ToResultWithoutValueAsync();
+
+    private async Task<Result<Stream>> GetThemeStreamAsync() =>
+        OperatingSystem.IsBrowser()
+            ? await GetThemeStreamFromStaticContent()
+            : Result.Try(() => new FileStream("theme.json", FileMode.Open, FileAccess.Read))
+                .Map(fileStream => fileStream as Stream);
+
+    private async Task<Result<Stream>> GetThemeStreamFromStaticContent() =>
+        await Result.Try(() => HttpClientFactory.CreateClient(AppConstants.HttpClients.Content)
+                .GetAsync("theme.json"))
+            .Ensure(response => response is not null,
+                new Error("HTTP Response was null"))
+            .Bind(async response =>
+                Result.Ok(await response.Content.ReadAsStreamAsync()));
 
 #pragma warning disable CA1869 // Cache and reuse 'JsonSerializerOptions' instances
-            JsonSerializerOptions options = new()
-            {
-                Converters = { new MudColorConverter() },
-                PropertyNameCaseInsensitive = true
-            };
+    private static async Task<MudTheme> DeserializeThemeAsync(Stream stream) =>
+        await JsonSerializer.DeserializeAsync<MudTheme>(stream, new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new MudColorConverter() }
+        }) ?? throw new JsonException("Invalid theme JSON");
 #pragma warning restore CA1869 // Cache and reuse 'JsonSerializerOptions' instances
 
-            Theme = await JsonSerializer.DeserializeAsync<MudTheme>(stream, options)
-                    ?? throw new JsonException("Invalid theme json");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading theme: {ex.Message}");
-        }
-    }
-
     private bool _isDarkMode;
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _isDarkMode = await ThemeProvider.GetSystemPreference();
-            StateHasChanged();
-        }
-    }
+    protected override async Task OnAfterRenderAsync(bool firstRender) =>
+        await Result.OkIf(firstRender, "Not first render")
+            .Tap(async () =>
+            {
+                _isDarkMode = await ThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            });
 
-    private bool _drawerOpen = true;
-    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    private bool _drawerOpen;
+    void DrawerToggle() => _drawerOpen = !_drawerOpen;
 }

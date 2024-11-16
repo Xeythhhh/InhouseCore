@@ -3,6 +3,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
+using SharedKernel;
+
 namespace WebApp.Infrastructure;
 // This is a client-side AuthenticationStateProvider that determines the user's authentication state by
 // looking for data persisted in the page when it was rendered on the server. This authentication state will
@@ -21,15 +23,18 @@ internal class PersistentAuthenticationStateProvider : AuthenticationStateProvid
 
     public PersistentAuthenticationStateProvider(PersistentComponentState state)
     {
-        if (!state.TryTakeFromJson(nameof(UserInfo), out UserInfo? userInfo) || userInfo is null)
-        {
+        if (!state.TryTakeFromJson(nameof(UserInfoDto), out UserInfoDto? userInfo) || userInfo is null)
             return;
-        }
 
         Claim[] claims = [
             new Claim(ClaimTypes.NameIdentifier, userInfo.UserId),
             new Claim(ClaimTypes.Name, userInfo.Email),
-            new Claim(ClaimTypes.Email, userInfo.Email) ];
+            new Claim(ClaimTypes.Email, userInfo.Email),
+            new Claim(AppConstants.Discord.Claims.Id, userInfo.DiscordId),
+            new Claim(AppConstants.Discord.Claims.Username, userInfo.DiscordName),
+            new Claim(AppConstants.Discord.Claims.Avatar, userInfo.DiscordAvatar),
+            new Claim(AppConstants.Discord.Claims.Verified, userInfo.DiscordVerified)
+            ];
 
         authenticationStateTask = Task.FromResult(
             new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(claims,

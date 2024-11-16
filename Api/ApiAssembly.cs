@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 
 using MudBlazor.Services;
 
@@ -90,6 +91,7 @@ public static class ApiAssembly
     internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
     {
         // TODO
+        builder.Services.AddHttpClient(AppConstants.HttpClients.Content);
         builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
             client.BaseAddress = new Uri(builder.Configuration[AppConstants.HttpClients.ApiAddress]!));
 
@@ -198,7 +200,7 @@ public static class ApiAssembly
                     (AppConstants.Discord.Claims.Id, json =>
                         json.GetString(AppConstants.Discord.Claims.Keys.Id)),
 
-                    (AppConstants.Discord.Claims.UserName, json =>
+                    (AppConstants.Discord.Claims.Username, json =>
                         json.GetString(AppConstants.Discord.Claims.Keys.UserName)),
 
                     (AppConstants.Discord.Claims.Verified, json =>

@@ -1,10 +1,9 @@
 ﻿using System.Globalization;
 
-using Api;
-
 using SharedKernel;
 
 using Serilog;
+using Api;
 
 //Logger used during bootstrap, this is replaced further down the pipeline
 Log.Logger = new LoggerConfiguration()

@@ -3,32 +3,22 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
+using MudBlazor;
+
+using WebApp.Extensions;
+
 namespace WebApp.Infrastructure;
 
 public partial class Home
 {
-#pragma warning disable IDE1006 // Naming Styles
-    [Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
-#pragma warning restore IDE1006 // Naming Styles
-    private PersistentAuthenticationStateProvider AuthenticationStateProvider =>
-        (PersistentAuthenticationStateProvider)_authenticationStateProvider;
+    private ClaimsPrincipal? User { get; set; }
 
-    public ClaimsPrincipal? User { get; set; }
-    public string? Username { get; set; }
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] ISnackbar Snackbar { get; set; }
 
-    protected override async void OnInitialized()
+    protected async override void OnInitialized()
     {
-        AuthenticationState? authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        User = authState.User;
-
-        Console.WriteLine($"Claim count: {User.Claims.Count()}");
-
-        foreach (Claim claim in User.Claims ?? Array.Empty<Claim>())
-        {
-            Console.WriteLine($"{claim.Value}|{claim.Type}|{claim.Issuer}");
-        }
-
-        // Extract username from claims
-        Username = User.FindFirst(ClaimTypes.Name)?.Value;
+        await AuthenticationStateProvider.InitializeUser(user => User = user, Snackbar);
+        base.OnInitialized();
     }
 }

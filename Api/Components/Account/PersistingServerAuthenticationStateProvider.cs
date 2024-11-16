@@ -1,7 +1,3 @@
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
@@ -9,6 +5,12 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
+using SharedKernel;
+using SharedKernel.Extensions.ResultExtensions;
+using SharedKernel.Primitives.Reasons;
+using SharedKernel.Primitives.Result;
+
+using WebApp.Extensions;
 using WebApp.Infrastructure;
 
 namespace Api.Components.Account;
@@ -36,28 +38,20 @@ internal sealed class PersistingServerAuthenticationStateProvider : ServerAuthen
 
     private void OnAuthenticationStateChanged(Task<AuthenticationState> task) => authenticationStateTask = task;
 
-    private async Task OnPersistingAsync()
-    {
-        if (authenticationStateTask is null) throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
-
-        AuthenticationState authenticationState = await authenticationStateTask;
-        ClaimsPrincipal principal = authenticationState.User;
-
-        if (principal.Identity?.IsAuthenticated == true)
-        {
-            string? userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
-            string? email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
-
-            if (userId != null && email != null)
-            {
-                state.PersistAsJson(nameof(UserInfo), new UserInfo
-                {
-                    UserId = userId,
-                    Email = email,
-                });
-            }
-        }
-    }
+    private async Task OnPersistingAsync() =>
+        await Result.OkIf(authenticationStateTask is not null, new Error($"Authentication state not set in {nameof(OnPersistingAsync)}()."))
+            .Bind(() => Result.Try(async () => await authenticationStateTask!))
+            .Map(authenticationState => authenticationState.User)
+            .Ensure(user => user.Identity?.IsAuthenticated ?? false, "Not authenticated.")
+            .Bind(user => UserInfoDto.Create(
+                user.GetClaimValueOrThrow(options.ClaimsIdentity.UserIdClaimType),
+                user.GetClaimValueOrThrow(options.ClaimsIdentity.EmailClaimType),
+                user.GetClaimValueOrThrow(AppConstants.Discord.Claims.Id),
+                user.GetClaimValueOrThrow(AppConstants.Discord.Claims.Username),
+                user.GetClaimValueOrThrow(AppConstants.Discord.Claims.Avatar),
+                user.GetClaimValueOrThrow(AppConstants.Discord.Claims.Verified)
+            ))
+            .Tap(dto => state.PersistAsJson(nameof(UserInfoDto), dto));
 
     public void Dispose()
     {

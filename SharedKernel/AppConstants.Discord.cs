@@ -16,7 +16,7 @@ public static partial class AppConstants
         public static class Claims
         {
             public const string Id = "discord:id";
-            public const string UserName = "discord:username";
+            public const string Username = "discord:username";
             public const string Verified = "discord:verified";
             public const string Avatar = "discord:avatar";
 

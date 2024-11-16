@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using SharedKernel
+@using WebApp.Extensions
+@inherits LayoutComponentBase
 
 <MudThemeProvider @ref="ThemeProvider" Theme="Theme" @bind-IsDarkMode="@_isDarkMode" />
 <MudPopoverProvider />
@@ -14,6 +16,23 @@
         <MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
         <MudSpacer />
         <MudSwitch @bind-Value="_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Toggle Light/Dark Mode" />
+        <AuthorizeView>
+            <Authorized>
+                <MudButton>
+                    @(User?.GetClaimValue(AppConstants.Discord.Claims.Username) ?? "No Username")
+                    @* Style="@($@"border: 3px solid {TODO};
+                    width: 50px;
+                    height: 50px")" *@
+                    <MudAvatar>
+                        <MudImage Src="@User?.GetClaimValue(AppConstants.Discord.Claims.Avatar)"
+                                  Alt="@($"{User?.GetClaimValue(AppConstants.Discord.Claims.Username)}'s Icon")" />
+                    </MudAvatar>
+                </MudButton>
+            </Authorized>
+            <NotAuthorized>
+                Log in dude
+            </NotAuthorized>
+        </AuthorizeView>
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
