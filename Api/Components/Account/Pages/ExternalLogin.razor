@@ -18,27 +18,32 @@
                 Please enter an email address for this site below and click the Register button to finish logging in.
             </MudAlert>
 
-            @* TODO *@
-            @* <MudTextField T="string" 
-                          @bind-Value="@Model.Email"
-                          For="@(() => Model.Email)"
-                          Label="Email"
-                          Placeholder="Please enter your email."
-                          class="form-control"
-                          autocomplete="email"/> *@
+            @* TODO Fix Style*@
+
+            <br />
 
             <InputText @bind-Value="@Model.Email"
-                       class="form-control"
+                       class="form-control "
                        autocomplete="email"
-                       placeholder="Please enter your email." />
+                       placeholder="Please enter your email."
+                       style="width: 100%;
+                              padding: 12px;
+                              font-size: 16px;
+                              border: 1px solid #c4c4c4;
+                              border-radius: 4px;
+                              box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                              transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                              background-color: #fff;" />
 
             <ValidationMessage For="() => Model.Email"/>
 
+        </MudCardContent>
+        <MudCardActions>
             <MudButton ButtonType="ButtonType.Submit"
                        Color="Color.Primary"
                        EndIcon="@Icons.Material.Filled.Check">
                 Register
             </MudButton>
-        </MudCardContent>
+        </MudCardActions>
     </MudCard>
 </EditForm>

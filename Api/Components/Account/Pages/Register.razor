@@ -19,8 +19,10 @@
 
 <MudText Typo="Typo.h3" GutterBottom="true">Register</MudText>
 
+<br />
+
 <MudGrid>
-    <MudItem md="6">
+    <MudItem md="6" Style="background-color: #f5f5f5; opacity: 0.5; pointer-events: none;">
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
