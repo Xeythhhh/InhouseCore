@@ -1,5 +1,10 @@
-using System.Security.Claims;
+using System.Reflection;
 using System.Text.Json;
+
+using Api.Components.Account.Pages;
+using Api.Components.Account.Pages.Manage;
+
+using Domain.Users;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -7,11 +12,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-
-using Api.Components.Account.Pages;
-using Api.Components.Account.Pages.Manage;
-using Domain.Users;
-using System.Reflection;
 
 namespace Api.Components.Account;
 
@@ -65,7 +65,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             string redirectUrl = UriHelper.BuildRelative(
                 context.Request.PathBase,
                 "/Account/Manage/ExternalLogins",
-                QueryString.Create("Action", ExternalLogins.LinkLoginCallbackAction)); // huh??
+                QueryString.Create("Action", ExternalLogins.LinkLoginCallbackAction));
 
             AuthenticationProperties properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, signInManager.UserManager.GetUserId(context.User));
             return TypedResults.Challenge(properties, [provider]);

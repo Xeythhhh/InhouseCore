@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using SharedKernel;
 
 namespace Api.Components.Account.Pages;
+
 public partial class ExternalLogin
 {
     public const string LoginCallbackAction = "LoginCallback";
@@ -154,7 +155,8 @@ public partial class ExternalLogin
         }
     }
 
-    private IUserEmailStore<ApplicationUser> GetEmailStore() => !UserManager.SupportsUserEmail
+    private IUserEmailStore<ApplicationUser> GetEmailStore() =>
+        !UserManager.SupportsUserEmail
             ? throw new NotSupportedException("The default UI requires a user store with email support.")
             : (IUserEmailStore<ApplicationUser>)UserStore;
 
