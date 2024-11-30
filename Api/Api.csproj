@@ -39,4 +39,8 @@
     <ProjectReference Include="..\Presentation.Discord\Presentation.Discord.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\Assets\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

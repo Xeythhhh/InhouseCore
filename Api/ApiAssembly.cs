@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 using MudBlazor.Services;
@@ -63,7 +64,9 @@ public static class ApiAssembly
         }
 
         app.UseHttpsRedirection();
+
         app.UseStaticFiles();
+
         app.UseAntiforgery();
 
         app.MapRazorComponents<App>()
@@ -90,6 +93,12 @@ public static class ApiAssembly
     /// <returns>The configured <see cref="WebApplication"/> instance.</returns>
     internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
     {
+        builder.Services.AddMemoryCache(options =>
+        {
+            options.SizeLimit = 1024 * 1024 * 50; // Set size limit for cache (50 MB in this case)
+            options.CompactionPercentage = 0.2;  // Compact 20% of items when memory pressure is high
+        });
+
         // TODO
         builder.Services.AddHttpClient(AppConstants.HttpClients.Content);
         builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
