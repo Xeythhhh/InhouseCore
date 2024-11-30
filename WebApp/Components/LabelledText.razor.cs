@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 using MudBlazor;
 
@@ -21,4 +22,7 @@ public partial class LabelledText
 
     /// <summary> The main content text displayed beside the Label.</summary>
     [Parameter] public string Text { get; set; } = "Text";
+
+    /// <summary> The main content text alignment.</summary>
+    [Parameter] public Align TextAlign { get; set; } = Align.Inherit;
 }

@@ -1,11 +1,26 @@
-﻿<MudStack Spacing="1" Row="true" >
-    <MudText Typo="@(TypoLabel ?? Typo)" 
-             Color="Color.Primary"
-             Class="mr-2">
-        @Label
-    </MudText>
-    <MudText Typo="@(TypoText ?? Typo)">
-        @Text
-    </MudText>
-</MudStack>
+﻿<div class="lt-wrapper">
+    <MudStack Spacing="1"
+              Class="lt-stack"
+              Row="true">
 
+        <!-- Label -->
+        <div class="lt-label-wrapper">
+            <MudText Typo="@(TypoLabel ?? Typo)"
+                     Align="Align.Left"
+                     Color="Color.Primary"
+                     Class="lt-label">
+                @Label
+            </MudText>
+        </div>
+
+        <!-- Text -->
+        <div class="lt-text-wrapper">
+            <MudText Typo="@(TypoText ?? Typo)"
+                     Align="TextAlign"
+                     Class="lt-text">
+                @Text
+            </MudText>
+        </div>
+
+    </MudStack>
+</div>

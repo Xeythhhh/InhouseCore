@@ -23,15 +23,9 @@ else
                   Text="@Model.Name"
                   Typo="Typo.h3" />
 
-    <MudDivider DividerType="DividerType.Middle" 
-                Class="ma-3 "/>
-
     <MudButtonGroup Color="Color.Primary"
-                    Variant="Variant.Text"
-                    Style="background: linear-gradient(to right, rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.07));
-                           padding: 8px;
-                           box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-                           border-radius: 8px">
+                    Variant="Variant.Filled"
+                    Class="my-2">
         <MudButton OnClick="AddAugment">
             Add augment
         </MudButton>
@@ -53,14 +47,16 @@ else
                  lg="9">
             <MudText Typo="Typo.h6"
                      GutterBottom="true"
-                     Style="@($"color: {Color.Primary}")">
+                     Color="Color.Primary">
                 Restrictions
             </MudText>
-            <MudGrid Class="ma-3">
+            <MudGrid Class="ma-1"
+                     Style="@($@"display: {(Model.Restrictions.Any() ? "grid" : "none")}; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));")">
                 @Model.Restrictions.MapIfAny(restriction =>
                     @<Restriction Model="@restriction"
                                   Update="@(() => UpdateRestriction(restriction))"
-                                  Remove="@(() => RemoveRestriction(restriction))" />,
+                                  Remove="@(() => RemoveRestriction(restriction))"
+                                  Style="width: 100%; max-width: 15rem;" />,
                     fallback: @<MudText>No restrictions found.</MudText>)
             </MudGrid>
         </MudItem>
@@ -71,7 +67,7 @@ else
                  lg="3">
             <MudText Typo="Typo.h6"
                      GutterBottom="true"
-                     Style="@($"color: {Color.Primary}")">
+                     Color="Color.Primary">
                 Augments
             </MudText>
             <MudList T="ChampionAugmentDto">

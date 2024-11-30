@@ -2,13 +2,12 @@
 
 <MudBadge Content="@Model.AugmentTarget"
           Overlap="true"
-          Color="Color.Secondary"
           Elevation="1"
+          Color="Color.Secondary"
           Origin="Origin.TopRight"
           Class="@Class"
           BadgeClass="my-n2"
-          Style="@($@"box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-                      background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), {new Rgba(Model.AugmentColor, 0.7)}")">
+          Style="@($@"background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), {new Rgba(Model.AugmentColor, 0.7)}")">
 
     <MudButton FullWidth
                OnClick="Update"
@@ -26,6 +25,7 @@
         </MudAvatar>
 
         <MudText Typo="Typo.h5"
+                 Color="Color.Secondary"
                  Class="ma-2 overflow-hidden "
                  Style="white-space: nowrap; text-overflow: ellipsis">
             @Model.AugmentName
@@ -35,7 +35,7 @@
                        Icon="@Icons.Material.Filled.Delete"
                        Variant="Variant.Filled"
                        Class="ml-auto "
-                       Style="@($@"color: {Color.Error}")"
+                       Color="Color.Error"
                        aria-label="delete" />
 
     </MudButton>

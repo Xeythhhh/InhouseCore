@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>7921ce29-185b-4d51-9a97-a9da6b7ce6f4</UserSecretsId>
     <CodeAnalysisRuleSet>Components\.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <RazorComponentIncludeScope>true</RazorComponentIncludeScope>
   </PropertyGroup>
 
   <ItemGroup>

@@ -70,6 +70,6 @@ public partial class MainLayout
                 StateHasChanged();
             });
 
-    private bool _drawerOpen;
+    private bool _drawerOpen = true;
     void DrawerToggle() => _drawerOpen = !_drawerOpen;
 }

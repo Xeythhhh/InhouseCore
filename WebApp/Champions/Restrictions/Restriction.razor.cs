@@ -18,14 +18,17 @@ public partial class Restriction
     /// <summary> CSS classes to apply to the root component of this restriction.</summary>
     [Parameter] public string? Class { get; set; }
 
+    /// <summary> Style to apply to the content of this restriction.</summary>
+    [Parameter] public string? Style { get; set; }
+
     /// <summary> The model containing restriction details, such as augment target, combo, and reason.</summary>
     [Parameter] public ChampionRestrictionDto Model { get; set; }
 
     /// <summary> Event callback triggered when the restriction is edited.</summary>
     /// <remarks>Passes <see cref="MouseEventArgs"/> as an event argument.</remarks>
-    [Parameter] public EventCallback<MouseEventArgs> Update { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> Update { get; set; } = default!;
 
     /// <summary> Event callback triggered when the restriction is removed.</summary>
     /// <remarks>Passes <see cref="MouseEventArgs"/> as an event argument.</remarks>
-    [Parameter] public EventCallback<MouseEventArgs> Remove { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> Remove { get; set; } = default!;
 }

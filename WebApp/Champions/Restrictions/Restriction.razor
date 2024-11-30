@@ -3,30 +3,33 @@
 
 <MudButton Class="@Class"
            OnClick="Update"
-           aria-label="edit"
-           Style="@($@"box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5)")">
+           aria-label="edit">
 
-    <MudCard Style="background: rgba(0, 0, 0, 0.5);">
+    <MudCard Style="@Style">
     
         <MudCardMedia Image="@_augmentIconUrl"
                       Height="100"
                       Class="border-solid border-4 pa-2"
                       Style="@Model.GetBorderColor()" />
     
-        <MudCardContent>
+        <MudCardContent Class="d-flex flex-column align-items-stretch">
             <LabelledText Label="Target"
-                          Text="@(Model.Augment?.ToString() ?? "None")" />
+                          Text="@(Model.Augment?.ToString() ?? "None")"
+                          TextAlign="Align.Right"/>
             <LabelledText Label="Combo"
-                          Text="@(Model.Combo?.ToString() ?? "None")" />
+                          Text="@(Model.Combo?.ToString() ?? "None")"
+                          TextAlign="Align.Right" />
             <LabelledText Label="Reason"
-                          Text="@Model.Reason" />
+                          Text="@Model.Reason"
+                          TextAlign="Align.Right"/>
         </MudCardContent>
-    
-        <MudCardActions>
-            <MudIconButton OnClick="Remove"
-                           Icon="@Icons.Material.Filled.Delete"
-                           Style="@($"color: {Colors.Red.Accent2};")"
-                           aria-label="delete" />
+        
+        <MudCardActions Class="d-flex justify-end mt-n6 mb-n2">
+            <MudIconButton OnClick="Remove" 
+                       Icon="@Icons.Material.Filled.Delete"
+                       Color="Color.Error"
+                       Size="Size.Small"
+                       aria-label="delete" />
         </MudCardActions>
     
     </MudCard>
