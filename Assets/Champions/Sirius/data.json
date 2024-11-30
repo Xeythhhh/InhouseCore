@@ -1,0 +1,77 @@
+{
+    "Name": "Sirius",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "DEBILITATING SLASH",
+            "Target": "M1",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "SAROS SLASH",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "RADIANCE",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SUNBATH",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "COSMIC REACH",
+            "Target": "SPACE",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "SUNWELL",
+            "Target": "SPACE",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DAYBREAK",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "ILLUMINATION",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "SUNSCREEN",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "LUNATIC",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "MOONLIGHT",
+            "Target": "E",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "MOONSTONE",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "CELESTIAL CYCLE",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "GRAVITY",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]
+}

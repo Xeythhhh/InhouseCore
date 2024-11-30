@@ -1,0 +1,77 @@
+{
+    "Name": "Rook",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "PUMMEL RUSH",
+            "Target": "M1",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "CRUSHING LEAP",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "ROOK SMASH",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "WEAPON BREAK",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "BELLY BOUNCE",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "ENDURANCE",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "FRENZY",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "RAGING BULL",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "GIANT",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "MADNESS",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "WAR CRY",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "CRAG",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "CRUMBLE",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "EARTHQUAKE",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

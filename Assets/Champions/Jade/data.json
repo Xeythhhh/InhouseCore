@@ -1,0 +1,87 @@
+{
+    "Name": "Jade",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "GUNSLINGER",
+            "Target": "M1",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "HIT AND RUN",
+            "Target": "M1",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DEADLY FOCUS",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SHADOW SHOT",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SURPRISE SHOT",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "BLASTING PISTOLS",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "EVASIVE MEASURES",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "EXPLOSIVE JUMP",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "AMBUSH",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "FAREWELL PRESENT",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "THROUGH THE SHADOWS",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DELIGHT",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "DESPERADO",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MAGIC BULLET",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "BLACK POWDER",
+            "Target": "R",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SHRAPNEL",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]
+}

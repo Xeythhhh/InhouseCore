@@ -1,0 +1,87 @@
+{
+    "Name": "Shifu",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "CEREMONIAL SPEAR",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SKEWER",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPEAR LUNGE",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "THRUST",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MEDITATION",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "READIED OFFENSE",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "THE SPEAR IS THE WAY",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FEROCIOUS STANCE",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MANTRA",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "POISED TO STRIKE",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DIRTY TRICKS",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "JAVELIN MASTER",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "SPEAR SLINGER",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "READIED BLADE",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "WHIRLING BLADE",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "SPEAR DANCE",
+            "Target": "F",
+            "Color": "#FFB800"
+        }
+    ]
+}

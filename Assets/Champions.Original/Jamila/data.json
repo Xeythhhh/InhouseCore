@@ -1,0 +1,82 @@
+{
+    "Name": "Jamila",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "DEADLY STAR",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DEEP WOUNDS",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "TASTE OF BLOOD",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "CRIPPLE",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "PUSH OFF",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "QUICK STRIKE",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CRIMSON BLUR",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DRAWING BLOOD",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "PHANTOM BLADES",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SHROUD OF SHADOWS",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "DECEPTIVE MOMENTUM",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "FIRING MECHANISM",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "MOMENTUM STRIKE",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "GO FOR THE THROAT",
+            "Target": "R",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SHADOW DOUBLE",
+            "Target": "F",
+            "Color": "#0095FF"
+        }
+    ]
+}

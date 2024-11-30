@@ -1,0 +1,77 @@
+{
+    "Name": "Raigon",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "BLINDING LIGHT",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "HEADLONG RUSH",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "ACROBATICS",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "HAWK DIVE",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "OVERFLOWING POWER",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "ROYAL DESCENT",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DUELIST",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "INVIGORATE",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "RIPOSTE",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "AERIAL STRIKE",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "PERILOUS HEIGHT",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SEISMIC RETRIBUTION",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "DRAGON MASTERY",
+            "Target": "R",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "THE TIGER AND THE DRAGON",
+            "Target": "F",
+            "Color": "#BBFFFC"
+        }
+    ]
+}

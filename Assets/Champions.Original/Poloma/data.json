@@ -1,0 +1,92 @@
+{
+    "Name": "Poloma",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "DARK SOULS",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SHIMMERING BOND",
+            "Target": "M1",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "INTO THE REALM",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SOUL THEFT",
+            "Target": "M2",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "SPECTER",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "SPIRIT WALKER",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "GHOSTLY STRIKE",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "PHANTASM",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "VENGEFUL SPIRIT",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SOUL ESSENCE",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPIRITUAL WIND",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "AFFECTION",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "DIRE WOLF",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SILVER FANG",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "PIXIE DUST",
+            "Target": "R",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "CONDEMN",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "EQUILIBRIUM",
+            "Target": "F",
+            "Color": "#BBFFFC"
+        }
+    ]
+}

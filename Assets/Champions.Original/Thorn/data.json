@@ -1,0 +1,82 @@
+{
+    "Name": "Thorn",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "BRANCH OUT",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "REGROWTH",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "HAMSTRING BRIARS",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "NEUROTOXIN",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "PARASITIC STEMS",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DEEP BURROW",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FEARSOME UPROOTAL",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "IMPALING ROOTS",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "LURKER",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "GROUNDING GRASP",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "WHIPLASH",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CREEPING ROOTS",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SINISTER SAP",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CRITICAL BACKLASH",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "NO ESPACE",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

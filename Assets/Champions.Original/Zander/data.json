@@ -1,0 +1,82 @@
+{
+	"Name": "Zander",
+	"Role": "support",
+	"Augments":
+	[ 
+		{
+			"Name": "HEART RESTORATION",
+			"Target": "M1",
+			"Color": "#00FFE9"
+		},
+		{
+			"Name": "ACE UP THE SLEEVE",
+			"Target": "M2",
+			"Color": "#FF2A1C"
+		},
+		{
+			"Name": "ARCANE SHENANIGANS",
+			"Target": "M2",
+			"Color": "#0095FF"
+		},
+		{
+			"Name": "AWESTRUCK",
+			"Target": "M2",
+			"Color": "#FF4FCE"
+		},
+		{
+			"Name": "PHANTASMAGORIA",
+			"Target": "SPACE",
+			"Color": "#0095FF"
+		},
+		{
+			"Name": "POOF!",
+			"Target": "SPACE",
+			"Color": "#FF2A1C"
+		},
+		{
+			"Name": "STACKED DECK",
+			"Target": "SPACE",
+			"Color": "#BBFFFC"
+		},
+		{
+			"Name": "AROUND THE WORLD",
+			"Target": "Q",
+			"Color": "#0095FF"
+		},
+		{
+			"Name": "LATE TO THE SHOW",
+			"Target": "Q",
+			"Color": "#FFB800"
+		},
+		{
+			"Name": "SHOWDOWN",
+			"Target": "Q",
+			"Color": "#00FFE9"
+		},
+		{
+			"Name": "LASTING FORM",
+			"Target": "E",
+			"Color": "#FF4FCE"
+		},
+		{
+			"Name": "LEAD ASTRAY",
+			"Target": "E",
+			"Color": "#FF2A1C"
+		},
+		{
+			"Name": "THE BIG STAGE",
+			"Target": "E",
+			"Color": "#BBFFFC"
+		},
+		{
+			"Name": "BUNNY HOP",
+			"Target": "R",
+			"Color": "#A8FF47"
+		},
+		{
+			"Name": "THREE OF A KIND",
+			"Target": "F",
+			"Color": "#0095FF"
+		}
+	]
+}

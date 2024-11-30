@@ -1,0 +1,83 @@
+{
+    "Name": "Shen Rao",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "DRAGON FORCE",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "ENTERAINMENT",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "EYEWALL",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "PUPPETEER",
+            "Target": "M2",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "DRAGON DESCENT",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "HEAVENLY GRACE",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "SUBDUE",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "EFFORTLESS DEFENSE",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "OVERRULE",
+            "Target": "Q",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "STORM DRAIN",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "REGAL AURA",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "ROAR OF THE HEAVENS",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "SHOCK AND AWE",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPHERE OF INFLUENCE",
+            "Target": "R",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "MANDATE OF HEAVEN",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]
+}
+}

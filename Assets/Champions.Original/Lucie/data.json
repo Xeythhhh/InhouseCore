@@ -1,0 +1,87 @@
+{
+    "Name": "Lucie",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "VAMPIRIC TOXIN",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "WEAKENING TOXIN",
+            "Target": "M1",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "COMPANION POTION",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "STIMULANT",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "ALACRITY",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "BLAST SHIELD",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SIEG BARRIER",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "ADHESIVE COMPONENT",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "DYNAMIC SOLUTION",
+            "Target": "Q",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FULLY STOCKED",
+            "Target": "Q",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "POTENCY",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "CHAOS",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "DEADLY BREW",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HYSTERIA",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SWIFT ROLL",
+            "Target": "R",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "STICKY GOO",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]
+}

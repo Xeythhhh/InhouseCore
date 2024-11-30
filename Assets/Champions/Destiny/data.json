@@ -1,0 +1,77 @@
+{
+    "Name": "Destiny",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "PLASMA INFUSION",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "POWER ATTACHMENT",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SYSTEM SHOCK",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "DISPATCH",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "GLOBETROTTER",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "VIOLENT REVOLUTION",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "BLAST PROCESSING",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "ENERGY CONVERSION",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "I/O THROTTLING",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "PLASMA ACCELERATOR",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "PLASMA BOOSTER",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "SIZZLE",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "EXPANSION PACK",
+            "Target": "R",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "TRANSFORMER",
+            "Target": "F",
+            "Color": "#FFB800"
+        }
+    ]
+}

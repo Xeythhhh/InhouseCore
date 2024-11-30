@@ -1,0 +1,87 @@
+{
+    "Name": "Ezmo",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "EXHAUST",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "COLLAPSE",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DISRUPTION",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "KEEP AWAY!",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "WARLOCK'S GRIP",
+            "Target": "M2",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "CHAOS BARRAGE",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "WHIZZ",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "WREAK HAVOC",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "FEEDBACK",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "IMP RUSH",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "SPELL EATER",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "BOLTED",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FACE MELT",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "UNDERMINE",
+            "Target": "E",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "TOME OF RESORATION",
+            "Target": "R",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "GRIMOIRE OF DEATH",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

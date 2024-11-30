@@ -1,0 +1,97 @@
+{
+    "Name": "Ruh Kaan",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "GRIM EDGE",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "LEECH BLADE",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "REAPER",
+            "Target": "M1",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "WICKED STRIKE",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "ACCUMULATE",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "AFFLICTION",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "AGONY",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DEMONIC HUNT",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "NETHER CHAINS",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "GORGE",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SHADOW FURRY",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "COLD EMBRACE",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "DEATH GRIP",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "TENACIOUS DEMON",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "NETHER BLADE",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HUNGER",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SHADOW PROWL",
+            "Target": "F",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "NIGHT STALKER",
+            "Target": "Talent",
+            "Color": "#FFB800"
+        }
+    ]
+}

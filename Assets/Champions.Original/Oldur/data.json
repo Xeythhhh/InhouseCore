@@ -1,0 +1,87 @@
+{
+    "Name": "Oldur",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "DEHYDRATION",
+            "Target": "M1",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "SHA#FF2A1C FATE",
+            "Target": "M1",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "TIME BURST",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "RENEW",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "REWIND",
+            "Target": "M2",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "CHRONO SHIFT",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "RECREATE",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "SAND STORM",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DRAIN",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "STOLEN POWER",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "TIME WALKER",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "ETERNAL DUNES",
+            "Target": "E",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "REPETITION",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SAND TOMB",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "TEMPORAL STRIKE",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "REVERSAL",
+            "Target": "F",
+            "Color": "#00FFE9"
+        }
+    ]
+}

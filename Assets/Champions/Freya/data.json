@@ -1,0 +1,82 @@
+{
+    "Name": "Freya",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "STATIC HAMMERS",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "TEMPEST",
+            "Target": "M1",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "THUNDERBOLT",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "TWIN HAMMERS",
+            "Target": "M1",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "ELECTRIC CONDUCTION",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "LIGHTNING SPEED",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "THUNDERING SPRING",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "HAMMER TIME",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "OVERCHARGE",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "LIGHTNING ROD",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "ROLLING THUNDER",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "TORRENT",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SURGE",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "THUNDERSTRUCK",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "POSITIVE CHARGE",
+            "Target": "Talent",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

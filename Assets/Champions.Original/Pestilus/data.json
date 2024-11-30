@@ -1,0 +1,92 @@
+{
+    "Name": "Pestilus",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "OVERLORD",
+            "Target": "M1",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "BLOOD LEECHER",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "COLONY",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "INSECTIVORE",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "PROLIFERATE",
+            "Target": "M2",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "DELIFER",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "DISPERSE",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SCOURGE",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "SPORES",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "BROODMOTHER",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "GIVE MIND",
+            "Target": "Q",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "SACRIFICE",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SWARM QUEEN",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "EGG CARRIER",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPIDERLING VENOM",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HEART OF THE SWARM",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "LORD OF THE FLIES",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]    
+},

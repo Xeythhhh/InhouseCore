@@ -1,0 +1,82 @@
+{
+    "Name": "Ulric",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "CLEAVE",
+            "Target": "M1",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "ENCHANTED WEAPON",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DEVOTION",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "DIVINE ABUNDANCE",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "FAITH",
+            "Target": "M2",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "DIVINE PROTECTION",
+            "Target": "SPACE",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "INITIATION",
+            "Target": "SPACE",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "PENITENCE",
+            "Target": "SPACE",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "LIGHT SPEED",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "LIGHT'S EMBRACE",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "HALO",
+            "Target": "E",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "HOLY FIRE",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HOLY SHACKLES",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "VINDICATOR",
+            "Target": "R",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "GODLIKE",
+            "Target": "F",
+            "Color": "#BBFFFC"
+        }
+    ]
+}

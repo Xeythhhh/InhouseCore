@@ -1,0 +1,77 @@
+{
+    "Name": "Pearl",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "RIPPLING WATERS",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SOAKING WET",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPLASH DAMAGE",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "FOUNTAIN",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "OCEAN TIDE",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "RIPTIDE",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "SPRING WATER",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "GUSH",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SEA BUBBLE",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "TSUNAMI",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "OCEAN SAGE",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "TASTY FISH",
+            "Target": "E",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "WATER WALK",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "TERROR FROM THE DEEP",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]
+},

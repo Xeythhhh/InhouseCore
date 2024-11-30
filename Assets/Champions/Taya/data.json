@@ -1,0 +1,87 @@
+{
+    "Name": "Taya",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "BREATH OF AIR",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "COLD WIND",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "CROSS CUT",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HEAVY BOOMERANGS",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SURPISE ATTACK",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "THROWING TECHNIQUE",
+            "Target": "M2",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "GALE",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "TAILWIND",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "CYCLONE",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "TURBULENCE",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "WIND FURY",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "VORTEX",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "WIND STREAM",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "TORNADO BOOMERANG",
+            "Target": "R",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "WIND SHIELD",
+            "Target": "R",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "TRACKING",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]    
+}

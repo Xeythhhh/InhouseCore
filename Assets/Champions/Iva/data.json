@@ -1,0 +1,87 @@
+{
+    "Name": "Iva",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "BOOM!",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HEAVY ROCKET",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "STOCKPILE",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "OIL BLASTER",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "ROCKET BOOSTERS",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "U-TURN",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "BLAST SHIELD",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DURABLE SHIELD",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "HYPERSPEED",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CONDUCTOR",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "EMP",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "IGNITING SPARK",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "FLIP THE SWITCH",
+            "Target": "R",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "TRACOTR PULSE",
+            "Target": "R",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "ALL SYSTEMS OPERATIONAL",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "GUNGE",
+            "Target": "Talent",
+            "Color": "#FF4FCE"
+        }
+    ]
+}

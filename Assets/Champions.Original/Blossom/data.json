@@ -1,0 +1,87 @@
+{
+    "Name": "Blossom",
+    "Role": "support",
+    "Augments":
+    [ 
+        {
+            "Name": "NATURE'S CYCLE",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "WEAKENING PITCH",
+            "Target": "M1",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "FLUTTERING GRACE",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "KINDHEARTED",
+            "Target": "M2",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "CAUTIOUS",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "GIFT OF NATURE",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "HOP AND SKIP!",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "NATURE'S PRESENCE",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "BOUNTIFUL TREE",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "HEALTHFUL BARK",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "REFRESHING SEED",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "BLOOM BURST",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "POLLEN",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "SPRING GROWTH",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "PUFF",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "GROWING POWER",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

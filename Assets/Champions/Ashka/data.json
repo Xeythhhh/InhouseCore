@@ -1,0 +1,82 @@
+{
+    "Name": "Ashka",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "COMBUSTION",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "HEAT",
+            "Target": "M2",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "WILDFIRE",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "BLAZE",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "BURNING FEET",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "FIRE WARD",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "EMBER FIRE",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "ERUPTION",
+            "Target": "Q",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "INFERNO",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "KNOCKOUT",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "MACH PUNCH",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "MOLTEN CORE",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CONFLAGRATION",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "RAGING FIRE",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MAGMA",
+            "Target": "Talent",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

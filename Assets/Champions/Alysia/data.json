@@ -1,0 +1,83 @@
+{
+	"Name": "Alysia",
+	"Role": "ranged",
+	"Augments":
+	[ 
+	    {
+	        "Name": "FROZEN MUSE",
+	        "Target": "M1",
+	        "Color": "#FF4FCE"
+	    },
+	    {
+	        "Name": "CRYOGENIC LANCE",
+	        "Target": "M2",
+	        "Color": "#FF4FCE"
+	    },
+	    {
+	        "Name": "ICE BREAKER",
+	        "Target": "M2",
+	        "Color": "#FF2A1C"
+	    },
+	    {
+	        "Name": "PEIRCING COLD",
+	        "Target": "M2",
+	        "Color": "#FF2A1C"
+	    },
+	    {
+	        "Name": "FROST NOVA",
+	        "Target": "Space",
+	        "Color": "#FF4FCE"
+	    },
+	    {
+	        "Name": "TWIRL",
+	        "Target": "Space",
+	        "Color": "#FFB800"
+	    },
+	    {
+	        "Name": "CRYSTALLINE LATTICE"
+	        "Target": "Q",
+	        "Color": "#00FFE9"
+	    },
+	    {
+	        "Name": "FIGURE SKATING",
+	        "Target": "Q",
+	        "Color": "#FFB800"
+	    },
+	    {
+	        "Name": "WINTRY BLAST",
+	        "Target": "Q",
+	        "Color": "#FF2A1C"
+	    },
+	    {
+	        "Name": "ARCTIC CLOAK",
+	        "Target": "E",
+	        "Color": "#00FFE9"
+	    },
+	    {
+	        "Name": "BLIZZARD",
+	        "Target": "E",
+	        "Color": "#0095FF"
+	    },
+	    {
+	        "Name": "SNOWSTORM",
+	        "Target": "E",
+	        "Color": "#FF2A1C"
+	    },
+	    {
+	        "Name": "ICY CITADEL",
+	        "Target": "R",
+	        "Color": "#A8FF47"
+	    },
+	    {
+	        "Name": "VANDALISM",
+	        "Target": "R",
+	        "Color": "#FF2A1C"
+	    },
+	    {
+	        "Name": "PERMAFROST",
+	        "Target": "F",
+	        "Color": "#FF4FCE"
+	    }
+	]    
+}
+

@@ -1,0 +1,77 @@
+{
+    "Name": "Jumong",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "PERFECT SHOT",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "POWER SHOT",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "PREY DRIVE",
+            "Target": "M2",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "MARKSMAN",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "PRECISION",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "VIPER",
+            "Target": "Space",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "ARROW STORM",
+            "Target": "Q",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "CRIPPLING HAIL",
+            "Target": "Q",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "DEADLY TRAP",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DISABLING TRAP",
+            "Target": "E",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "TRAPPER",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "PANTHER",
+            "Target": "R",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "DEADEYE",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DEATH MARK",
+            "Target": "Talent",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

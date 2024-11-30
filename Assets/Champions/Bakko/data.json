@@ -1,0 +1,82 @@
+{
+    "Name": "Bakko",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "HAMSTRING",
+            "Target": "M1",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "HOWLING AXES",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "THE #FF2A1C AXE",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "WARLORD'S AXE",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "ADRENALINE RUSH",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "BRAVERY",
+            "Target": "Space",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "HEROIC LEAP",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "HOLD THE LINE",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "MOBILE DEFENCE",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "SHIELD BASH",
+            "Target": "Q",
+            "Color": "#00FFE9"
+        },
+        {
+            "Name": "ADRENALINE SLAM",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "DIZZYING DASH",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "RAGIN RAM",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "RAMPGAE",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MAMMOTH STOMP",
+            "Target": "F",
+            "Color": "#FF4FCE"
+        }
+    ]
+}

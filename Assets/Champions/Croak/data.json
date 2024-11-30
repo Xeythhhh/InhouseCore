@@ -1,0 +1,87 @@
+{
+    "Name": "Croak",
+    "Role": "melee",
+    "Augments":
+    [ 
+        {
+            "Name": "VICIOUS STRIKE",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "LETHAL TOXINS",
+            "Target": "M1",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MENDING TOXIN",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "SPIT SPIT SPIT",
+            "Target": "M1",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "JUNGLE TOAD",
+            "Target": "Space",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "MAIMING CUT",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "PUDDLE JUMPER",
+            "Target": "Space",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "TRIPLE STRIKE",
+            "Target": "Space",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "FROG SLICE",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "NOXIOUS REACTION",
+            "Target": "E",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "TRICKERY",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FROG FRENZY",
+            "Target": "R",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MOMENTUM",
+            "Target": "F",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "SLIPEERY SKIN",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "TIME TO STRIKE",
+            "Target": "Q",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "VENOME STRIKE",
+            "Target": "Talent",
+            "Color": "#FF2A1C"
+        }
+    ]
+}

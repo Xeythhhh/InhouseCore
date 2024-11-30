@@ -1,0 +1,82 @@
+{
+    "Name": "Varesh",
+    "Role": "ranged",
+    "Augments":
+    [ 
+        {
+            "Name": "FERVOR",
+            "Target": "M1",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "PERPETUITY",
+            "Target": "M1",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "DEVASTATION",
+            "Target": "M2",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "MUTE",
+            "Target": "M2",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "CELERITY",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "WONDER",
+            "Target": "Space",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "ZEAL",
+            "Target": "Space",
+            "Color": "#FF4FCE"
+        },
+        {
+            "Name": "RETURN",
+            "Target": "Q",
+            "Color": "#A8FF47"
+        },
+        {
+            "Name": "RUIN",
+            "Target": "Q",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "FRACTURE",
+            "Target": "E",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "INHIBITOR",
+            "Target": "E",
+            "Color": "#FFB800"
+        },
+        {
+            "Name": "LAW BENDER",
+            "Target": "E",
+            "Color": "#0095FF"
+        },
+        {
+            "Name": "KINETIC CORRUPTION",
+            "Target": "R",
+            "Color": "#BBFFFC"
+        },
+        {
+            "Name": "ABSOLUTE POWER",
+            "Target": "F",
+            "Color": "#FF2A1C"
+        },
+        {
+            "Name": "SYNERGY",
+            "Target": "Talent",
+            "Color": "#BBFFFC"
+        }
+    ]
+}
