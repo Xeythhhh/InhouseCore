@@ -1,13 +1,14 @@
 ﻿string currentDirectory = Directory.GetCurrentDirectory();
 string baseDirectory = Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..", "..", ".."));
 string assetsFolder = Path.Combine(baseDirectory, "Assets");
-if (!Directory.Exists(assetsFolder))
+string battleriteFolder = Path.Combine(assetsFolder, "Battlerite");
+if (!Directory.Exists(battleriteFolder))
 {
-    Console.WriteLine($"Assets folder not found at: {assetsFolder}");
+    Console.WriteLine($"Battlerite folder not found at: {battleriteFolder}");
     return;
 }
 
-string championsFolder = Path.Combine(assetsFolder, "Champions");
+string championsFolder = Path.Combine(battleriteFolder, "Champions");
 
 Dictionary<string, List<string>> championMissingFiles = new();
 

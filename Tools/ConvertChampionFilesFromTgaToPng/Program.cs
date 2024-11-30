@@ -4,13 +4,14 @@ using SixLabors.ImageSharp;
 string currentDirectory = Directory.GetCurrentDirectory();
 string baseDirectory = Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..", "..", ".."));
 string assetsFolder = Path.Combine(baseDirectory, "Assets");
-if (!Directory.Exists(assetsFolder))
+string battleriteFolder = Path.Combine(assetsFolder, "Assets");
+if (!Directory.Exists(battleriteFolder))
 {
-    Console.WriteLine($"Assets folder not found at: {assetsFolder}");
+    Console.WriteLine($"Battlerite folder not found at: {battleriteFolder}");
     return;
 }
 
-string championsFolder = Path.Combine(assetsFolder, "Champions"); // do not include Champion.Original if you want to preserve the original .tga files
+string championsFolder = Path.Combine(battleriteFolder, "Champions"); // do not include Champion.Original if you want to preserve the original .tga files
 string[] tgaFiles = Directory.GetFiles(championsFolder, "*.tga", SearchOption.AllDirectories);
 
 foreach (string tgaFile in tgaFiles)

@@ -87,7 +87,9 @@ public static class InfrastructureAssembly
             {
                 int augmentCount = 0;
 
-                Result<Champion> championResult = Champion.Create(championData.Name, championData.Role)
+                Result<Champion> championResult = Champion.Create(
+                        championData.Name,
+                        championData.Role)
                     .Ensure(champion => !dbContext.Champions.Any(c => c.Name == champion.Name),
                         new Error("Duplicate champion name in seed data"))
                     .Bind(dbContext.Champions.Add)
