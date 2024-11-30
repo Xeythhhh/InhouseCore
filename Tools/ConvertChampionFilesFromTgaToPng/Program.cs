@@ -4,7 +4,7 @@ using SixLabors.ImageSharp;
 string currentDirectory = Directory.GetCurrentDirectory();
 string baseDirectory = Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..", "..", ".."));
 string assetsFolder = Path.Combine(baseDirectory, "Assets");
-string battleriteFolder = Path.Combine(assetsFolder, "Assets");
+string battleriteFolder = Path.Combine(assetsFolder, "Game-Battlerite");
 if (!Directory.Exists(battleriteFolder))
 {
     Console.WriteLine($"Battlerite folder not found at: {battleriteFolder}");

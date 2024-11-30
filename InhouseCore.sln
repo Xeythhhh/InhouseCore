@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMissingChampionFiles", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertChampionFilesFromTgaToPng", "Tools\ConvertChampionFilesFromTgaToPng\ConvertChampionFilesFromTgaToPng.csproj", "{51E97864-DAD6-42F3-9FA5-996BE9D32083}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenameMetaChampionAssets", "Tools\RenameMetaChampionAssets\RenameMetaChampionAssets.csproj", "{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,10 @@ Global
 		{51E97864-DAD6-42F3-9FA5-996BE9D32083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51E97864-DAD6-42F3-9FA5-996BE9D32083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51E97864-DAD6-42F3-9FA5-996BE9D32083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +177,7 @@ Global
 		{5D0D83D8-99A5-48CB-AEB3-0628B556F250} = {CF24BA36-9657-499F-BE85-952EFABA8F84}
 		{7C8D776D-DB9F-405F-9A42-CA206A6F7042} = {8C9FB831-D251-4486-B737-52C60563C3D6}
 		{51E97864-DAD6-42F3-9FA5-996BE9D32083} = {8C9FB831-D251-4486-B737-52C60563C3D6}
+		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0} = {8C9FB831-D251-4486-B737-52C60563C3D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FCEFF59-6A16-4659-A3F5-35E3F02BF9AE}

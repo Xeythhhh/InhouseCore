@@ -1,7 +1,7 @@
 ﻿string currentDirectory = Directory.GetCurrentDirectory();
 string baseDirectory = Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..", "..", ".."));
 string assetsFolder = Path.Combine(baseDirectory, "Assets");
-string battleriteFolder = Path.Combine(assetsFolder, "Battlerite");
+string battleriteFolder = Path.Combine(assetsFolder, "Game-Battlerite");
 if (!Directory.Exists(battleriteFolder))
 {
     Console.WriteLine($"Battlerite folder not found at: {battleriteFolder}");
@@ -33,7 +33,7 @@ List<string> optionalFiles = new()
 int requiredExFilesCount = 2;
 
 Dictionary<string, List<string>> missingFilesReport = new();
-Dictionary<string, List<string>> existingOtionalFilesReport = new();
+Dictionary<string, List<string>> existingOptionalFilesReport = new();
 
 foreach (string championDir in Directory.GetDirectories(championsFolder))
 {
@@ -79,7 +79,7 @@ foreach (string championDir in Directory.GetDirectories(championsFolder))
 
     if (existingOptionalFiles.Count > 0)
     {
-        existingOtionalFilesReport[championName] = existingOptionalFiles;
+        existingOptionalFilesReport[championName] = existingOptionalFiles;
     }
 }
 
@@ -103,7 +103,7 @@ foreach (KeyValuePair<string, List<string>> entry in missingFilesReport)
 }
 
 Console.WriteLine("\nExisting Optional Files Report:\n");
-foreach (KeyValuePair<string, List<string>> entry in existingOtionalFilesReport)
+foreach (KeyValuePair<string, List<string>> entry in existingOptionalFilesReport)
 {
     Console.WriteLine($"Champion: {entry.Key}");
     foreach (string existingFile in entry.Value)
