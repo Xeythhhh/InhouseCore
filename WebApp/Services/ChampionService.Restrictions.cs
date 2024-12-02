@@ -34,7 +34,7 @@ public sealed partial class ChampionService
     /// <param name="restrictionId">The unique identifier of the restriction to be removed.</param>
     /// <param name="cancellationToken">An optional cancellation token to observe while waiting for the task to complete.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the remove operation.</returns>
-    public async Task<Result> RemoveRestrictionAsync(string championId, string restrictionId, CancellationToken cancellationToken = default) =>
+    public async Task<Result> RemoveRestrictionAsync(long championId, long restrictionId, CancellationToken cancellationToken = default) =>
         await ApiRequest(httpClient.PutAsJsonAsync(
             "champions/remove-restriction",
             new RemoveRestrictionRequest(championId, restrictionId),

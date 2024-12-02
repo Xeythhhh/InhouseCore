@@ -25,5 +25,5 @@ public sealed record class RemoveRestrictionCommand(
                 .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
     public static Result<RemoveRestrictionCommand> FromRequest(RemoveRestrictionRequest dto) =>
-        new RemoveRestrictionCommand(long.Parse(dto.ChampionId), long.Parse(dto.RestrictionId));
+        new RemoveRestrictionCommand(dto.ChampionId, dto.RestrictionId);
 }

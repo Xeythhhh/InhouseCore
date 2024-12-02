@@ -1,5 +1,3 @@
-using System.Configuration;
-
 using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
@@ -17,9 +15,7 @@ public abstract partial class AugmentDialogBase<TModel> : ComponentBase
     where TModel : AugmentModelBase
 {
     [Inject] protected ChampionService ChampionService { get; set; }
-    [Inject] protected IConfiguration Configuration { get; set; }
     [Inject] protected ISnackbar Snackbar { get; set; }
-    [Inject] protected HttpClient HttpClient { get; set; }
     [Inject] protected AugmentModelBase.Validator AugmentValidator { get; set; }
 
     [CascadingParameter] protected MudDialogInstance MudDialog { get; set; }
@@ -30,16 +26,23 @@ public abstract partial class AugmentDialogBase<TModel> : ComponentBase
     protected string SaveButtonLabel { get; set; }
     protected string IconUrl { get; set; } = "https://static.wikia.nocookie.net/battlerite_gamepedia_en/images/e/e2/Rain_Of_Arrows_icon_big.png";
     protected Func<Task<Result>> Request { get; set; }
-    protected IEnumerable<MudColor> AugmentColorPalette { get; set; }
+    protected IEnumerable<(string, string)> AugmentColorPalette { get; set; }
+    protected IEnumerable<string> AugmentTargetOptions { get; set; }
 
     protected MudForm Form;
 
-    protected override void OnInitialized()
-    {
-        string[] palette = Configuration.GetSection("ChampionAugments:ColorPalette").Get<string[]>()
-            ?? throw new ConfigurationErrorsException("ChampionAugments:ColorPalette not found in configuration.");
-        AugmentColorPalette = palette.Select(color => new MudColor(color)).ToArray();
-    }
+    protected override async void OnInitialized() =>
+        await ChampionService.GetAvailableAugmentTargetsAndColorsAsync(Model.ChampionId)
+            .Tap(response =>
+            {
+                AugmentColorPalette = response.AugmentColors.Select(descriptor =>
+                {
+                    string[] values = descriptor.Split("|");
+                    return (values[0], values[1]);
+                }).ToArray();
+                AugmentTargetOptions = response.AugmentTargets.ToList();
+                StateHasChanged();
+            });
 
     protected async Task Save() => await Request()
         .TapError(Snackbar.NotifyErrors)

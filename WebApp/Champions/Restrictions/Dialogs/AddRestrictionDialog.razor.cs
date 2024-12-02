@@ -19,7 +19,7 @@ public class AddRestrictionDialog : RestrictionDialogBase<AddRestrictionModel>
         base.OnInitialized();
     }
 
-    public static async Task<Result> Show(IDialogService dialogService, string championId, List<ChampionAugmentDto> augments) =>
+    public static async Task<Result> Show(IDialogService dialogService, long championId, List<ChampionAugmentDto> augments) =>
         await dialogService.Show<AddRestrictionDialog>("Add Restriction", new DialogParameters<AddRestrictionDialog>()
             {{ x => x.Model, new AddRestrictionModel(championId, augments)}})
             .DialogToResult();

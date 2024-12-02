@@ -23,6 +23,8 @@ public sealed partial class Champion
         /// <summary>Gets or sets the hex color code or known color name associated with this Augment.</summary>
         public AugmentColor ColorHex { get; set; }
 
+        public string Icon { get; set; }
+
         /// <summary>Private constructor for EF Core and internal initialization.</summary>
         private Augment() { }
 
@@ -31,11 +33,11 @@ public sealed partial class Champion
         /// <param name="target">The target that specifies the type of augment.</param>
         /// <param name="hexOrColorName">A valid hex color code or known color name representing the augment.</param>
         /// <returns> A <see cref="Result{T}"/> containing the created <see cref="Augment"/> instance if successful, or an error if the creation process fails.</returns>
-        public static Result<Augment> Create(string name, string target, string hexOrColorName)
+        public static Result<Augment> Create(string name, string target, string hexOrColorName, string icon)
         {
             try
             {
-                return CreateInternal(name, target, hexOrColorName);
+                return CreateInternal(name, target, hexOrColorName, icon);
             }
             catch (Exception exception)
             {
@@ -48,25 +50,35 @@ public sealed partial class Champion
         /// <param name="target">The target that specifies the type of augment.</param>
         /// <param name="color">A valid hex color code or known color name representing the augment.</param>
         /// <returns>A <see cref="Augment"/> instance.</returns>
-        private static Augment CreateInternal(string name, string target, string color)
+        private static Augment CreateInternal(string name, string target, string color, string icon)
             => new()
             {
                 Name = name,
                 Target = target,
-                ColorHex = color
+                ColorHex = color,
+                Icon = icon
             };
 
         /// <summary>Represents an error that occurs during the creation of a <see cref="Augment"/>.</summary>
         public class CreateChampionAugmentError() : Error("An error occurred creating a champion augment instance.");
     }
 
-    /// <summary> Adds a new augment to the champion.</summary>
-    /// <param name="name">TODO</param>
-    /// <param name="target">TODO</param>
-    /// <param name="color">TODO</param>
-    /// <returns> A <see cref="Result{Champion}"/> containing the updated <see cref="Champion"/> instance if the augment is successfully added, or an error result if the addition fails.</returns>
-    public Result<Champion> AddAugment(string name, string target, string color) =>
-        Augment.Create(name, target, color)
+    /// <summary> Adds a new <see cref="Augment"/> to the <see cref="Champion"/>.</summary>
+    /// <param name="name">The name of the <see cref="Augment"/> to add.</param>
+    /// <param name="target">The target for the <see cref="Augment"/> (e.g., the area or entity it applies to).</param>
+    /// <param name="color">The color representing the <see cref="Augment"/>, typically as a hex code.</param>
+    /// <param name="icon">The icon identifier or path for the <see cref="Augment"/>.</param>
+    /// <returns> A <see cref="Result{Champion}"/> containing the updated <see cref="Champion"/> instance if the <see cref="Augment"/> 
+    /// is successfully added, or an <see cref="Augment.CreateChampionAugmentError"/> result if the addition fails. </returns>
+    /// <remarks> This method creates an <see cref="Augment"/> using the provided parameters. If the <see cref="Augment"/> is successfully created, 
+    /// it is added to the <see cref="Champion"/>'s list of <see cref="Augment"/>s, and the updated <see cref="Champion"/> is returned. 
+    /// Otherwise, the result contains an <see cref="Augment.CreateChampionAugmentError"/>.</remarks>
+    public Result<Champion> AddAugment(
+        string name,
+        string target,
+        string color,
+        string icon) =>
+        Augment.Create(name, target, color, icon)
             .Tap(Augments.Add)
             .Map(_ => this);
 }

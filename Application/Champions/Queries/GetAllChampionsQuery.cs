@@ -11,7 +11,7 @@ using SharedKernel.Primitives.Result;
 
 namespace Application.Champions.Queries;
 
-public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
+public sealed record GetAllChampionsQuery(long GameId) : IQuery<GetAllChampionsResponse>
 {
     internal sealed class Handler(IReadConnectionString connectionString) :
     IQueryHandler<GetAllChampionsQuery, GetAllChampionsResponse>
@@ -20,9 +20,10 @@ public sealed record GetAllChampionsQuery : IQuery<GetAllChampionsResponse>
             await Result.Try(() => new SqlConnection(connectionString.Value))
                 .Bind(async connection => await connection.QueryAsync<ChampionDto>(
                     """
-                    SELECT Id, Name, Role, HasRestrictions 
+                    SELECT Id, Name, Role, HasRestrictions, Avatar 
                     FROM Champions 
-                    """))
+                    WHERE (@GameId = 0 OR GameId = @GameId)
+                    """, new { query.GameId }))
                 .Map(champions => new GetAllChampionsResponse(champions));
     }
 }

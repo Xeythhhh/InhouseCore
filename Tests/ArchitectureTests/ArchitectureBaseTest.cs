@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+
 using Api;
 using Api.UnitTests;
 
@@ -20,6 +21,9 @@ using Presentation.Discord.UnitTests;
 
 using SharedKernel;
 
+using WebApp;
+using WebApp.UnitTests;
+
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
@@ -30,11 +34,9 @@ public abstract class ArchitectureBaseTest
     protected static readonly Assembly Infrastructure = InfrastructureAssembly.Reference;
     protected static readonly Assembly PresentationDiscord = PresentationDiscordAssembly.Reference;
     protected static readonly Assembly Api = ApiAssembly.Reference;
-    protected static readonly Assembly BlazorClient = ApiAssembly.Reference;
+    protected static readonly Assembly BlazorClient = WebAppAssembly.Reference;
     protected static readonly Assembly Build = BuildAssembly.Reference;
     protected static readonly Assembly SharedKernel = SharedKernelAssembly.Reference;
-
-    protected static Assembly[] Presentation => [PresentationDiscord];
 
     protected static Assembly[] Core => [Application, Domain];
     protected static Assembly[] External => [Infrastructure, PresentationDiscord];
@@ -42,6 +44,7 @@ public abstract class ArchitectureBaseTest
     protected static Assembly[] Tests => [
         TestsAssembly.Reference,
         ApiUnitTestsAssembly.Reference,
+        WebAppUnitTestsAssembly.Reference,
         ApplicationUnitTestsAssembly.Reference,
         DomainUnitTestsAssembly.Reference,
         InfrastructureUnitTestsAssembly.Reference,

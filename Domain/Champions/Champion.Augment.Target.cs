@@ -17,7 +17,7 @@ public sealed partial class Champion
             /// <summary>Creates a <see cref="AugmentTarget"/> if the value is valid.</summary>
             /// <param name="value">The value of the Augment's Target.</param>
             /// <returns>A <see cref="Result{AugmentTarget}"/> indicating success or failure.</returns>
-            public static Result<AugmentTarget> Create(string? value) =>
+            public static Result<AugmentTarget> Create(string? value, string? gameName = null) =>
                 Result.Try(() =>
                 {
                     string? trimmed = value?.Trim();
@@ -26,11 +26,17 @@ public sealed partial class Champion
                         : trimmed;
 
                     ArgumentException.ThrowIfNullOrWhiteSpace(formatted);
+
+                    gameName ??= ValidValues.FirstOrDefault(h => h.Value.Contains(formatted)).Key;
+
+                    ArgumentException.ThrowIfNullOrWhiteSpace(gameName);
+
                     return formatted!;
-                })
-                .Ensure(target => ValidValues.Any(
-                        t => t.Equals(target, StringComparison.CurrentCultureIgnoreCase)),
-                    new ValueOutOfRangeError())
+                }, exception => new ValueOutOfRangeError().CausedBy(exception))
+            .Ensure(target =>
+                ValidValues.TryGetValue(gameName!, out var targets) &&
+                targets.Any(t => t.Equals(target, StringComparison.CurrentCultureIgnoreCase)),
+                new ValueOutOfRangeError())
                 .Map(Target => new AugmentTarget(Target));
 
             /// <summary>Gets the atomic values used for equality comparison.</summary>
@@ -40,12 +46,31 @@ public sealed partial class Champion
                 yield return Value;
             }
 
-            /// <summary>Gets the valid values for a Augment Target.</summary>
-            private static HashSet<string> ValidValues = ["q", "e", "r", "d", "f"];
-            internal static void ConfigureValidValues(string[]? values)
+            static AugmentTarget()
             {
+                AddValidValues("default", ["default-Q", "default-E", "default-R", "default-D", "default-F"]);
+            }
+
+            /// <summary>Gets the valid values for a Augment Target.</summary>
+            private static readonly Dictionary<string, HashSet<string>> ValidValues = new();
+            public static void AddValidValues(string? gameName, string[]? values)
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(gameName);
+
+                if (ValidValues.ContainsKey(gameName)) throw new InvalidOperationException("Game Augments are already registered");
+
                 if (values is not null)
-                    ValidValues = values.ToHashSet();
+                {
+                    List<string> formatted = values.Select(v =>
+                    {
+                        string[] strings = v.Split('-');
+                        return strings[0] != gameName
+                            ? throw new InvalidOperationException("Game Augments must have the gameName-* suffix")
+                            : strings[1];
+                    }).ToList();
+
+                    ValidValues.Add(gameName, formatted.ToHashSet());
+                }
             }
 
             /// <summary>Implicitly converts a <see cref="string"/> to a <see cref="AugmentTarget"/>.</summary>

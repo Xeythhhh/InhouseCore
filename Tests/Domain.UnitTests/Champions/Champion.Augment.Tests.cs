@@ -125,7 +125,7 @@ namespace Domain.UnitTests.Champions
         public void AddAugment_ValidInputs_ShouldReturnSuccessAndAddAugment()
         {
             // Arrange
-            Champion champion = Champion.Create("Ezreal", "dps").Value;
+            Champion champion = Champion.Create("Ezreal", "dps", "https://example.com/img.png", "https://example.com/img.png").Value;
             const string augmentName = "Mystic Shot";
             const string target = "Q";
             const string color = "#FF5733";
@@ -145,7 +145,7 @@ namespace Domain.UnitTests.Champions
         public void AddAugment_InvalidColor_ShouldReturnFailure()
         {
             // Arrange
-            Champion champion = Champion.Create("Ezreal", "dps").Value;
+            Champion champion = Champion.Create("Ezreal", "dps", "https://example.com/img.png", "https://example.com/img.png").Value;
             const string augmentName = "Mystic Shot";
             const string target = "Q";
             const string invalidColor = "invalidColor"; // Invalid color format
@@ -164,7 +164,7 @@ namespace Domain.UnitTests.Champions
         public void AddAugment_InvalidTarget_ShouldReturnFailure()
         {
             // Arrange
-            Champion champion = Champion.Create("Ezreal", "dps").Value;
+            Champion champion = Champion.Create("Ezreal", "dps", "https://example.com/img.png", "https://example.com/img.png").Value;
             const string augmentName = "Mystic Shot";
             const string invalidTarget = "invalid"; // Invalid target
             const string color = "#FF5733";

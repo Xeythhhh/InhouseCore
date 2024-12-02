@@ -14,9 +14,17 @@ public sealed partial class ChampionService
     /// <param name="championId">The unique identifier of the champion whose augment names are being retrieved.</param>
     /// <param name="cancellationToken">An optional cancellation token to observe while waiting for the task to complete.</param>
     /// <returns>A <see cref="Result{GetChampionAugmentNamesResponse}"/> containing the augment names if successful, or error information if failed.</returns>
-    public async Task<Result<GetChampionAugmentNamesResponse>> GetAugmentNamesAsync(string championId, CancellationToken cancellationToken = default) =>
+    public async Task<Result<GetChampionAugmentNamesResponse>> GetAugmentNamesAsync(long championId, CancellationToken cancellationToken = default) =>
         await ApiRequestNullable(httpClient.GetFromJsonAsync<GetChampionAugmentNamesResponse>(
             $"champions/augment-names/{championId}", cancellationToken: cancellationToken));
+
+    /// <summary> Retrieves the augment options for a specified champion asynchronously.</summary>
+    /// <param name="championId">The unique identifier of the champion whose augment options are being retrieved.</param>
+    /// <param name="cancellationToken">An optional cancellation token to observe while waiting for the task to complete.</param>
+    /// <returns>A <see cref="Result{GetAvailableChampionAugmentTargetsAndColorsResponse}"/> containing the available augment targets and colors if successful, or error information if failed.</returns>
+    public async Task<Result<GetAvailableChampionAugmentTargetsAndColorsResponse>> GetAvailableAugmentTargetsAndColorsAsync(long championId, CancellationToken cancellationToken = default) =>
+        await ApiRequestNullable(httpClient.GetFromJsonAsync<GetAvailableChampionAugmentTargetsAndColorsResponse>(
+            $"champions/available-augment-targets-and-colors/{championId}", cancellationToken: cancellationToken));
 
     /// <summary> Adds a new augment to a specified champion asynchronously.</summary>
     /// <param name="model">The <see cref="AddAugmentModel"/> containing details of the augment to add.</param>
@@ -43,7 +51,7 @@ public sealed partial class ChampionService
     /// <param name="augmentId">The unique identifier of the augment to remove.</param>
     /// <param name="cancellationToken">An optional cancellation token to observe while waiting for the task to complete.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the remove operation.</returns>
-    public async Task<Result> RemoveAugmentAsync(string championId, string augmentId, CancellationToken cancellationToken = default) =>
+    public async Task<Result> RemoveAugmentAsync(long championId, long augmentId, CancellationToken cancellationToken = default) =>
         await ApiRequest(httpClient.PutAsJsonAsync(
             "champions/remove-augment",
             new RemoveAugmentRequest(championId, augmentId),

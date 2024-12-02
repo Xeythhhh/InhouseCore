@@ -1,8 +1,8 @@
 @page "/champions"
+
 @using Microsoft.AspNetCore.Authorization
-@using SharedKernel.Contracts.v1
 @using SharedKernel.Contracts.v1.Champions.Dtos
-@using System.Text.Json
+@using SharedKernel.Contracts.v1.Games
 
 @attribute [AllowAnonymous]
 
@@ -13,11 +13,21 @@
     Champions
 </MudText>
 
-<MudButton Color="Color.Success" 
-           Variant="Variant.Outlined" 
-           OnClick="Create">
-    Create
-</MudButton>
+<MudSelect @bind-Value="selectedGame"
+           T="GameDto"
+           ToStringFunc="game => game.Name"
+           Variant="Variant.Text"
+           Label="Game">
+    @foreach (GameDto game in games)
+    {
+        <MudSelectItem T="GameDto"
+                       Value="game">
+            <MudText>
+                @game.Name
+            </MudText>
+        </MudSelectItem>
+    }
+</MudSelect>
 
 @if (champions == null)
 {
@@ -43,8 +53,11 @@ else
             </MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Name" 
-                   Style="@GetChampionStyle(context)">
+            <MudTd DataLabel="Name"
+                   Style="@($@"background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)), url('{context.Portrait}');
+                               background-size: cover;
+                               background-position: center;
+                               padding: 1rem;")">
                 @context.Name
             </MudTd>
             <MudTd DataLabel="Role">
@@ -54,15 +67,9 @@ else
                            OnClick="(e) => Edit(context.Id)">
                 Edit
             </MudIconButton>
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" 
-                           OnClick="(e) => Delete(context.Id)">
-                Delete
-            </MudIconButton>
         </RowTemplate>
         <PagerContent>
             <MudTablePager PageSizeOptions="new int[]{ 10, 25, 50, 100, 200 }" />
         </PagerContent>
     </MudTable>
 }
-
-

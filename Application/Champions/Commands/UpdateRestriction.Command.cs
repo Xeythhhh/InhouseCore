@@ -48,8 +48,8 @@ public sealed record class UpdateRestrictionCommand(
 
     public static Result<UpdateRestrictionCommand> FromRequest(UpdateRestrictionRequest dto) =>
         new UpdateRestrictionCommand(
-            long.Parse(dto.RestrictionId),
-            long.Parse(dto.AugmentId),
-            dto.AugmentId2 is null ? null : long.Parse(dto.AugmentId2),
+            dto.RestrictionId,
+            dto.AugmentId,
+            dto.AugmentId2,
             dto.Reason);
 }

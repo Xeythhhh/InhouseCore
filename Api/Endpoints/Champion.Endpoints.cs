@@ -18,29 +18,9 @@ public class ChampionEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/champions", async (CreateChampionRequest request, ISender sender) =>
+        app.MapGet("api/{gameId}/champions", async (long gameId, ISender sender) =>
         {
-            Result<Champion.ChampionId> result = await CreateChampionCommand.FromRequest(request)
-                .Bind(command => sender.Send(command));
-
-            return result.IsSuccess
-                ? Results.Ok(result.Value)
-                : Results.BadRequest(ErrorResponse.FromResult(result));
-        }).WithOpenApi();
-
-        app.MapDelete("api/champions/{id}", async (string id, ISender sender) =>
-        {
-            Result result = await Result.Ok(new DeleteChampionCommand(long.Parse(id)))
-                .Bind(command => sender.Send(command));
-
-            return result.IsSuccess
-                ? Results.Ok()
-                : Results.BadRequest(ErrorResponse.FromResult(result));
-        }).WithOpenApi();
-
-        app.MapGet("api/champions", async (ISender sender) =>
-        {
-            Result<GetAllChampionsResponse> result = await Result.Ok(new GetAllChampionsQuery())
+            Result<GetAllChampionsResponse> result = await Result.Ok(new GetAllChampionsQuery(gameId))
                 .Bind(query => sender.Send(query));
 
             //Todo extension method or implicit conversion or something to Http Result

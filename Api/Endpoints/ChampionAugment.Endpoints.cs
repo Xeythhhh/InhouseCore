@@ -56,5 +56,15 @@ public class ChampionAugmentEndpoints : ICarterModule
                 ? Results.Ok(result.Value)
                 : Results.BadRequest(ErrorResponse.FromResult(result));
         }).WithOpenApi();
+
+        app.MapGet("champions/available-augment-targets-and-colors/{id}", async (long id, ISender sender) =>
+        {
+            Result<GetAvailableChampionAugmentTargetsAndColorsResponse> result = await Result.Ok(new GetAvailableChampionAugmentTargetsAndColorsQuery(id))
+                .Bind(query => sender.Send(query));
+
+            return result.IsSuccess
+                ? Results.Ok(result.Value)
+                : Results.BadRequest(ErrorResponse.FromResult(result));
+        }).WithOpenApi();
     }
 }

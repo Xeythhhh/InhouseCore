@@ -12,9 +12,10 @@ namespace WebApp.Champions;
 
 public partial class EditChampion
 {
-    [Parameter] public string Id { get; set; }
+    [Parameter] public string ChampionId { get; set; }
+    public long Id => long.Parse(ChampionId);
     private const string Address = "edit-champion";
-    public static string Location(string id) => $"{Address}/{id}";
+    public static string Location(long id) => $"{Address}/{id}";
 
     public ChampionDto Model { get; set; }
 
@@ -34,7 +35,4 @@ public partial class EditChampion
             });
 
     private void NavigateToChampionList() => NavigationManager.NavigateTo(Champions.Location());
-
-    private void UpdateSplashArt() => Snackbar.Add("Not implemented", Severity.Error);
-    private static string ChampionImageUrl => "https://storge.pic2.me/c/1360x800/655/61d9f40521ab03.12776299.jpg";
 }

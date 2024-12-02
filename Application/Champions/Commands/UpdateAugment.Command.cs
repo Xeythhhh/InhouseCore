@@ -47,7 +47,7 @@ public sealed record class UpdateAugmentCommand(
 
     public static Result<UpdateAugmentCommand> FromRequest(UpdateAugmentRequest dto) =>
         new UpdateAugmentCommand(
-            long.Parse(dto.AugmentId),
+            dto.AugmentId,
             dto.AugmentName,
             dto.AugmentTarget,
             dto.AugmentColor);

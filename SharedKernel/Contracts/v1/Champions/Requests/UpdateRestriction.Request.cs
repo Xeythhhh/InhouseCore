@@ -1,7 +1,7 @@
 ﻿namespace SharedKernel.Contracts.v1.Champions;
 
 public sealed record UpdateRestrictionRequest(
-    string RestrictionId,
-    string AugmentId,
-    string? AugmentId2,
+    long RestrictionId,
+    long AugmentId,
+    long? AugmentId2,
     string Reason);

@@ -13,7 +13,7 @@ namespace WebApp.Champions.Augments.Abstract;
 
 public abstract partial record AugmentModelBase
 {
-    public string ChampionId { get; set; }
+    public long ChampionId { get; set; }
 
     [Label("Name")]
     public string AugmentName { get; set; }
@@ -24,8 +24,11 @@ public abstract partial record AugmentModelBase
     [Label(name: "Color")]
     public string AugmentColor { get; set; }
 
+    [Label(name: "HumanizedColor")]
+    public string? AugmentColorHumanized { get; set; }
+
     protected AugmentModelBase(
-        string championId,
+        long championId,
         string augmentName = "",
         string augmentTarget = "",
         string augmentColor = "#FFFFFF")
@@ -46,6 +49,8 @@ public abstract partial record AugmentModelBase
         public Validator(ChampionService championService, IConfiguration configuration)
         {
             _championService = championService;
+
+            // todo get augment targets from ChampionService and remove configuration
             _validTargets = configuration.GetSection("Domain:AugmentTargets").Get<string[]>()?.ToHashSet()
                 ?? new HashSet<string> { "q", "e", "r" };
 

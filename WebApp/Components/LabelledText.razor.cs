@@ -7,11 +7,11 @@ namespace WebApp.Components;
 public partial class LabelledText
 {
     /// <summary> Sets the typography style applied to both Label and Text if individual styles are not specified.</summary>
-    [Parameter] public Typo Typo { get; set; } = Typo.body1;
+    [Parameter] public Typo Typo { get; set; } = Typo.body2;
 
     /// <summary> Overrides the typography style specifically for the Label.</summary>
     /// <remarks> If set, this will override the value of <see cref="Typo"/> for the Label only.</remarks>
-    [Parameter] public Typo? TypoLabel { get; set; }
+    [Parameter] public Typo? TypoLabel { get; set; } = Typo.body1;
 
     /// <summary> Overrides the typography style specifically for the Text.</summary>
     /// <remarks> If set, this will override the value of <see cref="Typo"/> for the Text only.</remarks>

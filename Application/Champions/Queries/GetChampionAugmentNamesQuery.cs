@@ -18,11 +18,11 @@ public sealed record GetChampionAugmentNamesQuery(long ChampionId) : IQuery<GetC
         public async Task<Result<GetChampionAugmentNamesResponse>> Handle(GetChampionAugmentNamesQuery query, CancellationToken cancellationToken) =>
             await Result.Try(() => new SqlConnection(connectionString.Value))
                 .Bind(async connection => await connection.QueryAsync<string>(
-                $"""
+                """
                     SELECT Name 
                     FROM ChampionAugments 
-                    WHERE ChampionId = {query.ChampionId};
-                    """))
+                    WHERE ChampionId = @ChampionId;
+                    """, new { query.ChampionId }))
                 .Map(augmentNames => new GetChampionAugmentNamesResponse(augmentNames));
     }
 }

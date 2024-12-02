@@ -1,4 +1,4 @@
-﻿@page "/edit-champion/{id}"
+﻿@page "/edit-champion/{ChampionId}"
 @using SharedKernel.Contracts.v1.Champions.Dtos
 @using WebApp.Champions.Augments
 @using WebApp.Champions.Restrictions
@@ -13,15 +13,14 @@
 }
 else
 {
-@* TODO <MudImage Src="@ChampionImageUrl" 
-                  Alt="@($"An image of {Model.Name}")"
-                  ObjectFit="ObjectFit.Cover"
-                  Style="position:absolute"/> *@
+    <MudStack Row="true">
+        <MudImage Src="@Model.Portrait"
+                  Alt="@($"An image of {Model.Name}")"/>
 
-
-    <LabelledText Label="Editing" 
-                  Text="@Model.Name"
-                  Typo="Typo.h3" />
+        <LabelledText Label="Editing"
+                      Text="@Model.Name"
+                      Typo="Typo.h3" />
+    </MudStack>
 
     <MudButtonGroup Color="Color.Primary"
                     Variant="Variant.Filled"
@@ -31,9 +30,6 @@ else
         </MudButton>
         <MudButton OnClick="AddRestriction">
             Add restriction
-        </MudButton>
-        <MudButton OnClick="UpdateSplashArt">
-            Upload splash art
         </MudButton>
         <MudButton OnClick="() => NavigateToChampionList()">
             Return to champion list

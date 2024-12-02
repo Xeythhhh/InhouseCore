@@ -5,7 +5,7 @@ using WebApp.Champions.Restrictions.Abstract;
 
 namespace WebApp.Champions.Restrictions.Models;
 
-public record AddRestrictionModel(string ChampionId, List<ChampionAugmentDto> Augments)
+public record AddRestrictionModel(long ChampionId, List<ChampionAugmentDto> Augments)
     : RestrictionModelBase(Augments)
 {
     public override AddRestrictionRequest ToRequest() => new(

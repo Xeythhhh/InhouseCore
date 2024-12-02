@@ -44,6 +44,7 @@ builder.Services.AddScoped(sp =>
     sp.GetRequiredService<IHttpClientFactory>().CreateClient(AppConstants.HttpClients.Api));
 
 builder.Services.AddScoped<ChampionService>();
+builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<AugmentModelBase.Validator>();
 builder.Services.AddScoped<RestrictionModelBase.Validator>();
 

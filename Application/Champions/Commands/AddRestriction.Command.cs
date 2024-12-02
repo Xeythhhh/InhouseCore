@@ -2,6 +2,7 @@
 
 using Domain.Abstractions;
 using Domain.Champions;
+
 using SharedKernel.Contracts.v1.Champions.Requests;
 using SharedKernel.Extensions.ResultExtensions;
 using SharedKernel.Primitives.Result;
@@ -32,8 +33,8 @@ public sealed record class AddRestrictionCommand(
 
     public static Result<AddRestrictionCommand> FromRequest(AddRestrictionRequest dto) =>
         new AddRestrictionCommand(
-            long.Parse(dto.ChampionId),
-            long.Parse(dto.AugmentId),
-            dto.AugmentId2 is null ? null : long.Parse(dto.AugmentId2),
+            dto.ChampionId,
+            dto.AugmentId,
+            dto.AugmentId2,
             dto.Reason);
 }

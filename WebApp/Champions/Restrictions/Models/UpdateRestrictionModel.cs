@@ -6,7 +6,7 @@ using WebApp.Champions.Restrictions.Abstract;
 namespace WebApp.Champions.Restrictions.Models;
 
 public record UpdateRestrictionModel(
-    string RestrictionId,
+    long RestrictionId,
     List<ChampionAugmentDto> Augments,
     ChampionAugmentDto? Augment,
     ChampionAugmentDto? Combo,

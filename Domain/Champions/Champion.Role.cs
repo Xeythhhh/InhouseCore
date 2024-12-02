@@ -15,7 +15,7 @@ public sealed partial class Champion
         /// <summary>Creates a <see cref="ChampionRole"/> if the value is valid.</summary>
         /// <param name="value">The value of the champion role.</param>
         /// <returns>A <see cref="Result{ChampionRole}"/> containing the created role if successful, otherwise an error result.</returns>
-        public static Result<ChampionRole> Create(string? value) =>
+        public static Result<ChampionRole> Create(string? value, string? game = null) =>
             Result.Try(() =>
             {
                 string? trimmed = value?.Trim();
@@ -24,10 +24,16 @@ public sealed partial class Champion
                     : trimmed;
 
                 ArgumentException.ThrowIfNullOrWhiteSpace(formatted);
+
+                game ??= ValidValues.FirstOrDefault(h => h.Value.Contains(formatted)).Key;
+
+                ArgumentException.ThrowIfNullOrWhiteSpace(game);
+
                 return formatted!;
-            })
-            .Ensure(role => ValidValues.Any(
-                    r => r.Equals(role, StringComparison.CurrentCultureIgnoreCase)),
+            }, exception => new ValueOutOfRangeError().CausedBy(exception))
+            .Ensure(role =>
+                ValidValues.TryGetValue(game!, out var roles) &&
+                roles.Any(r => r.Equals(role, StringComparison.CurrentCultureIgnoreCase)),
                 new ValueOutOfRangeError())
             .Map(role => new ChampionRole(role));
 
@@ -38,12 +44,32 @@ public sealed partial class Champion
             yield return Value;
         }
 
-        /// <summary>Gets the valid values for a champion role.</summary>
-        private static HashSet<string> ValidValues = ["tank", "dps", "healer"];
-        internal static void ConfigureValidValues(string[]? values)
+        static ChampionRole()
         {
+            AddValidValues("default", ["default-Tank", "default-Dps", "default-Healer"]);
+        }
+
+        /// <summary>Gets the valid values for a champion role.</summary>
+        private static readonly Dictionary<string, HashSet<string>> ValidValues = new();
+
+        public static void AddValidValues(string? game, string[]? values)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(game);
+
+            if (ValidValues.ContainsKey(game)) throw new InvalidOperationException("Game Roles are already registered");
+
             if (values is not null)
-                ValidValues = values.ToHashSet();
+            {
+                List<string> formatted = values.Select(v =>
+                {
+                    string[] strings = v.Split('-');
+                    return strings[0] != game
+                        ? throw new InvalidOperationException("Game Roles must have the gameName-* suffix")
+                        : strings[1];
+                }).ToList();
+
+                ValidValues.Add(game, formatted.ToHashSet());
+            }
         }
 
         /// <summary>Implicitly converts a <see cref="string"/> to a <see cref="ChampionRole"/>.</summary>

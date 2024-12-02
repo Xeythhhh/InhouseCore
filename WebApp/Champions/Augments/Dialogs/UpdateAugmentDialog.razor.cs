@@ -19,7 +19,7 @@ public class UpdateAugmentDialog : AugmentDialogBase<UpdateAugmentModel>
         base.OnInitialized();
     }
 
-    public static async Task<Result> Show(IDialogService dialogService, string championId, ChampionAugmentDto augment) =>
+    public static async Task<Result> Show(IDialogService dialogService, long championId, ChampionAugmentDto augment) =>
         await dialogService.Show<UpdateAugmentDialog>("Update Augment", new DialogParameters<UpdateAugmentDialog>()
             {{ x => x.Model, new UpdateAugmentModel(
                 championId,

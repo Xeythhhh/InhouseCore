@@ -1,4 +1,5 @@
-﻿@typeparam TModel where TModel : AugmentModelBase
+﻿@using MudBlazor.Utilities
+@typeparam TModel where TModel : AugmentModelBase
 
 <MudDialog>
     <TitleContent>
@@ -18,24 +19,56 @@
             <MudCardContent>
                 <MudPaper Class="border-dashed border-4 mud-border-primary pa-2"
                           Style="@AugmentBorderStyle">
+
                     <MudTextField @bind-Value="Model.AugmentName"
                                   Label="Augment Name"
                                   Variant="Variant.Text"
                                   Margin="Margin.Dense"
                                   FullWidth="true" />
-                    <MudTextField @bind-Value="Model.AugmentTarget"
-                                  Label="Augment Target"
-                                  Variant="Variant.Text"
-                                  Margin="Margin.Dense"
-                                  FullWidth="true" />
 
-                    <MudColorPicker @bind-Text="Model.AugmentColor"
-                                    Label="Augment Color"
-                                    ShowToolbar="true"
-                                    Variant="Variant.Text"
-                                    ColorPickerView="ColorPickerView.Palette"
-                                    Palette="AugmentColorPalette"
-                                    ShowAlpha="false" />
+                    <MudSelect @bind-Value="@Model.AugmentTarget"
+                               T="string"
+                               Label="Augment Target"
+                               Variant="Variant.Text"
+                               Margin="Margin.Dense"
+                               FullWidth="true">
+
+                        @foreach (string augmentOption in AugmentTargetOptions)
+                        {
+                            <MudSelectItem T="string"
+                                           Value="@augmentOption">
+                                <MudText>
+                                    @augmentOption
+                                </MudText>
+                            </MudSelectItem>
+                        }
+
+                    </MudSelect>
+
+                    <MudSelect @bind-Value="@((Model.AugmentColorHumanized, Model.AugmentColor))"
+                               T="(string, string)"
+                               ToStringFunc="colorOption => colorOption.Item1"
+                               Label="Augment Color"
+                               Variant="Variant.Text"
+                               Margin="Margin.Dense"
+                               FullWidth="true">
+
+                        @foreach ((string, string) colorOption in AugmentColorPalette)
+                        {
+                            <MudSelectItem T="(string, string)"
+                                           Value="@colorOption">
+
+                                <MudStack Row="true">
+                                    <MudText>
+                                        @colorOption.Item1
+                                    </MudText>
+                                    <MudIcon Icon="@Icons.Material.Filled.Square" 
+                                             Class="@($"color: {colorOption.Item2}")"/>
+                                </MudStack>
+                            </MudSelectItem>
+                        }
+
+                    </MudSelect>
                 </MudPaper>
             </MudCardContent>
         </MudCard>
@@ -43,20 +76,18 @@
     <DialogActions>
         <MudButtonGroup Color="Color.Primary" 
                         Variant="Variant.Text">
-            <MudButton OnClick="() => UploadIcon()"
-                       Color="Color.Primary"
-                       Variant="Variant.Filled">
-                Upload Icon
-            </MudButton>
+
             <MudButton OnClick="() => Save()"
                        Color="Color.Secondary"
                        Variant="Variant.Filled">
                 @SaveButtonLabel
             </MudButton>
+
             <MudButton OnClick="() => MudDialog.Cancel()"
                        Color="Color.Default">
                 Cancel
             </MudButton>
+
         </MudButtonGroup>
     </DialogActions>
 </MudDialog>

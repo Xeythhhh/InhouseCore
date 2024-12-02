@@ -21,6 +21,6 @@ public sealed class ChampionAugmentEntityConfiguration :
         builder.Property(restriction => restriction.Target)
             .HasConversion(
                 target => target.Value,
-                target => Champion.Augment.AugmentTarget.Create(target).Value);
+                target => Champion.Augment.AugmentTarget.Create(target, null).Value);
     }
 }

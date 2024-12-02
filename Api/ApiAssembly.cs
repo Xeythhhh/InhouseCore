@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Api.Components;
 using Api.Components.Account;
 using Api.Extensions;
+using Api.Services;
 
 using Application;
 using Application.Abstractions;
@@ -48,7 +49,8 @@ public static class ApiAssembly
     /// <returns>The configured <see cref="WebApplication"/> instance.</returns>
     internal static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        app.UseDatabase();
+        app.EnsureDatabaseMigrated();
+        app.EnsureGameFoldersParsed();
 
         if (app.Environment.IsDevelopment())
         {
@@ -89,9 +91,9 @@ public static class ApiAssembly
     }
 
     /// <summary>Configures services for the application</summary>
-    /// <param name="builder">The <see cref="IHostApplicationBuilder"/> instance used to configure services.</param>
+    /// <param name="builder">The <see cref="WebApplicationBuilder"/> instance used to configure services.</param>
     /// <returns>The configured <see cref="WebApplication"/> instance.</returns>
-    internal static WebApplication ConfigureServices(this IHostApplicationBuilder builder)
+    internal static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddMemoryCache(options =>
         {
@@ -99,24 +101,13 @@ public static class ApiAssembly
             options.CompactionPercentage = 0.2;  // Compact 20% of items when memory pressure is high
         });
 
-        // TODO
-        builder.Services.AddHttpClient(AppConstants.HttpClients.Content);
-        builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
-            client.BaseAddress = new Uri(builder.Configuration[AppConstants.HttpClients.ApiAddress]!));
-
-        builder.Services.AddScoped(sp =>
-            sp.GetRequiredService<IHttpClientFactory>().CreateClient(AppConstants.HttpClients.Api));
-
-        // Add MudBlazor services
-        builder.Services.AddMudServices();
-
-        // Add services to the container.
-        builder.Services.AddRazorComponents()
+        builder.AddHttpClients()
+            .Services.AddMudServices()
+            .AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
 
         builder
             .AddIdentityServices()
-            .AddDomainServices()
             .AddDatabaseServices()
             .AddApplicationServices()
             //.AddDiscordApplication()
@@ -126,10 +117,35 @@ public static class ApiAssembly
                 .AddCarter()
                 .AddSwaggerGen()
                 .AddEndpointsApiExplorer()
+                .AddHostedService<FolderWatcherService>()
                 .AddHostedService<DemoBackgroundService>()
                 .AddSignalR();
 
-        return ((WebApplicationBuilder)builder).Build();
+        return builder.Build();
+    }
+
+    /// <summary> Configures HTTP clients for the application, registering named clients for both content and API requests.</summary>
+    /// <param name="builder">The <see cref="WebApplicationBuilder"/> to configure.</param>
+    /// <returns>The updated <see cref="WebApplicationBuilder"/>.</returns>
+    /// <remarks>
+    /// <para /> Registers an unnamed HTTP client for generic content retrieval.
+    /// <para /> Registers a named HTTP client for API interactions, setting the <c>BaseAddress</c> from configuration.
+    /// <para /> Adds a scoped service for accessing the API client directly using DI.
+    /// </remarks>
+    private static WebApplicationBuilder AddHttpClients(this WebApplicationBuilder builder)
+    {
+        // Register a generic content HTTP client
+        builder.Services.AddHttpClient(AppConstants.HttpClients.Content);
+
+        // Register a named API HTTP client with a BaseAddress configured from app settings
+        builder.Services.AddHttpClient(AppConstants.HttpClients.Api, client =>
+            client.BaseAddress = new Uri(builder.Configuration[AppConstants.HttpClients.ApiAddress]!));
+
+        // Provide a scoped service for the named API client
+        builder.Services.AddScoped(sp =>
+            sp.GetRequiredService<IHttpClientFactory>().CreateClient(AppConstants.HttpClients.Api));
+
+        return builder;
     }
 
     // TODO
@@ -154,6 +170,26 @@ public static class ApiAssembly
         [ConsoleThemeStyle.LevelError] = "\x1b[31m",
         [ConsoleThemeStyle.LevelFatal] = "\x1b[37;41m"
     });
+
+    /// <summary> Ensures that the game assets are parsed and added to the database.</summary>
+    /// <remarks> Call this after database initialization. <seealso cref="InfrastructureAssembly.EnsureDatabaseMigrated(IHost)"/></remarks>
+    /// <param name="app"> The <see cref="WebApplication"/>.</param>
+    /// <returns> The <see cref="WebApplication"/> for chained invocation.</returns>
+    internal static WebApplication EnsureGameFoldersParsed(this WebApplication app)
+    {
+        using IServiceScope scope = app.Services.CreateScope();
+        ILogger<FolderWatcherService> logger = scope.ServiceProvider.GetRequiredService<ILogger<FolderWatcherService>>();
+
+        string baseFolder = AppContext.BaseDirectory;
+
+        foreach (string gameFolder in Directory.GetDirectories(baseFolder, "Game-*", SearchOption.TopDirectoryOnly))
+        {
+            FolderWatcherService watcherService = new(logger, scope.ServiceProvider);
+            watcherService.ParseGameDataAsync(gameFolder, CancellationToken.None).GetAwaiter().GetResult();
+        }
+
+        return app;
+    }
 
     private static IHostApplicationBuilder AddDatabaseServices(this IHostApplicationBuilder builder)
     {

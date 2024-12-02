@@ -25,5 +25,5 @@ public sealed record class RemoveAugmentCommand(
                 .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
     public static Result<RemoveAugmentCommand> FromRequest(RemoveAugmentRequest dto) =>
-        new RemoveAugmentCommand(long.Parse(dto.ChampionId), long.Parse(dto.AugmentId));
+        new RemoveAugmentCommand(dto.ChampionId, dto.AugmentId);
 }

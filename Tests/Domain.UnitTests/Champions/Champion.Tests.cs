@@ -16,14 +16,18 @@ public class ChampionTests
         // Arrange
         const string name = "ChampionName";
         const string role = "tank";
+        const string portraitUri = "https://example.com/portrait.png";
+        const string wideUri = "https://example.com/wide.png";
 
         // Act
-        Result<Champion> result = Champion.Create(name, role);
+        Result<Champion> result = Champion.Create(name, role, portraitUri, wideUri);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Name.Value.Should().Be(name);
         result.Value.Role.Value.Should().Be("Tank"); // the domain logic capitalizes role name
+        result.Value.Avatar.Portrait.Should().Be(portraitUri);
+        result.Value.Avatar.PortraitWide.Should().Be(wideUri);
     }
 
     [Fact]
@@ -31,9 +35,11 @@ public class ChampionTests
     {
         // Arrange
         const string role = "InvalidRole";
+        const string portraitUri = "";
+        const string wideUri = "";
 
         // Act
-        Result<Champion> result = Champion.Create(string.Empty, role);
+        Result<Champion> result = Champion.Create(string.Empty, role, portraitUri, wideUri);
 
         // Assert
         result.IsFailed.Should().BeTrue();
@@ -175,6 +181,37 @@ public class ChampionTests
 
         // Assert
         result.Should().Be(role.Value);
+    }
+
+    [Fact]
+    public void CreateChampionAvatar_ShouldReturnSuccess_WhenUrisAreValid()
+    {
+        // Arrange
+        const string portraitUri = "https://example.com/portrait.png";
+        const string wideUri = "https://example.com/wide.png";
+
+        // Act
+        Result<Champion.ChampionAvatar> result = Champion.ChampionAvatar.Create(portraitUri, wideUri);
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Portrait.Should().Be(portraitUri);
+        result.Value.PortraitWide.Should().Be(wideUri);
+    }
+
+    [Theory]
+    [InlineData("", "https://example.com/wide.png")]
+    [InlineData("https://example.com/portrait.png", "")]
+    [InlineData("invalid_uri", "https://example.com/wide.png")]
+    [InlineData("https://example.com/portrait.png", "invalid_uri")]
+    public void CreateChampionAvatar_ShouldReturnFailure_WhenUrisAreInvalid(string portraitUri, string wideUri)
+    {
+        // Act
+        Result<Champion.ChampionAvatar> result = Champion.ChampionAvatar.Create(portraitUri, wideUri);
+
+        // Assert
+        result.IsFailed.Should().BeTrue();
+        result.HasError<Champion.ChampionAvatar.InvalidUriError>().Should().BeTrue();
     }
 }
 

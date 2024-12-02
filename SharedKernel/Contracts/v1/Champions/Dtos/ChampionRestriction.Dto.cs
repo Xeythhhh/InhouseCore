@@ -2,9 +2,9 @@
 {
     public sealed class ChampionRestrictionDto
     {
-        public string RestrictionId { get; set; }
-        public string RestrictedAugmentId { get; set; }
-        public string? RestrictedComboAugmentId { get; set; }
+        public long RestrictionId { get; set; }
+        public long RestrictedAugmentId { get; set; }
+        public long? RestrictedComboAugmentId { get; set; }
         public string Reason { get; set; }
         public string? AugmentName { get; set; }
         public string? ComboName { get; set; }
@@ -12,9 +12,9 @@
         public ChampionRestrictionDto() { }
 
         public ChampionRestrictionDto(
-            string restrictionId,
-            string restrictedAugmentId,
-            string? restrictedComboAugmentId,
+            long restrictionId,
+            long restrictedAugmentId,
+            long? restrictedComboAugmentId,
             string reason)
         {
             RestrictionId = restrictionId;

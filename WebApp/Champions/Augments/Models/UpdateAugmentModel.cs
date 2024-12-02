@@ -5,8 +5,8 @@ using WebApp.Champions.Augments.Abstract;
 namespace WebApp.Champions.Augments.Models;
 
 public record UpdateAugmentModel(
-    string ChampionId,
-    string AugmentId,
+    long ChampionId,
+    long AugmentId,
     string AugmentName,
     string AugmentTarget,
     string AugmentColor)
