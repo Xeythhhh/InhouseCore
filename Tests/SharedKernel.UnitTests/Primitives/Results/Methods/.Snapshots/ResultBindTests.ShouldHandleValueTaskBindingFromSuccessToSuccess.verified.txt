@@ -1,0 +1,6 @@
+﻿{
+  Value: ValueTask Ok Result,
+  ValueOrDefault: ValueTask Ok Result,
+  IsFailed: false,
+  IsSuccess: true
+}

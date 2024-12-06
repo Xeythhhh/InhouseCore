@@ -10,5 +10,6 @@ public record AddAugmentModel(long ChampionId) : AugmentModelBase(ChampionId)
         ChampionId,
         AugmentName,
         AugmentTarget,
-        AugmentColor);
+        AugmentColor,
+        AugmentIcon);
 }

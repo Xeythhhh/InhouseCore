@@ -13,7 +13,8 @@ public sealed record class AddAugmentCommand(
     long ChampionId,
     string AugmentName,
     string AugmentTarget,
-    string AugmentColor) :
+    string AugmentColor,
+    string AugmentIcon) :
     ICommand
 {
     internal sealed class Handler(
@@ -27,7 +28,7 @@ public sealed record class AddAugmentCommand(
                     command.AugmentName,
                     command.AugmentTarget,
                     command.AugmentColor,
-                    command AugmentIcon))
+                    command.AugmentIcon))
                 .Bind(repository.Update)
                 .Tap(() => unitOfWork.SaveChangesAsync(cancellationToken));
     }
@@ -37,5 +38,6 @@ public sealed record class AddAugmentCommand(
             dto.ChampionId,
             dto.AugmentName,
             dto.AugmentTarget,
-            dto.AugmentColor);
+            dto.AugmentColor,
+            dto.AugmentIcon);
 }

@@ -1,0 +1,14 @@
+﻿{
+  IsFailed: true,
+  IsSuccess: false,
+  Reasons: [
+    {
+      Message: Test error message
+    }
+  ],
+  Errors: [
+    {
+      Message: Test error message
+    }
+  ]
+}

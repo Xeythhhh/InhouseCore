@@ -1,0 +1,8 @@
+﻿{
+  Message: Test error,
+  Reasons: [
+    {
+      Message: Cause 1
+    }
+  ]
+}

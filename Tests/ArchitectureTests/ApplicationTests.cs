@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-
-using MediatR;
+﻿using MediatR;
 
 using NetArchTest.Rules;
 
@@ -11,7 +9,7 @@ public class ApplicationTests(ITestOutputHelper output) :
     ArchitectureBaseTest
 {
     [Fact]
-    public void Application_ShouldOnlyDefine_CommandsQueriesAndHandlers()
+    public async Task Application_ShouldOnlyDefine_CommandsQueriesAndHandlers()
     {
         // Arrange
         PredicateList types = Types.InAssembly(Application)
@@ -31,11 +29,11 @@ public class ApplicationTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 
     [Fact]
-    public void Handlers_Should_BeSealed()
+    public async Task Handlers_Should_BeSealed()
     {
         // Arrange
         PredicateList types = Types.InAssembly(Application)
@@ -50,6 +48,6 @@ public class ApplicationTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 }

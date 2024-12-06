@@ -20,6 +20,7 @@ using Presentation.Discord;
 using Presentation.Discord.UnitTests;
 
 using SharedKernel;
+using SharedKernel.UnitTests;
 
 using WebApp;
 using WebApp.UnitTests;
@@ -27,7 +28,7 @@ using WebApp.UnitTests;
 using Xunit.Abstractions;
 
 namespace Tests.ArchitectureTests;
-public abstract class ArchitectureBaseTest
+public abstract class ArchitectureBaseTest : VerifyBaseTest
 {
     protected static readonly Assembly Application = ApplicationAssembly.Reference;
     protected static readonly Assembly Domain = DomainAssembly.Reference;
@@ -48,7 +49,8 @@ public abstract class ArchitectureBaseTest
         ApplicationUnitTestsAssembly.Reference,
         DomainUnitTestsAssembly.Reference,
         InfrastructureUnitTestsAssembly.Reference,
-        PresentationDiscordUnitTestsAssembly.Reference];
+        PresentationDiscordUnitTestsAssembly.Reference,
+        SharedKernelUnitTestsAssembly.Reference];
 
     /// <summary>Helper output method to extract information about the <see cref="TestResult"/></summary>
     protected static void OutputTestResults(ITestOutputHelper output, TestResult testResult)

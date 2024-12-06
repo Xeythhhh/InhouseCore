@@ -1,8 +1,8 @@
-﻿using System.Data.SqlClient;
-
-using Application.Abstractions;
+﻿using Application.Abstractions;
 
 using Dapper;
+
+using Microsoft.Data.SqlClient;
 
 using SharedKernel.Contracts.v1.Champions.Responses;
 using SharedKernel.Extensions.ResultExtensions;
@@ -23,6 +23,6 @@ public sealed record GetChampionAugmentNamesQuery(long ChampionId) : IQuery<GetC
                     FROM ChampionAugments 
                     WHERE ChampionId = @ChampionId;
                     """, new { query.ChampionId }))
-                .Map(augmentNames => new GetChampionAugmentNamesResponse(augmentNames));
+                .Map(augmentNames => new GetChampionAugmentNamesResponse(augmentNames.ToList().AsReadOnly()));
     }
 }

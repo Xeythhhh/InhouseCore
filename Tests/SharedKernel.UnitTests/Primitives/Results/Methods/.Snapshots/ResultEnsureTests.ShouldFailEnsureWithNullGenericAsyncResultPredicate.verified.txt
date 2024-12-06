@@ -1,0 +1,7 @@
+﻿{
+  Type: NullReferenceException,
+  Message: Object reference not set to an instance of an object.,
+  StackTrace:
+at SharedKernel.Primitives.Result.Result.Ensure[TValue](Func`1 predicate)
+at Xunit.Assert.RecordExceptionAsync(Func`1 testCode)
+}

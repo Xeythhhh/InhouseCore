@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
-
-using SharedKernel;
+﻿using System.Security.Claims;
 
 namespace WebApp.Extensions;
 

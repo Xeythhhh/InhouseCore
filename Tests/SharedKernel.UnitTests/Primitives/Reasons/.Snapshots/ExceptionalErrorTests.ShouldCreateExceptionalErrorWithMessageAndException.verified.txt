@@ -1,0 +1,8 @@
+﻿{
+  Exception: {
+    $type: Exception,
+    Type: Exception,
+    Message: Test exception
+  },
+  Message: Custom error message
+}

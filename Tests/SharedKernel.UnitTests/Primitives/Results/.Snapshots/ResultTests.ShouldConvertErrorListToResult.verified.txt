@@ -1,0 +1,20 @@
+﻿{
+  IsFailed: true,
+  IsSuccess: false,
+  Reasons: [
+    {
+      Message: Error 1
+    },
+    {
+      Message: Error 2
+    }
+  ],
+  Errors: [
+    {
+      Message: Error 1
+    },
+    {
+      Message: Error 2
+    }
+  ]
+}

@@ -1,7 +1,5 @@
 ﻿using Domain.Abstractions;
 
-using FluentAssertions;
-
 using NetArchTest.Rules;
 
 using Xunit.Abstractions;
@@ -12,7 +10,7 @@ public class RepositoryTests(ITestOutputHelper output) :
     ArchitectureBaseTest
 {
     [Fact]
-    public void RepositoryInterfaces_ShouldImplement_IRepository()
+    public async Task RepositoryInterfaces_ShouldImplement_IRepository()
     {
         // Arrange
         PredicateList types = Types.InAssembly(Domain)
@@ -24,11 +22,11 @@ public class RepositoryTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 
     [Fact]
-    public void RepositoryImplementations_ShouldImplement_IRepository()
+    public async Task RepositoryImplementations_ShouldImplement_IRepository()
     {
         // Arrange
 
@@ -40,6 +38,6 @@ public class RepositoryTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 }

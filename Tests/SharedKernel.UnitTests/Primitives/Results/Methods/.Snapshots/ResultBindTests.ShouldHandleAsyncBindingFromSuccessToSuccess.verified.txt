@@ -1,0 +1,6 @@
+﻿{
+  Value: Async Ok Result,
+  ValueOrDefault: Async Ok Result,
+  IsFailed: false,
+  IsSuccess: true
+}

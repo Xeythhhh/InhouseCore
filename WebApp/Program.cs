@@ -1,7 +1,4 @@
-using System.Configuration;
-
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 using MudBlazor.Services;
@@ -11,7 +8,6 @@ using SharedKernel;
 using WebApp.Champions.Augments.Abstract;
 using WebApp.Champions.Restrictions.Abstract;
 using WebApp.Infrastructure;
-using WebApp.Layout;
 using WebApp.Services;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);

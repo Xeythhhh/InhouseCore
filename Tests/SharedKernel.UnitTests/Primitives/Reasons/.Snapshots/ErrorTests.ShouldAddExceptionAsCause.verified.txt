@@ -1,0 +1,13 @@
+﻿{
+  Message: Test error,
+  Reasons: [
+    {
+      Exception: {
+        $type: Exception,
+        Type: Exception,
+        Message: Test exception
+      },
+      Message: Test exception
+    }
+  ]
+}

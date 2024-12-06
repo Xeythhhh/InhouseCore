@@ -1,7 +1,5 @@
 ﻿using Domain.Primitives;
 
-using FluentAssertions;
-
 using NetArchTest.Rules;
 
 using Xunit.Abstractions;
@@ -11,7 +9,7 @@ public class DomainTests(ITestOutputHelper output) :
     ArchitectureBaseTest
 {
     [Fact]
-    public void Entities_ShouldBe_Public()
+    public async Task Entities_ShouldBe_Public()
     {
         // Arrange
         PredicateList types = GetEntityTypes();
@@ -23,11 +21,11 @@ public class DomainTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 
     [Fact]
-    public void EntityIds_ShouldBe_PublicAndSealed()
+    public async Task EntityIds_ShouldBe_PublicAndSealed()
     {
         // Arrange
         PredicateList types = GetEntityIdTypes();
@@ -40,7 +38,7 @@ public class DomainTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings);
     }
 
     private static PredicateList GetEntityTypes() => Types.InAssembly(Domain)

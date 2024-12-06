@@ -31,6 +31,4 @@ public abstract partial class RestrictionDialogBase<TModel> : ComponentBase
     protected async Task Save() => await Request()
         .TapError(Snackbar.NotifyErrors)
         .Tap(MudDialog.Close);
-
-    protected void UploadIcon() => Snackbar.Add("Not implemented", Severity.Warning);
 }

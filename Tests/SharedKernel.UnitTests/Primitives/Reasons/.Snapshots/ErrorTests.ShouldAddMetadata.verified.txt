@@ -1,0 +1,6 @@
+﻿{
+  Message: Test error,
+  Metadata: {
+    Key: Value
+  }
+}

@@ -4,4 +4,5 @@ public sealed record AddAugmentRequest(
     long ChampionId,
     string AugmentName,
     string AugmentTarget,
-    string AugmentColor);
+    string AugmentColor,
+    string AugmentIcon);

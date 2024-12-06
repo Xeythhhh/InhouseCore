@@ -1,0 +1,21 @@
+﻿{
+  Message: Outer error,
+  Reasons: [
+    {
+      Message: Inner error,
+      Reasons: [
+        {
+          Message: Deeper cause
+        }
+      ]
+    },
+    {
+      Exception: {
+        $type: Exception,
+        Type: Exception,
+        Message: Another exception
+      },
+      Message: Another exception
+    }
+  ]
+}

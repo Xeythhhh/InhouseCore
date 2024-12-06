@@ -1,0 +1,28 @@
+﻿{
+  Exception: {
+    $type: Exception,
+    Type: Exception,
+    Message: Outer exception
+  },
+  Message: Outer error,
+  Reasons: [
+    {
+      Exception: {
+        $type: Exception,
+        Type: Exception,
+        Message: Inner exception
+      },
+      Message: Inner error,
+      Reasons: [
+        {
+          Exception: {
+            $type: Exception,
+            Type: Exception,
+            Message: Innermost exception
+          },
+          Message: Innermost exception
+        }
+      ]
+    }
+  ]
+}

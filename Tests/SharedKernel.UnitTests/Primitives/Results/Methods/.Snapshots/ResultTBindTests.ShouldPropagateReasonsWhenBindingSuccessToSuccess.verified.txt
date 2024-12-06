@@ -1,0 +1,16 @@
+﻿{
+  Value: Bound: Initial Ok Result,
+  ValueOrDefault: Bound: Initial Ok Result,
+  IsFailed: false,
+  IsSuccess: true,
+  Reasons: [
+    {
+      Message: Success 2
+    }
+  ],
+  Successes: [
+    {
+      Message: Success 2
+    }
+  ]
+}

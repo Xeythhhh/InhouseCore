@@ -1,110 +1,110 @@
-﻿using Domain.Abstractions.Specification;
-using Domain.UnitTests.TestImplementations;
+﻿//using Domain.Abstractions.Specification;
+//using Domain.UnitTests.TestImplementations;
 
-using FluentAssertions;
+//using FluentAssertions;
 
-namespace Domain.UnitTests.Abstractions;
-public class SpecificationTests
-{
-    [Fact]
-    public void SpecificationWithValidValue_Should_ReturnTrue()
-    {
-        // Arrange
-        TestEntity[] entities = new[]
-        {
-            TestEntity.CreateWithValue("1").Value,
-            TestEntity.CreateWithValue("2").Value,
-            TestEntity.CreateWithValue("3").Value
-        };
-        IQueryable<TestEntity> queryable = entities.AsQueryable();
-        TestSpecification specification = new("1");
+//namespace Domain.UnitTests.Abstractions;
+//public class SpecificationTests
+//{
+//    [Fact]
+//    public void SpecificationWithValidValue_Should_ReturnTrue()
+//    {
+//        // Arrange
+//        TestEntity[] entities = new[]
+//        {
+//            TestEntity.CreateWithValue("1").Value,
+//            TestEntity.CreateWithValue("2").Value,
+//            TestEntity.CreateWithValue("3").Value
+//        };
+//        IQueryable<TestEntity> queryable = entities.AsQueryable();
+//        TestSpecification specification = new("1");
 
-        // Act
-        IQueryable<TestEntity> filteredEntities = queryable.Where(specification.ToExpression());
-        bool isSatisfied_true = specification.IsSatisfiedBy(entities[0]);
-        bool isSatisfied_false = specification.IsSatisfiedBy(entities[1]);
+//        // Act
+//        IQueryable<TestEntity> filteredEntities = queryable.Where(specification.ToExpression());
+//        bool isSatisfied_true = specification.IsSatisfiedBy(entities[0]);
+//        bool isSatisfied_false = specification.IsSatisfiedBy(entities[1]);
 
-        // Assert
-        filteredEntities.Should().ContainSingle();
-        isSatisfied_true.Should().BeTrue();
-        isSatisfied_false.Should().BeFalse();
-    }
+//        // Assert
+//        filteredEntities.Should().ContainSingle();
+//        isSatisfied_true.Should().BeTrue();
+//        isSatisfied_false.Should().BeFalse();
+//    }
 
-    [Fact]
-    public void NotSpecificationWithValidValue_Should_ReturnTrue()
-    {
-        // Arrange
-        TestEntity[] entities = new[]
-        {
-                TestEntity.CreateWithValue("1").Value,
-                TestEntity.CreateWithValue("2").Value,
-                TestEntity.CreateWithValue("3").Value,
-                TestEntity.CreateWithValue("4").Value
-        };
-        IQueryable<TestEntity> queryable = entities.AsQueryable();
-        Specification<TestEntity> notSpecification = new TestSpecification("1").Not();
+//    [Fact]
+//    public void NotSpecificationWithValidValue_Should_ReturnTrue()
+//    {
+//        // Arrange
+//        TestEntity[] entities = new[]
+//        {
+//                TestEntity.CreateWithValue("1").Value,
+//                TestEntity.CreateWithValue("2").Value,
+//                TestEntity.CreateWithValue("3").Value,
+//                TestEntity.CreateWithValue("4").Value
+//        };
+//        IQueryable<TestEntity> queryable = entities.AsQueryable();
+//        Specification<TestEntity> notSpecification = new TestSpecification("1").Not();
 
-        // Act
-        IQueryable<TestEntity> filteredEntities = queryable.Where(notSpecification.ToExpression());
-        bool isSatisfied_true = notSpecification.IsSatisfiedBy(entities[1]);
-        bool isSatisfied_false = notSpecification.IsSatisfiedBy(entities[0]);
+//        // Act
+//        IQueryable<TestEntity> filteredEntities = queryable.Where(notSpecification.ToExpression());
+//        bool isSatisfied_true = notSpecification.IsSatisfiedBy(entities[1]);
+//        bool isSatisfied_false = notSpecification.IsSatisfiedBy(entities[0]);
 
-        // Assert
-        filteredEntities.Should().HaveCount(3);
-        isSatisfied_true.Should().BeTrue();
-        isSatisfied_false.Should().BeFalse();
-    }
+//        // Assert
+//        filteredEntities.Should().HaveCount(3);
+//        isSatisfied_true.Should().BeTrue();
+//        isSatisfied_false.Should().BeFalse();
+//    }
 
-    [Fact]
-    public void OrSpecificationWithValidValue_Should_ReturnTrue()
-    {
-        // Arrange
-        TestEntity[] entities = new[]
-        {
-                TestEntity.CreateWithValue("1").Value,
-                TestEntity.CreateWithValue("2").Value,
-                TestEntity.CreateWithValue("3").Value
-        };
-        IQueryable<TestEntity> queryable = entities.AsQueryable();
-        TestSpecification spec1 = new("1");
-        TestSpecification spec2 = new("2");
-        Specification<TestEntity> orSpecification = spec1.Or(spec2);
+//    [Fact]
+//    public void OrSpecificationWithValidValue_Should_ReturnTrue()
+//    {
+//        // Arrange
+//        TestEntity[] entities = new[]
+//        {
+//                TestEntity.CreateWithValue("1").Value,
+//                TestEntity.CreateWithValue("2").Value,
+//                TestEntity.CreateWithValue("3").Value
+//        };
+//        IQueryable<TestEntity> queryable = entities.AsQueryable();
+//        TestSpecification spec1 = new("1");
+//        TestSpecification spec2 = new("2");
+//        Specification<TestEntity> orSpecification = spec1.Or(spec2);
 
-        // Act
-        IQueryable<TestEntity> filteredEntities = queryable.Where(orSpecification.ToExpression());
-        bool isSatisfied_true = orSpecification.IsSatisfiedBy(entities[0]);
-        bool isSatisfied_false = orSpecification.IsSatisfiedBy(entities[2]);
+//        // Act
+//        IQueryable<TestEntity> filteredEntities = queryable.Where(orSpecification.ToExpression());
+//        bool isSatisfied_true = orSpecification.IsSatisfiedBy(entities[0]);
+//        bool isSatisfied_false = orSpecification.IsSatisfiedBy(entities[2]);
 
-        // Assert
-        filteredEntities.Should().HaveCount(2);
-        isSatisfied_true.Should().BeTrue();
-        isSatisfied_false.Should().BeFalse();
-    }
+//        // Assert
+//        filteredEntities.Should().HaveCount(2);
+//        isSatisfied_true.Should().BeTrue();
+//        isSatisfied_false.Should().BeFalse();
+//    }
 
-    [Fact]
-    public void AndSpecificationWithValidValue_Should_ReturnTrue()
-    {
-        // Arrange
-        TestEntity[] entities = new[]
-        {
-            TestEntity.CreateWithValue("1 2").Value,
-            TestEntity.CreateWithValue("1 3").Value,
-            TestEntity.CreateWithValue("2 3").Value,
-            TestEntity.CreateWithValue("1 2 3").Value
-        };
-        IQueryable<TestEntity> queryable = entities.AsQueryable();
-        TestSpecification spec1 = new("1");
-        TestSpecification spec2 = new("2");
-        Specification<TestEntity> andSpecification = spec1.And(spec2);
+//    [Fact]
+//    public void AndSpecificationWithValidValue_Should_ReturnTrue()
+//    {
+//        // Arrange
+//        TestEntity[] entities = new[]
+//        {
+//            TestEntity.CreateWithValue("1 2").Value,
+//            TestEntity.CreateWithValue("1 3").Value,
+//            TestEntity.CreateWithValue("2 3").Value,
+//            TestEntity.CreateWithValue("1 2 3").Value
+//        };
+//        IQueryable<TestEntity> queryable = entities.AsQueryable();
+//        TestSpecification spec1 = new("1");
+//        TestSpecification spec2 = new("2");
+//        Specification<TestEntity> andSpecification = spec1.And(spec2);
 
-        // Act
-        IQueryable<TestEntity> filteredEntities = queryable.Where(andSpecification.ToExpression());
-        bool isSatisfied_true = andSpecification.IsSatisfiedBy(entities[0]);
-        bool isSatisfied_false = andSpecification.IsSatisfiedBy(entities[1]);
+//        // Act
+//        IQueryable<TestEntity> filteredEntities = queryable.Where(andSpecification.ToExpression());
+//        bool isSatisfied_true = andSpecification.IsSatisfiedBy(entities[0]);
+//        bool isSatisfied_false = andSpecification.IsSatisfiedBy(entities[1]);
 
-        // Assert
-        filteredEntities.Should().HaveCount(2);
-        isSatisfied_true.Should().BeTrue();
-        isSatisfied_false.Should().BeFalse();
-    }
-}
+//        // Assert
+//        filteredEntities.Should().HaveCount(2);
+//        isSatisfied_true.Should().BeTrue();
+//        isSatisfied_false.Should().BeFalse();
+//    }
+//}

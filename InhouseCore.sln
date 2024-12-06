@@ -6,8 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution items", ".solution items", "{6EE7E364-95CA-49D3-A690-9ADF32E1A2F3}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Color Palette.pdn = Color Palette.pdn
-		Color Palette.png = Color Palette.png
 		LICENSE = LICENSE
 		readme.md = readme.md
 	EndProjectSection
@@ -73,11 +71,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{1A6B72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8C9FB831-D251-4486-B737-52C60563C3D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindMissingChampionFiles", "Tools\FindMissingChampionFiles\FindMissingChampionFiles.csproj", "{7C8D776D-DB9F-405F-9A42-CA206A6F7042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindMissingChampionFiles", "Tools\FindMissingChampionFiles\FindMissingChampionFiles.csproj", "{7C8D776D-DB9F-405F-9A42-CA206A6F7042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertChampionFilesFromTgaToPng", "Tools\ConvertChampionFilesFromTgaToPng\ConvertChampionFilesFromTgaToPng.csproj", "{51E97864-DAD6-42F3-9FA5-996BE9D32083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConvertChampionFilesFromTgaToPng", "Tools\ConvertChampionFilesFromTgaToPng\ConvertChampionFilesFromTgaToPng.csproj", "{51E97864-DAD6-42F3-9FA5-996BE9D32083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenameMetaChampionAssets", "Tools\RenameMetaChampionAssets\RenameMetaChampionAssets.csproj", "{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RenameMetaChampionAssets", "Tools\RenameMetaChampionAssets\RenameMetaChampionAssets.csproj", "{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel.UnitTests", "Tests\SharedKernel.UnitTests\SharedKernel.UnitTests.csproj", "{8F47F2A1-2A78-4590-96EF-8FB41076AC64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +155,10 @@ Global
 		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F47F2A1-2A78-4590-96EF-8FB41076AC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F47F2A1-2A78-4590-96EF-8FB41076AC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F47F2A1-2A78-4590-96EF-8FB41076AC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F47F2A1-2A78-4590-96EF-8FB41076AC64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -178,6 +182,7 @@ Global
 		{7C8D776D-DB9F-405F-9A42-CA206A6F7042} = {8C9FB831-D251-4486-B737-52C60563C3D6}
 		{51E97864-DAD6-42F3-9FA5-996BE9D32083} = {8C9FB831-D251-4486-B737-52C60563C3D6}
 		{638FFC57-D8C5-4298-8A9E-1AEBD65854B0} = {8C9FB831-D251-4486-B737-52C60563C3D6}
+		{8F47F2A1-2A78-4590-96EF-8FB41076AC64} = {1A6B7202-9AC1-4860-9791-22DF316D1C81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FCEFF59-6A16-4659-A3F5-35E3F02BF9AE}

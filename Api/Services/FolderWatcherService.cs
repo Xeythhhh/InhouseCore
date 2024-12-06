@@ -7,7 +7,6 @@ using Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
 
-using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Primitives.Reasons;
 using SharedKernel.Primitives.Result;
 
@@ -104,7 +103,6 @@ public class FolderWatcherService(ILogger<FolderWatcherService> logger, IService
         logger.LogInformation("'{Game}' game data parsed and loaded from {FolderPath}", game.Name, folderPath);
     }
 
-
     private async Task<ChampionData> ParseChampionData(ApplicationDbContext dbContext, Game game, string championDir, CancellationToken cancellationToken)
     {
         string championDataPath = Path.Combine(championDir, "data.json");
@@ -151,15 +149,14 @@ public class FolderWatcherService(ILogger<FolderWatcherService> logger, IService
                 augmentIconPath = $"https://localhost:7420/api/Assets/Game-{game.Name}/Champions/{championData.Name}/{augmentIconFileName}";
             }
 
-            ParseAugmentData(game, championResult.Value, augmentData, augmentIconPath);
+            ParseAugmentData(championResult.Value, augmentData, augmentIconPath);
         }
 
         return championData;
     }
 
-    private static void ParseAugmentData(Game game, Champion champion, AugmentData augmentData, string icon)
+    private static void ParseAugmentData(Champion champion, AugmentData augmentData, string icon)
     {
-
         Result<Champion> augmentResult = champion.AddAugment(
             augmentData.Name,
             augmentData.Target,

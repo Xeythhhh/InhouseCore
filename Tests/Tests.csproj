@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -16,6 +16,7 @@
     <Compile Remove="Infrastructure.UnitTests\**" />
     <Compile Remove="Presentation.Blazor.UnitTests\**" />
     <Compile Remove="Presentation.Discord.UnitTests\**" />
+    <Compile Remove="SharedKernel.UnitTests\**" />
     <Compile Remove="WebApp.UnitTests\**" />
     <EmbeddedResource Remove="Api.UnitTests\**" />
     <EmbeddedResource Remove="Application.UnitTests\**" />
@@ -23,6 +24,7 @@
     <EmbeddedResource Remove="Infrastructure.UnitTests\**" />
     <EmbeddedResource Remove="Presentation.Blazor.UnitTests\**" />
     <EmbeddedResource Remove="Presentation.Discord.UnitTests\**" />
+    <EmbeddedResource Remove="SharedKernel.UnitTests\**" />
     <EmbeddedResource Remove="WebApp.UnitTests\**" />
     <None Remove="Api.UnitTests\**" />
     <None Remove="Application.UnitTests\**" />
@@ -30,6 +32,7 @@
     <None Remove="Infrastructure.UnitTests\**" />
     <None Remove="Presentation.Blazor.UnitTests\**" />
     <None Remove="Presentation.Discord.UnitTests\**" />
+    <None Remove="SharedKernel.UnitTests\**" />
     <None Remove="WebApp.UnitTests\**" />
   </ItemGroup>
 
@@ -38,9 +41,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="NetArchTest.eNhancedEdition" Version="1.4.3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="Verify" Version="28.4.0" />
+    <PackageReference Include="Verify.Xunit" Version="28.4.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
@@ -55,6 +60,7 @@
     <ProjectReference Include="Domain.UnitTests\Domain.UnitTests.csproj" />
     <ProjectReference Include="Infrastructure.UnitTests\Infrastructure.UnitTests.csproj" />
     <ProjectReference Include="Presentation.Discord.UnitTests\Presentation.Discord.UnitTests.csproj" />
+    <ProjectReference Include="SharedKernel.UnitTests\SharedKernel.UnitTests.csproj" />
     <ProjectReference Include="WebApp.UnitTests\WebApp.UnitTests.csproj" />
   </ItemGroup>
 

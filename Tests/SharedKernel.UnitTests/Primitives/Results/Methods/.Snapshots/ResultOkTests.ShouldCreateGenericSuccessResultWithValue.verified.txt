@@ -1,0 +1,6 @@
+﻿{
+  Value: 420,
+  ValueOrDefault: 420,
+  IsFailed: false,
+  IsSuccess: true
+}

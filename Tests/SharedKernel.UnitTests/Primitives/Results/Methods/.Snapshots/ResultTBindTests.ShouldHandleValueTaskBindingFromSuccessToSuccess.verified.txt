@@ -1,0 +1,6 @@
+﻿{
+  Value: ValueTask Bound: Initial Ok Result,
+  ValueOrDefault: ValueTask Bound: Initial Ok Result,
+  IsFailed: false,
+  IsSuccess: true
+}

@@ -1,0 +1,11 @@
+﻿{
+  Type: ArgumentNullException,
+  Message: Value cannot be null.,
+  ParamName: bind,
+  StackTrace:
+at System.ArgumentNullException.Throw(String paramName)
+at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+at SharedKernel.Primitives.Result.Result`1.Bind[TNew](Func`2 bind)
+--- End of stack trace from previous location ---
+at Xunit.Assert.RecordExceptionAsync(Func`1 testCode)
+}

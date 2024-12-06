@@ -1,0 +1,6 @@
+﻿{
+  Value: Bound: Initial Ok Result,
+  ValueOrDefault: Bound: Initial Ok Result,
+  IsFailed: false,
+  IsSuccess: true
+}

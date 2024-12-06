@@ -1,0 +1,1 @@
+﻿Error with Message='Test error', Metadata='[Key, Value]', Reasons='Error with Message='Cause 1'; ExceptionalError with Message='Test exception', Exception='System.Exception: Test exception''

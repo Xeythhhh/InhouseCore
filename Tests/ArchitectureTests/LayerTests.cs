@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Reflection;
 
-using FluentAssertions;
-
 using NetArchTest.Rules;
 
 using Xunit.Abstractions;
@@ -13,7 +11,7 @@ public class LayerTests(ITestOutputHelper output) :
 {
     [Theory]
     [ClassData(typeof(Architecture))]
-    public void Layer_ShouldNotDependOn_OtherLayers(Architecture.Rule rule)
+    public async Task ShouldNotDependOn(Architecture.Rule rule)
     {
         // Arrange
         PredicateList types = Types.InAssembly(rule.AssemblyUnderTest)
@@ -26,7 +24,8 @@ public class LayerTests(ITestOutputHelper output) :
 
         // Assert
         OutputTestResults(output, testResult);
-        testResult.IsSuccessful.Should().BeTrue();
+        await Verify(testResult.IsSuccessful, Settings)
+            .UseParameters(rule.AssemblyUnderTest.GetName());
     }
 
     public class Architecture :

@@ -1,9 +1,6 @@
-﻿using Application.Champions.Commands;
-using Application.Champions.Queries;
+﻿using Application.Champions.Queries;
 
 using Carter;
-
-using Domain.Champions;
 
 using SharedKernel.Primitives.Result;
 

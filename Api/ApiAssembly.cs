@@ -12,7 +12,6 @@ using Application.Abstractions;
 
 using Carter;
 
-using Domain;
 using Domain.Users;
 
 using Infrastructure;
@@ -23,8 +22,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.IdentityModel.Tokens;
 
 using MudBlazor.Services;
 

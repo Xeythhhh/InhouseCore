@@ -1,8 +1,8 @@
-﻿using System.Data.SqlClient;
-
-using Application.Abstractions;
+﻿using Application.Abstractions;
 
 using Dapper;
+
+using Microsoft.Data.SqlClient;
 
 using SharedKernel.Contracts.v1.Champions.Dtos;
 using SharedKernel.Contracts.v1.Champions.Responses;

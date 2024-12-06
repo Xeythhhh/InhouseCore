@@ -1,0 +1,8 @@
+﻿{
+  Type: NullReferenceException,
+  Message: Object reference not set to an instance of an object.,
+  StackTrace:
+at SharedKernel.Primitives.Result.Result.Ensure(Func`1 predicate)
+--- End of stack trace from previous location ---
+at Xunit.Assert.RecordExceptionAsync(Func`1 testCode)
+}

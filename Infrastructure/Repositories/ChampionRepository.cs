@@ -1,7 +1,5 @@
 ﻿using Domain.Champions;
 
-using FluentAssertions;
-
 using SharedKernel.Primitives.Result;
 
 using Microsoft.EntityFrameworkCore;
@@ -201,16 +199,15 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1084:Use coalesce expression instead of conditional expression", Justification = "<Pending>")]
     public async Task<Result<Champion.Restriction>> GetRestrictionById(Champion.Restriction.RestrictionId restrictionId, CancellationToken cancellationToken)
     {
         try
         {
             Champion.Restriction? restriction = await dbContext.ChampionRestrictions.FindAsync(new object?[] { restrictionId }, cancellationToken: cancellationToken);
-#pragma warning disable RCS1084 // Use coalesce expression instead of conditional expression
             return restriction is null
                 ? Result.Fail(new GetRestrictionError("Restriction not found."))
                 : restriction;
-#pragma warning restore RCS1084 // Use coalesce expression instead of conditional expression
         }
         catch (Exception ex)
         {
@@ -219,16 +216,15 @@ public partial class ChampionRepository(ApplicationDbContext dbContext) :
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Roslynator", "RCS1084:Use coalesce expression instead of conditional expression", Justification = "<Pending>")]
     public async Task<Result<Champion.Augment>> GetAugmentById(Champion.Augment.AugmentId augmentId, CancellationToken cancellationToken)
     {
         try
         {
             Champion.Augment? augment = await dbContext.ChampionAugments.FindAsync(new object?[] { augmentId }, cancellationToken: cancellationToken);
-#pragma warning disable RCS1084 // Use coalesce expression instead of conditional expression
             return augment is null
                 ? Result.Fail(new GetAugmentError("Augment not found."))
                 : augment;
-#pragma warning restore RCS1084 // Use coalesce expression instead of conditional expression
         }
         catch (Exception ex)
         {

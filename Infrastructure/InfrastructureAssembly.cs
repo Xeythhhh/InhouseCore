@@ -11,11 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Domain.Champions;
-using System.Text.Json;
-using SharedKernel.Primitives.Reasons;
 using SharedKernel;
-using Domain.ReferenceData;
 
 [assembly: InternalsVisibleTo("Infrastructure.UnitTests")]
 namespace Infrastructure;
